@@ -1,5 +1,4 @@
-# GIANT
-## GIANT Deeper Imputation Analysis Cookbook
+# GIANT Deeper Imputation Analysis Cookbook
 
 This site has been set up as a guide on how to use the containers provided to perform
  - Individual and Genotype QC, including ancestry inference
