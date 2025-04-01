@@ -1,3 +1,5 @@
-# GIANT Consortium Deeper Imputuation Cookbook
+# GIANT Consortium 
+
+## Deeper Imputuation Analysis Cookbook
 
 
