@@ -1,6 +1,4 @@
-# GIANT Consortium 
-
-## Deeper Imputuation Analysis Cookbook
+# Deeper Imputuation Analysis Cookbook
 
 This site has been set up as a guide on how to use the containers provided to perform
  - Individual and Genotype QC, including ancestry inference
@@ -8,3 +6,4 @@ This site has been set up as a guide on how to use the containers provided to pe
  - Pre-phasing checks
  - GWAS
  - Post-GWAS checks
+
