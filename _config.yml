@@ -1,5 +1,5 @@
 name: Cookbook
-theme: jekyll-theme-minimal
+theme: jekyll-theme-minima
 nav_pages:
     - ind_geno_qc.md
     - phenotyping.md
