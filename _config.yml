@@ -2,7 +2,7 @@ name: Cookbook
 theme: minima
 
 minima:
-  header_pages:
+  nav_pages:
     - ind_geno_qc.md
     - phenotyping.md
     - pre_phasing_checks.md
