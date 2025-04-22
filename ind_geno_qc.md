@@ -35,14 +35,17 @@ Based on the level of permissions that the user has, different versions of this 
     - Samples with >1% missingness or a kinship score > 0.1 are excluded.
     - 15 principal components (PCs) are used for ancestry determination. Individuals are assigned an ancestry label if their confidence exceeds 80%.
 
-    _NOTE on Reference Data and Build Check Data Downloads_
-    If unspecified or left as default, the reference data from 1KG and HGDP is installed to a sub-folder in the current directory called 1_kg_and_hgdp_hg38_ref_data, and the .bim files used for running the build checks are installed in a sub-folder in the current directory called BuildCheck. Time Taken: 5-10 minutes (depends on network speed)
-
-    _Note on Default Settings_
-
-    In the default settings, we drop variants with minor allele frequency < 1%, a Hardy-Weinberg p-value < 1e-50 or with >1% missingness. Samples with >1% missingness, or a kinship score > 0.1 are dropped.
-
-    15 PCs are used in ancestry determination. If a person belongs to a particular ancestry group with >80% confidence, a label is assigned.
+    _NOTE on Reference Data and Build Check Data Downloads:_
+    - Time Taken: 5-10 minutes (depends on network speed)
+    - Size: ~2.5 GB
+    - Reference Data:
+        - Datasets: 1KG and HGDP
+        - Build: hg38
+        - Default Download Path: sub-folder in the current directory called 1_kg_and_hgdp_hg38_ref_data
+    - Build Checks:
+        - Checks run for hg36, hg37 and hg38
+        - If the build found is hg37, **liftover is performed to hg38**
+        - Default Download Path: sub-folder in the current directory called BuildCheck
 
     _NOTE on Training Algorithms_
     - The pipeline supports three ancestry-label-prediction algorithms:
