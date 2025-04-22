@@ -1,18 +1,16 @@
 # Individual and Genotyping QC
 
-## Author: Aishwarya Seth
-
 Based on the level of permissions that the user has, different versions of this pipeline can be run.
 
 ### Case 1: Root Access on a Personal Machine
 
-#### Prerequisites
+#### **Prerequisites**
 
 - Docker
 - Study Files
 - git (Preferrably in Command-Line)
 
-#### Execution Steps
+#### **Execution Steps**
 
 1. Download the codebase from GitHub
 
