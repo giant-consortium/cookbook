@@ -68,7 +68,9 @@ Based on the level of permissions that the user has, different versions of this 
     <!--lint enable-->
 
 3. Run the installations and build the Docker
+    <!--lint disable-->
 
+    <!--lint enable-->
     If this is the first execution of this pipeline, give execution permissions to the running script
 
     ```bash
