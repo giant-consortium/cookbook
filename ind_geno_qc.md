@@ -1,5 +1,7 @@
 # Individual and Genotyping QC
 
+[Go to Individual Genotype QC Steps](ind_geno_qc_steps.md)
+
 ## Pipeline Execution
 
 Select the execution case description that best describes the setup for the machine on which the genotype and phenotype data is located:
@@ -82,6 +84,21 @@ git --version
     ```bash
     ./RUNNER.sh --force_data_download True
     ```
+
+### Case B: System with Singularity
+
+#### **Prerequisites**
+
+#### **Execution Steps**
+
+
+
+
+### Case C: System with Singularity
+
+#### **Prerequisites**
+
+#### **Execution Steps**
 
 #### **NOTES About the Pipeline**
 
