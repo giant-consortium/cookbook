@@ -92,6 +92,93 @@ git --version
 #### **Execution Steps**
 
 
+#### Building the Singularity Container
+
+    ```bash
+    # 1. Give permission to run the docker build scripts
+    chmod 777 RUNNER.sh
+
+    # 2. Run the Docker image build script
+    ./RUNNER.sh
+
+    # 3. Upload the Docker image to DockerHub
+    #       OR (as shown here), tar the local image
+    docker save sample_variant_qc:latest -o sample_variant_qc.tar
+    # This is a 14 GB file
+    # So, gzip it
+    # This gives you a 4.8 GB file
+    # I was transferring it from my local system to the Server with
+    # singularity installed, so this was simpler
+
+    gzip sample_variant_qc.tar
+    scp sample_variant_qc.tar.gz seth@login.broadinstitute.org:/cvar/jhlab/seth/DeeperImputation/build_container
+
+    # SSH into server
+    cd /cvar/jhlab/seth/DeeperImputation/build_container
+    gunzip sample_variant_qc.tar.gz
+
+    # Build Apptainer Image File
+    apptainer build sample_variant_qc.sif docker-archive:sample_variant_qc.tar 
+
+    # Build the sandbox
+    apptainer build --sandbox sample_variant_qc.sif docker-archive:sample_variant_qc.tar 
+
+    # If you have cache restrictions use:
+    export APPTAINER_CACHEDIR=/cvar/jhlab/seth/DeeperImputation/build_container/tmp
+    apptainer build --fakeroot sample_variant_qc.sif docker-archive:sample_variant_qc.tar
+    apptainer build --fakeroot --sandbox sample_variant_qc_sandbox docker-archive:sample_variant_qc.tar
+
+    $ apptainer --version
+    $ docker --version
+    $ singularity --version
+
+    apptainer run docker://sylabsio/lolcow:latest
+    apptainer pull docker://sylabsio/lolcow
+
+    apptainer build lolcow_tar.sif docker-archive:lolcow.tar
+    Apptainer’s container image format (SIF) is generally read-only
+
+    build can produce containers in two different formats, which can be specified as follows:
+
+a compressed read-only Singularity Image File (SIF) format, suitable for production (default)
+a writable (ch)root directory called a sandbox, for interactive development ( --sandbox option)
+
+Because build can accept an existing container as a target and create a container in either supported format, you can use it to convert existing containers from one format to another
+
+apptainer build --sandbox alpine/ docker://alpine
+
+To make persistent changes within the sandbox container, use the --writable flag when you invoke your container.
+
+$ apptainer shell --writable alpine/
+
+If you already have a container saved locally, you can use it as a target to build a new container. This allows you convert containers from one format to another. For example, if you had a sandbox container called development/ and you wanted to convert it to a SIF container called production.sif, you could do so as follows:
+
+$ apptainer build production.sif development/
+
+    # 4. 
+    ```
+
+#### NOTE For the Uploaded Version
+
+    ```bash
+    # For the version that has been tar'ed and uploaded, 
+    # I used the following run command: 
+    ./RUNNER.sh --force_build True --force_data_download True \
+        > run_entire_docker_on_sample_STUDY4.log
+
+    # The above command forces a re-build and re-download. 
+    # This was useful since there were previous versions of the
+    # Docker image on my local machine, and I was able to get a sense
+    # of the time taken for each step, and keep a record of what the
+    # sample output looks like. The sample output is stored at
+    # run_entire_docker_on_sample_STUDY4.log
+
+    # In general though, the pipeline can be run using ./RUNNER.sh
+    # To save logs, use: ./RUNNER.sh > log_file_path.log
+    ```
+
+
+
 
 
 ### Case C: System with Singularity
