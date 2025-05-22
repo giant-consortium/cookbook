@@ -118,45 +118,32 @@ git --version
     gunzip sample_variant_qc.tar.gz
 
     # Build Apptainer Image File
+    # Apptainer’s container image format (SIF) is generally read-only
+    # This is a compressed version, that is generally suitable for production (default)
     apptainer build sample_variant_qc.sif docker-archive:sample_variant_qc.tar 
 
     # Build the sandbox
-    apptainer build --sandbox sample_variant_qc.sif docker-archive:sample_variant_qc.tar 
+    # This is generally more suitable for our use case
+    # It creates a writable (ch)root directory called a sandbox, for interactive development
+
+    apptainer build --sandbox sample_variant_qc_sandbox docker-archive:sample_variant_qc.tar 
+    
+    # To make persistent changes within the sandbox container, use the --writable flag when you invoke your container.
+    apptainer shell --writable sample_variant_qc
+
 
     # If you have cache restrictions use:
     export APPTAINER_CACHEDIR=/cvar/jhlab/seth/DeeperImputation/build_container/tmp
     apptainer build --fakeroot sample_variant_qc.sif docker-archive:sample_variant_qc.tar
     apptainer build --fakeroot --sandbox sample_variant_qc_sandbox docker-archive:sample_variant_qc.tar
 
-    $ apptainer --version
-    $ docker --version
-    $ singularity --version
+    # If you already have a container saved locally, you can use it as a target to build a new container. 
+    # This allows you convert containers from one format to another. 
+    # For example, if you had a sandbox container called sample_variant_qc_sandbox
+    # and you wanted to convert it to a SIF container called sample_variant_qc.sif, you could do so as follows:
 
-    apptainer run docker://sylabsio/lolcow:latest
-    apptainer pull docker://sylabsio/lolcow
+    apptainer build sample_variant_qc.sif sample_variant_qc_sandbox/
 
-    apptainer build lolcow_tar.sif docker-archive:lolcow.tar
-    Apptainer’s container image format (SIF) is generally read-only
-
-    build can produce containers in two different formats, which can be specified as follows:
-
-a compressed read-only Singularity Image File (SIF) format, suitable for production (default)
-a writable (ch)root directory called a sandbox, for interactive development ( --sandbox option)
-
-Because build can accept an existing container as a target and create a container in either supported format, you can use it to convert existing containers from one format to another
-
-apptainer build --sandbox alpine/ docker://alpine
-
-To make persistent changes within the sandbox container, use the --writable flag when you invoke your container.
-
-$ apptainer shell --writable alpine/
-
-If you already have a container saved locally, you can use it as a target to build a new container. This allows you convert containers from one format to another. For example, if you had a sandbox container called development/ and you wanted to convert it to a SIF container called production.sif, you could do so as follows:
-
-$ apptainer build production.sif development/
-
-    # 4. 
-    ```
 
 #### NOTE For the Uploaded Version
 
@@ -176,10 +163,6 @@ $ apptainer build production.sif development/
     # In general though, the pipeline can be run using ./RUNNER.sh
     # To save logs, use: ./RUNNER.sh > log_file_path.log
     ```
-
-
-
-
 
 ### Case C: System with Singularity
 
