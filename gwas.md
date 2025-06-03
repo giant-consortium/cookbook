@@ -18,12 +18,12 @@ docker build --platform linux/amd64 -t step4_assoc .
 
 ### Update parameters and paths to input files    
 
-Modify the `parameters_gwas.txt` file with your input files path and parameters to be used to run the GWAS.   
+Modify the `parameters_gwas.txt` file with your input file names and parameters to be used to run the GWAS.   
 
 
 ### Launch pipeline - example on test data
 
-To launch the pipeline using the test data in `association_analysis/test_input`, 
+To launch the pipeline using the test data in `association_analysis/test_input` :     
     - Create a vcfs folder located at `association_analysis/test_input/vcfs`   
     - Download some toy vcfs created by Andy [here](https://zenodo.org/records/13942905) (e.g. the small ones 20 to 22) and save them under `association_analysis/test_input/vcfs`    
     - Run the command below :    
@@ -36,6 +36,8 @@ docker run -it \
   step4_assoc \
   bash /scripts/run_asssoc_pipeline.sh
 ```
+
+**To run it on your own inputs**, you will need to **change the path passed to the `-v` flag** and provide the path where your input files and `vcfs` folder are located.    
 
 ## Run pipeline using singularity   
 
