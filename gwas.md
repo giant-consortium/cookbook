@@ -40,9 +40,9 @@ Modify the `parameters_gwas.txt` file with your input file names and parameters 
 ### Launch pipeline - example on test data
 
 To launch the pipeline using the test data in `association_analysis/test_input` :     
-    - Create a vcfs folder located at `association_analysis/test_input/vcfs`   
-    - Download some toy vcfs created by Andy [here](https://zenodo.org/records/13942905) (e.g. the small ones 20 to 22) and save them under `association_analysis/test_input/vcfs`    
-    - Run the command below :    
+- Create a vcfs folder located at `association_analysis/test_input/vcfs`
+- Download some toy vcfs created by Andy [here](https://zenodo.org/records/13942905) (e.g. the small ones 20 to 22) and save them under `association_analysis/test_input/vcfs`
+- Run the command below :    
     
 ```bash
 docker run -it \
