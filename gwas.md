@@ -51,7 +51,7 @@ docker run -it \
   --platform linux/amd64 \
   --env-file <PATH>/GitHub/association_analysis/parameters_gwas.txt \
   step4_assoc \
-  bash /scripts/run_asssoc_pipeline.sh
+  bash /scripts/run_assoc_pipeline.sh
 ```
 
 **To run it on your own inputs**, you will need to **change the path passed to the `-v` flag** and provide the path where your input files and `vcfs` folder are located.    
