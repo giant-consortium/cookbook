@@ -31,6 +31,7 @@ To launch the pipeline using the test data in `association_analysis/test_input` 
 ```bash
 docker run -it \
   -v <PATH>/GitHub/association_analysis/test_input/:/input \
+  -v <PATH>/GitHub/association_analysis/test_output/:/output \
   --platform linux/amd64 \
   --env-file <PATH>/GitHub/association_analysis/parameters_gwas.txt \
   step4_assoc \
