@@ -9,7 +9,7 @@ The suite consists of 5 programs:
 - **1_clean_gwas.R** – Prepares REGENIE GWAS output for **EASYX**.  
 - **2_allele_frequency_check.R** – Compares allele frequencies across six different genetic ancestries (**AFR**, **AMR**, **MID**, **EUR**, **EAS**, and **SAS**).  
 - **3_update_cfg_and_run_easyx.R** – **EasyX** is called via a configuration file with information on the GWAS input and parameter thresholds. The program automatically updates the configuration file with your input data and runs **EasyX**.  
-- **4_asspc_p_vs_af_diffs.R** – Compares whether associations are driven by a specific subpopulation among the individuals from a certain genetic ancestry (i.e., Finnish among European).  
+- **4_assoc_p_vs_af_diffs.R** – Compares whether associations are driven by a specific subpopulation among the individuals from a certain genetic ancestry (i.e., Finnish among European).  
 - **5_report_wrapper.Rmd** – A script that reads the output of the previous programs and summarizes the findings.
 
 ### Clone GitHub repo    
