@@ -103,9 +103,9 @@ If the build is hg37, perform liftover to hg38 using the script convert_to_hg38.
 
 #### Step 2: Get Stats before QC
 
-    _Reference: Step2_GetInitialQCStats.sh_
+    _Reference: Step2_PreQC.sh_
 
-Statistics are calculated using PLINK2 and PLINK. Then, an R script (./utils/1-1_preqcstat.Rmd) is used to create an HTML reports and plots.
+Statistics are calculated using PLINK2 and PLINK. Then, an R script (./utils/report_qc_stats.Rmd) is used to create an HTML reports and plots.
 
 For samples, we get the sample call rate and heterozygosity rate, and plot the histograms of the distribution. The reported vs genetic sex is compared.
 
@@ -113,42 +113,48 @@ For variants, we get the allele frequencies, call rate, hardy-weinberg equilibri
 
 For variants, allele counts (for founders only) and genotype counts are also generated as intermediates, but not included in the report.
 
-QCStats and HTML Reports are stored in ./output/<study_name>/InitialQC/QCStats.
+The pre-QC input is divided by chromosome. For each autosome, the corresponding PLINK file is created, and the Pre-QC statistics are calculated.
 
-## TO-DO##: Move HTML Reports to a separate directory?
+QCStats and HTML Reports are stored in ./output/<study_name>/PreQCStats/QCStats.
 
 #### Step 3: Perform Basic QC
 
-    _Reference: Step3_PerformBasicQC.sh_
+    _Reference: Step3_BasicQC.sh_
 
 Basic QC Steps are performed.
 
-1. Drop samples with a low call rate [DEFAULT: 0.1]
-2. Drop variants with a low call rate [DEFAULT: 0.1]
-3. Drop variants with a low minor allele frequency [DEFAULT: 0.01]
-4. Drop variants with a low hardy-weinberg equilibrium p-value [DEFAULT: 1e-50]
+Samples with a heterozygosity outside the [median +/- num_iqr_shifts * IQR]range are filtered out. Using ./utils/filter_heterozygosity.py is used to generate the list of outliers.
 
-## TO-DO##: Check values -- do we want to update HWE?
+1. Drop samples with a heterozygosity outside the [median +/- num_iqr_shifts * IQR] range [DEFAULT num_iqr_shifts is 3]
+2. Drop samples with a low call rate [DEFAULT: 0.1]
+3. Drop variants with a low call rate [DEFAULT: 0.1]
+4. Drop variants with a low minor allele frequency [DEFAULT: 0.01]
+5. Drop variants with a low hardy-weinberg equilibrium p-value [DEFAULT: 1e-50]
 
 The output QC'ed files are saved in the .bed/.bim/.fam format in the ./output/<study_name>/InitialQC/PostQC.
+
+An HTML report showing the sample and variant QC distributions as generated in Step 2, is created by ./utils/report_qc_stats.Rmd.
+
+The first and most critical section of the report is the summary. It outlines the number of samples and variants that were present before QC, lists the QC steps applied, as well as the number of samples and variants that were dropped as a result. The final number of samples and variants are reported, along with the proportion of samples and variants lost to the entire QC process.
+
+The post-QC output is also split per chromosome. A similar report is generated per-autosome by the file ./utils/report_per_chrom_qc_stats.Rmd
 
 #### Step 4: Perform Kinship Analysis using KING
 
     _Reference: Step4_KinshipTest.sh_
 
 1. Use PLINK2 to run KING.
-2. This generates 2 output files: kin0, which has the required output columns such as pairwise kinship coefficient and IBS0
-3. R Script 1-3_relatedness.Rmd in utils is used to calculates number of MZ twins, 1/2/3 degree relatives and plot kinship coefficients for samples
+2. This an output file with extension '.kin0', which has the required output columns such as pairwise kinship coefficient and IBS0
+3. The PLINK2 command also generates .bed/.bim/.fam files after removing the samples that have a kinship coefficient above a specified threshold. **This is used as the input for the next step in the analysis**
+4. R Script report_kinship.Rmd in utils is used to generate a report, containing number of MZ twins, 1/2/3 degree relatives and to plot kinship coefficients for samples
 
-The cut-off for relatedness can be set. The default value for this is 0.1.
+The cut-off for relatedness can be set. The default value for this is 0.354, so that only MZ Twins / Duplicate samples are excluded.
 
-The output from the Kinship Analysis is at ./output/<study_name>/Kinship
-
-## TO-DO##: Drop related samples after Kinship test??
+The output from the Kinship Analysis is at ./output/<study_name>/Kinship.
 
 #### Step 5: SNP Intersection and LD Pruning
 
-    _Reference: Step5_SNPIntersect.sh_
+    _Reference: Step5_LDPruning.sh_
 
 This step focuses on extracting the common SNPs between the two datasets, aligning alleles, and dropping duplicates. Once these pre-processing steps are done, LD Pruning can be performed on the reference dataset. Both datasets are then restricted to the LD Pruned SNPs. This data is used for downstream analysis.
 
@@ -161,24 +167,26 @@ This step focuses on extracting the common SNPs between the two datasets, aligni
 7. Restrict both reference & study dataset to the LD-pruned SNPs
 8. At this point, the number of variants in the study & reference datasets should be the same, and the alleles should be aligned the same way. This implies that the .bim file for study & reference data should be identical. We ensure that the previous steps were run correctly by testing whether the .bim files are identical. If not, exist the script.
 
-**NOTE** On 25th April 2025, the direct extraction of SNPs from the datasets after determining the list of intersection SNPs failed. This happened after the Hardy-Weinberg equilibirum filter was eased to increase the number of overlapping SNPs to ~90% between the 2 datasets. As a result, chunking had to be introduced. Whenever the intersecting SNPs have to be extracted from the two datasets, the list of SNPs is subdivided, and smalled .bed/.bim/.fam files are created. These are later combined using PLINK1.9's merge-list argument.
+**NOTE** Due to the large number of overlapping SNPs, chunking had to be introduced. Whenever the intersecting SNPs have to be extracted from the two datasets, the list of SNPs is subdivided, and smaller .bed/.bim/.fam files are created. These are later combined using PLINK1.9's merge-list argument.
 
 #### Step 6: Generate PCAs
 
-    _Reference: GeneratePCA.sh_ 
+    _Reference: Step6_PCA.sh_ 
 
 PCAs are passed as covariates to account for population stratification. These are also used to determine broad continental ancestry groups in the subsequent steps of our pipeline.
 
 1. Generate PCAs for the reference dataset using FlashPCA
 2. Project the study dataset onto the reference data PCA space
 3. Align the signs of the projected PCs
-4. Generate an HTML report which contains plots of the initial PCs
+4. Generate an HTML report which contains plots of the initial PCs using Rscript ./utils/report_pca.Rmd
 
 The output from the PCA Analysis is at ./output/<study_name>/PCA
 
+Since PCA plots are generated at various points in the pipeline, to maintain a homogenous formatting across, the ./utils/plot_pca.R file was created. It takes in 2 sets of PCs, the specific PC numbers to be plotted, along with colors, titles, and other labelling information.
+
 #### Step 7: Continental Ancestry Determination
 
-    _Reference: Step7_TrainModel.sh_
+    _Reference: Step7_AncestryModel.sh_
 
 This script identifies continental ancestries for the study samples.
 
@@ -198,24 +206,26 @@ For RF, the model can be trained with or without hyperparameter tuning. A defaul
 
 The output from the Ancestry Determination is at ./output/<study_name>/Ancestry.
 
+Using this, the study samples - with their assigned ancestry labels - are plotted on the reference PC space using RScript ./utils/report_ancestry_predictions.Rmd. The generated HTML report also lists the number of samples of each ancestry, the number of unassigned samples, and shows a boxplot with the distribution of ancestry prediction confidence.
+
 #### Step 8: Ancestry-Specific PCA
 
-    _Reference: Step8_GenerateAncestrySpecificPCA.sh_
+    _Reference: Step8_AncestrySpecificPCA.sh_
 
 For each ancestry group, we calculate the PCs, which will be passed as covariates during ancestry-specific analyses.
 
 1. For each predicted ancestry, filter the study dataset to individuals with the predicted ancestry (with a confidence >= 80%).
 
-## TO-DO##: Check that low-confidence predictions are excluded
-
 2. Project the filtered study dataset onto the reference PCA space.
 
 The output from the PCA Analysis is at ./output/<study_name>/PCA
+
+For visual verification, for each ancestry, the PCs calculated for the set of samples belonging to that ancestry are again plotted onto the reference PCA space. This is NOT DONE for the unassigned samples (since PCA was not re-done).
 
 #### Step 9: Clean Up
 
     _Reference: CleanUp.sh_
 
-In this step, log the file lists, remove the .bed/.bim/.fam files for the study, remove binaries, and zip or tar the output files for an easier upload as required.
+In this step, log the file lists, remove the .bed/.bim/.fam files for the study, remove binaries, convert the HTML reports to equivalent PDFs and create a combined PDF report from all the intermediate steps.
 
-## TO-DO##: Discuss what to keep and what to remove at this stage
+> **Note:** All HTML reports generated by the pipeline use the stylesheet `./utils/qc_report_style.css` for consistent formatting and appearance.

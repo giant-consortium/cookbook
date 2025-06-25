@@ -1,199 +1,37 @@
-# Individual and Genotyping QC
+# Sample Variant QC Pipeline (Container-Based Install)
 
-[Go to Individual Genotype QC Steps](ind_geno_qc_steps.md)
+## Overview
 
-## Pipeline Execution
+This repository provides a containerized pipeline for sample variant quality control (QC), ancestry prediction, and per-chromosome QC reporting. The pipeline is distributed as a Docker image, which can also be converted to a Singularity or Apptainer container for use on HPC systems.
 
-Select the execution case description that best describes the setup for the machine on which the genotype and phenotype data is located:
+## Quick Start
 
-| CASE | ROOT ACCESS | DOCKER | SINGULARITY |
-|------|-------------|--------|-------------|
-| A    | YES/NO      | YES    | YES/NO      |
-| B    | NO          | NO     | YES         |
-| C    | NO          | NO     | NO          |
+1. **Ensure all required containers are available**  
+   Confirm that the necessary container images (Docker, Singularity, or Apptainer) are downloaded and accessible on your system.
 
-### Case A: System with Docker
+2. **Edit `parameters.txt`** to set paths and options for your data.
 
-#### **Prerequisites**
+3. **Run the pipeline:**
 
-- Docker [Installation Link](https://docs.docker.com/get-started/get-docker/)
-- git (Preferrably in Command-Line)[Installation Link](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+   ```bash
+   # With Docker
+   ./RUNNER.sh --docker
 
-Check installation using:
+   # With Singularity
+   ./RUNNER.sh --singularity
 
-```bash
-# Test Docker installation
-docker --version
+   # With Apptainer
+   ./RUNNER.sh --apptainer
 
-# Test Git installation
-git --version
-```
+   # To force data download:
+   ./RUNNER.sh --docker --force_data_download
+   ```
 
-#### **Execution Steps**
+4. **Outputs** will be saved in the directory specified by `path_to_output` in `parameters.txt`.
 
-1. Download the codebase from GitHub
+## Troubleshooting
 
-    a. Open terminal (in Mac or Linux)
-    b. cd to directory in which you want to run the install
-
-    ```bash
-    git clone https://github.com/giant-consortium/sample_variant_qc.git
-    cd sample_variant_qc
-    ```
-
-2. Update the configuration files in the `config` folder:
-
-    a. Open the `mounts.txt` file and update the `path_to_data` variable to point to the dataset location on your local machine.
-
-    b. Open the `mounts.txt` file and update the `path_to_output` variable to point to the desired output location on your local machine.
-
-    c. Open the `parameters.txt` file and update the `study_name` variable to specify the study name (this is the prefix for the genotype files).
-
-    c. Review other parameters in the configuration files and modify them if necessary. Default settings can be used unless specific changes are required for your analysis.
-
-3. Run the installations and build the Docker
-    <!--lint disable-->
-
-    <!--lint enable-->
-    If this is the first execution of this pipeline, give execution permissions to the running script
-
-    ```bash
-    chmod 777 run_docker.sh
-    ```
-
-    We're now ready to run the pipeline.
-
-    ```bash
-    ./RUNNER.sh
-    ```
-
-    If the user has another study dataset, simply change the configurations as described in Step 2, and re-run the pipeline using:
-
-    ```bash
-    ./RUNNER.sh
-    ```
-
-    If the user wants to re-build the docker image:
-
-    ```bash
-    ./RUNNER.sh --force_build True
-    ```
-
-    If the user wants to re-download the datasets:
-
-    ```bash
-    ./RUNNER.sh --force_data_download True
-    ```
-
-### Case B: System with Singularity
-
-#### **Prerequisites**
-
-#### **Execution Steps**
-
-
-#### Building the Singularity Container
-
-    ```bash
-    # 1. Give permission to run the docker build scripts
-    chmod 777 RUNNER.sh
-
-    # 2. Run the Docker image build script
-    ./RUNNER.sh
-
-    # 3. Upload the Docker image to DockerHub
-    #       OR (as shown here), tar the local image
-    docker save sample_variant_qc:latest -o sample_variant_qc.tar
-    # This is a 14 GB file
-    # So, gzip it
-    # This gives you a 4.8 GB file
-    # I was transferring it from my local system to the Server with
-    # singularity installed, so this was simpler
-
-    gzip sample_variant_qc.tar
-    scp sample_variant_qc.tar.gz seth@login.broadinstitute.org:/cvar/jhlab/seth/DeeperImputation/build_container
-
-    # SSH into server
-    cd /cvar/jhlab/seth/DeeperImputation/build_container
-    gunzip sample_variant_qc.tar.gz
-
-    # Build Apptainer Image File
-    # Apptainer’s container image format (SIF) is generally read-only
-    # This is a compressed version, that is generally suitable for production (default)
-    apptainer build sample_variant_qc.sif docker-archive:sample_variant_qc.tar 
-
-    # Build the sandbox
-    # This is generally more suitable for our use case
-    # It creates a writable (ch)root directory called a sandbox, for interactive development
-
-    apptainer build --sandbox sample_variant_qc_sandbox docker-archive:sample_variant_qc.tar 
-    
-    # To make persistent changes within the sandbox container, use the --writable flag when you invoke your container.
-    apptainer shell --writable sample_variant_qc
-
-
-    # If you have cache restrictions use:
-    export APPTAINER_CACHEDIR=/cvar/jhlab/seth/DeeperImputation/build_container/tmp
-    apptainer build --fakeroot sample_variant_qc.sif docker-archive:sample_variant_qc.tar
-    apptainer build --fakeroot --sandbox sample_variant_qc_sandbox docker-archive:sample_variant_qc.tar
-
-    # If you already have a container saved locally, you can use it as a target to build a new container. 
-    # This allows you convert containers from one format to another. 
-    # For example, if you had a sandbox container called sample_variant_qc_sandbox
-    # and you wanted to convert it to a SIF container called sample_variant_qc.sif, you could do so as follows:
-
-    apptainer build sample_variant_qc.sif sample_variant_qc_sandbox/
-
-
-#### NOTE For the Uploaded Version
-
-    ```bash
-    # For the version that has been tar'ed and uploaded, 
-    # I used the following run command: 
-    ./RUNNER.sh --force_build True --force_data_download True \
-        > run_entire_docker_on_sample_STUDY4.log
-
-    # The above command forces a re-build and re-download. 
-    # This was useful since there were previous versions of the
-    # Docker image on my local machine, and I was able to get a sense
-    # of the time taken for each step, and keep a record of what the
-    # sample output looks like. The sample output is stored at
-    # run_entire_docker_on_sample_STUDY4.log
-
-    # In general though, the pipeline can be run using ./RUNNER.sh
-    # To save logs, use: ./RUNNER.sh > log_file_path.log
-    ```
-
-### Case C: System with Singularity
-
-#### **Prerequisites**
-
-#### **Execution Steps**
-
-#### **NOTES About the Pipeline**
-
-``` markdown
-    _NOTE on Reference Data and Build Check Data Downloads:_
-    - Time Taken: 5-10 minutes (depends on network speed)
-    - Size: ~2.5 GB
-    - Reference Data:
-        - Datasets: 1KG and HGDP
-        - Build: hg38
-        - Default Download Path: sub-folder in the current directory called 1_kg_and_hgdp_hg38_ref_data
-    - Build Checks:
-        - Checks run for hg36, hg37 and hg38
-        - If the build found is hg37, **liftover is performed to hg38**
-        - Default Download Path: sub-folder in the current directory called BuildCheck
-
-    <!--lint disable-->
-
-    <!--lint enable-->
-
-    _NOTE on Training Algorithms_
-    - The pipeline supports three ancestry-label-prediction algorithms:
-        1. Multi-Ancestry Nearest Control Selection (MANCS)
-        2. Random Forest (RF) with hyperparameter tuning
-        3. RF without hyperparameter tuning
-    - Use the `training_algorithm` and `rf_hyperparameter_tuning_flag` variables to select the desired algorithm.
-    - If hyperparameter tuning is enabled, the user can update the `rf_hyperparameter_grid` to define the search space.
-```
+- Check the log files in the `output/study_name/Logs` directory for errors.
+- Ensure all required paths in `parameters.txt` are correct and accessible.
+- Check stepwise outputs in the `output/study_name/` directory for errors.
+- For container issues, verify your container runtime is installed and running.
