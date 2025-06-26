@@ -1,2 +1,10 @@
 name: Cookbook
-theme: jekyll-theme-minimal
+theme: jekyll-theme-slate
+
+minima:
+  nav_pages:
+    - ind_geno_qc.md
+    - phenotyping.md
+    - pre_phasing_checks.md
+    - gwas.md
+    - post_gwas_checks.md
