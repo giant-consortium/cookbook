@@ -1,18 +1,24 @@
 name: Cookbook
-theme: minima
+remote_theme: just-the-docs/just-the-docs
 
-plugins:
-  - jekyll-titles-from-headings
-
-titles_from_headings:
-  enabled:     true
-  strip_title: true
-  collections: true 
-
-minima:
-  nav_pages:
-    - ind_geno_qc.md
-    - phenotyping.md
-    - pre_phasing_checks.md
-    - gwas.md
-    - post_gwas_checks.md
+nav:
+  - title: "Sample & Genotype QC"
+    url: /ind_geno_qc
+  - title: "Phenotyping"
+    url: /phenotyping
+  - title: "Pre-phasing Checks"
+    url: /pre_phasing_checks
+  - title: "GWAS"
+    url: /gwas
+  - title: "Post-GWAS Checks"
+    url: /post_gwas_checks
+  - title: "Developer Guide"
+    children:
+      - title: "Container Creation"
+        url: /containerization/container_create
+      - title: "Singularity Install"
+        url: /containerization/singularity_install
+      - title: "Container Install"
+        url: /containerization/container_install
+      - title: "Detailed QC Steps"
+        url: /detailed_steps/ind_geno_qc_steps
