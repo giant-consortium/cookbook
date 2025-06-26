@@ -1,13 +1,9 @@
 title: Cookbook
-remote_theme: "mmistakes/minimal-mistakes"
+theme: jekyll-theme-minimal
 
-# Minimal Mistakes navigation
 defaults:
   - scope:
       path: ""
       type: pages
     values:
       layout: single
-
-# Sidebar navigation
-# Create a _data/navigation.yml file for custom sidebar
