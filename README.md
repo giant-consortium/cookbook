@@ -1,5 +1,11 @@
 
-# <img src="giant_logo.png" alt="GIANT Consortium Logo" width="80" style="vertical-align:middle; margin-right:10px;"> GIANT Deeper Imputation&nbsp;&nbsp;&nbsp;&nbsp; Analysis Cookbook
+# <img src="giant_logo.png" alt="GIANT Consortium Logo" width="80" style="vertical-align:middle; margin-right:10px;"> GIANT Deeper Imputation
+
+<p align="center">
+
+## Analysis Cookbook
+
+</p>
 
 This site has been set up as a guide on how to use the containers provided to perform
 
