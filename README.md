@@ -1,5 +1,5 @@
 
-# <img src="giant_logo.png" alt="GIANT Consortium Logo" width="60" style="vertical-align:middle; margin-right:10px;"> GIANT Deeper Imputation &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Analysis Cookbook
+# <img src="giant_logo.png" alt="GIANT Consortium Logo" width="40" style="vertical-align:middle; margin:0; padding:0; display:inline;"> GIANT Deeper Imputation &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Analysis Cookbook
 
 ---
 

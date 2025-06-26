@@ -79,6 +79,8 @@ To distribute a complete pipeline package, create a directory and copy all requi
 ```bash
 mkdir sample_variant_qc_release
 cp sample_variant_qc_latest.tar sample_variant_qc_release/
+# For singularity/apptainer containers, use
+# cp sample_variant_qc_latest.sif sample_variant_qc_release/
 cp parameters.txt sample_variant_qc_release/
 cp RUNNER.sh sample_variant_qc_release/
 cp README.md sample_variant_qc_release/
