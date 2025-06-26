@@ -1,3 +1,5 @@
+---
+---
 # Post association checks
 
 ## INTRODUCTION
@@ -12,13 +14,13 @@ The suite consists of 5 programs:
 - **4_assoc_p_vs_af_diffs.R** – Compares whether associations are driven by a specific subpopulation among the individuals from a certain genetic ancestry (i.e., Finnish among European).  
 - **5_report_wrapper.Rmd** – A script that reads the output of the previous programs and summarizes the findings.
 
-### Clone GitHub repo    
+### Clone GitHub repo
 
 ```bash
  git clone https://github.com/giant-consortium/post_assoc_checks.git
 ```
 
-### STEP 1: get the pipeline ready to run:
+### STEP 1: get the pipeline ready to run
 
 Once you have downloaded the repository you should have the following items:
 
@@ -29,7 +31,7 @@ Once you have downloaded the repository you should have the following items:
 
 **What else is needed?**
 
-You need a singularity image with the programs and libraries required by our suite of programs. 
+You need a singularity image with the programs and libraries required by our suite of programs.
 
 Download the singularity image post_assoc_qc.sif and download it in the repository folder.
 
@@ -39,7 +41,7 @@ Download the singularity image post_assoc_qc.sif and download it in the reposito
  gcloud ---
 ```
 
-### STEP 2: run the pipeline!
+### STEP 2: run the pipeline
 
 ```bash
  bash POST_ASS_PIPELINE.sh

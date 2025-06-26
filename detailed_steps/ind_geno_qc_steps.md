@@ -1,3 +1,5 @@
+---
+---
 ## Pipeline Implementation
 
 This file provides a detailed explanation for the Variant and Sample Level genotyping steps that are performed, and provides paths to the bash scripts used for this. It provides an in-depth understanding of the developed analysis pipeline, and will be particularly useful in making this pipeline modular and re-usable by future projects.
