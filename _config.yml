@@ -1,5 +1,5 @@
 title: Cookbook
-theme: "minimal-mistakes-jekyll"
+remote_theme: "mmistakes/minimal-mistakes"
 
 # Minimal Mistakes navigation
 defaults:
