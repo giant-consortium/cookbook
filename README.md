@@ -1,6 +1,4 @@
----
-title: "GIANT Deeper Imputation Analysis Cookbook"
----
+# GIANT Deeper Imputation Analysis Cookbook
 
 ![GIANT Consortium Logo](giant_logo.png)
 
