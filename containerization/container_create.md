@@ -17,7 +17,16 @@ Build from your Dockerfile in the current directory:
 docker build --no-cache -t sample_variant_qc:latest .
 ```
 
-> **Note:** `sample_variant_qc` is the image name, and `latest` is the tag.
+> **Note:** In this example `sample_variant_qc` is the image name, and `latest` is the tag.
+
+> **Note:** If you are building the Docker image on a Mac (especially with Apple Silicon/M1/M2), you may need to specify the target platform to ensure compatibility with Linux servers or HPC environments.  
+> Add the `--platform` option to your build command, for example:
+>
+> ```bash
+> docker build --platform=linux/amd64 --no-cache -t sample_variant_qc:latest .
+> ```
+>
+> This ensures the image will run correctly on most Linux-based systems.
 
 ---
 
