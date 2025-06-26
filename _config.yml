@@ -1,6 +1,13 @@
 name: Cookbook
 remote_theme: just-the-docs/just-the-docs
 
+just_the_docs:
+  collections:
+    docs:
+      output: true
+      nav_exclude: false
+  enable_nav: true
+
 nav:
   - title: "Sample & Genotype QC"
     url: /ind_geno_qc

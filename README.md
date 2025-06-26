@@ -20,7 +20,7 @@ This site has been set up as a guide on how to use the containers provided to pe
 **2. [Sample & Genotype QC Pipeline](ind_geno_qc.md)**
 
 - Quick start for running the main QC pipeline.
-- See [Detailed QC Steps](detailed_steps/ind_geno_qc_steps.md) for in-depth implementation details and a detailed explanation of the steps performed.
+- See [Detailed QC Steps](detailed_steps/ind_geno_qc_steps.md) for in-depth explanations of the steps performed and other implementation details.
 
 **3. [Phenotype Processing](phenotyping.md)**
 
