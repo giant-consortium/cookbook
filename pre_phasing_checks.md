@@ -1,3 +1,5 @@
 ---
+title: "Pre-phasing checks"
+sidebar:
+  nav: "main"
 ---
-# Pre-phasing checks

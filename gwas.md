@@ -1,6 +1,8 @@
 ---
+title: "Genome Wide Association Analysis"
+sidebar:
+  nav: "main"
 ---
-# Genome Wide Association Analysis
 
 This pipeline uses [REGENIE](https://rgcgithub.github.io/regenie/) software to perform genome-wide association analysis.
 The following steps are performed when running the pipeline :

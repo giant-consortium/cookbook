@@ -1,31 +1,13 @@
-name: Cookbook
-remote_theme: just-the-docs/just-the-docs
+title: Cookbook
+theme: "minimal-mistakes-jekyll"
 
-just_the_docs:
-  collections:
-    docs:
-      output: true
-      nav_exclude: false
-  enable_nav: true
+# Minimal Mistakes navigation
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
 
-nav:
-  - title: "Sample & Genotype QC"
-    url: /ind_geno_qc
-  - title: "Phenotyping"
-    url: /phenotyping
-  - title: "Pre-phasing Checks"
-    url: /pre_phasing_checks
-  - title: "GWAS"
-    url: /gwas
-  - title: "Post-GWAS Checks"
-    url: /post_gwas_checks
-  - title: "Developer Guide"
-    children:
-      - title: "Container Creation"
-        url: /containerization/container_create
-      - title: "Singularity Install"
-        url: /containerization/singularity_install
-      - title: "Container Install"
-        url: /containerization/container_install
-      - title: "Detailed QC Steps"
-        url: /detailed_steps/ind_geno_qc_steps
+# Sidebar navigation
+# Create a _data/navigation.yml file for custom sidebar

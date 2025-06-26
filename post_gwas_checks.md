@@ -1,6 +1,8 @@
 ---
+title: "Post association checks"
+sidebar:
+  nav: "main"
 ---
-# Post association checks
 
 ## INTRODUCTION
 

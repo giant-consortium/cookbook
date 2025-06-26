@@ -1,3 +1,5 @@
 ---
+title: "Phenotyping"
+sidebar:
+  nav: "main"
 ---
-# Phenotyping
