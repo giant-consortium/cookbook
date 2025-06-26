@@ -39,7 +39,7 @@ Use the table below to identify the recommended tool for your system, then use t
 |     LINUX OS     |  YES / NO   |      SINGULARITY     |
 
 - [Docker Installation Guide](https://docs.docker.com/get-started/get-docker/)
-- [Singularity Installation Guide](singularity_install.md)
+- [Singularity Installation Guide](containerization/singularity_install.md)
 
 ---
 

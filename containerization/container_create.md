@@ -108,5 +108,5 @@ tar czvf sample_variant_qc_release.tar.gz sample_variant_qc_release/
 
 ## See Also
 
-- [Singularity/Apptainer Install & Conversion Scripts](singularity_install.md)
-- [Container Platform Setup for Users](container_install.md)
+- [Singularity/Apptainer Install & Conversion Scripts](containerization/singularity_install.md)
+- [Container Platform Setup for Users](containerization/container_install.md)
