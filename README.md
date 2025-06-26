@@ -1,81 +1,52 @@
+<div align="center">
 
-# <img src="giant_logo.png" alt="GIANT Consortium Logo" width="80" style="vertical-align:middle; margin-right:10px;"> GIANT Deeper Imputation
+<img src="giant_logo.png" alt="GIANT Consortium Logo" width="48" style="vertical-align:middle; margin-right:10px;">
 
-<p align="center">
+# GIANT Deeper Imputation Analysis Cookbook
 
-## Analysis Cookbook
-
-</p>
-
-This site has been set up as a guide on how to use the containers provided to perform
-
-- Individual and Genotype QC, including ancestry inference
-- Phenotype adjustment and transformation
-- Pre-phasing checks
-- GWAS
-- Post-GWAS checks
+</div>
 
 ---
 
-## 📦 Getting Started
-
-**1. [Install Container Tools](containerization/container_install.md)**
-
-- Instructions for Docker, Singularity, or Apptainer.
-- How to obtain pre-built containers.
-
-**2. [Sample & Genotype QC Pipeline](ind_geno_qc.md)**
-
-- Quick start for running the main QC pipeline.
-- See [Detailed QC Steps](detailed_steps/ind_geno_qc_steps.md) for in-depth explanations of the steps performed and other implementation details.
-
-**3. [Phenotype Processing](phenotyping.md)**
-
-- How to adjust and transform phenotypes.
-
-**4. [Pre-phasing Checks](pre_phasing_checks.md)**
-
-- Ensure your data is ready for phasing.
-
-**5. [GWAS Pipeline](gwas.md)**
-
-- Running genome-wide association analysis.
-
-**6. [Post-GWAS Checks](post_gwas_checks.md)**
-
-- Automated QC and reporting for GWAS results.
+Welcome! This site is a practical guide for using the GIANT Consortium’s containerized pipelines for genetic data analysis.
 
 ---
 
-## 🛠️ Developer & Advanced User Section
+## 🚀 Quick Start
 
-If you need to build or customize containers, or run the pipeline in new environments:
+- **[Install Container Tools](containerization/container_install.md)**  
+  Get Docker, Singularity, or Apptainer set up and obtain pre-built containers.
 
-- **[Container Image Creation & Export](containerization/container_create.md)**  
-  Build Docker images, export them, convert to Singularity/Apptainer, and package releases.
+- **[Sample & Genotype QC Pipeline](ind_geno_qc.md)**  
+  Run the main QC pipeline for your study data.
 
-- **[Singularity/Apptainer User-Level Install & Conversion](containerization/singularity_install.md)**  
-  Scripts for user-level installation and Docker-to-SIF conversion.
+- **[Phenotype Processing](phenotyping.md)**  
+  Adjust and transform phenotypes for analysis.
+
+- **[Pre-phasing Checks](pre_phasing_checks.md)**  
+  Ensure your data is ready for phasing.
+
+- **[GWAS Pipeline](gwas.md)**  
+  Perform genome-wide association analysis.
+
+- **[Post-GWAS Checks](post_gwas_checks.md)**  
+  Automated QC and reporting for GWAS results.
 
 ---
 
-## 📚 Additional Resources
+## 🛠️ Developer & Advanced Guides
 
-- All scripts and configuration files are referenced in the respective documentation pages.
+- **[Container Image Creation & Export](containerization/container_create.md)**
+- **[Singularity/Apptainer User Install & Conversion](containerization/singularity_install.md)**
+- **[Detailed QC Steps](detailed_steps/ind_geno_qc_steps.md)**
+
+---
+
+## 📚 More Resources
+
+- Each documentation page links to relevant scripts and configuration files.
 - For troubleshooting, see the "Troubleshooting" section in each pipeline step.
 
 ---
 
-## 🧭 Navigation
-
-- [Container Installation](containerization/container_install.md)
-- [Sample & Genotype QC Pipeline](ind_geno_qc.md)
-- [Detailed QC Steps](detailed_steps/ind_geno_qc_steps.md)
-- [Phenotyping](phenotyping.md)
-- [Pre-phasing Checks](pre_phasing_checks.md)
-- [GWAS](gwas.md)
-- [Post-GWAS Checks](post_gwas_checks.md)
-- [Developer Guide: Container Creation](containerization/container_create.md)
-- [Developer Guide: Singularity Install](containerization/singularity_install.md)
-
----
+_This project is maintained by the [giant-consortium](https://github.com/giant-consortium)._
