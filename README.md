@@ -1,4 +1,8 @@
-# GIANT Deeper Imputation Analysis Cookbook
+---
+title: "GIANT Deeper Imputation Analysis Cookbook"
+---
+
+![GIANT Consortium Logo](giant_logo.png)
 
 This site has been set up as a guide on how to use the containers provided to perform
 

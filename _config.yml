@@ -1,5 +1,5 @@
 name: Cookbook
-theme: jekyll-theme-slate
+theme: jekyll-theme-minimal
 
 minima:
   nav_pages:

@@ -1,7 +1,5 @@
 ---
 title: "Sample Variant QC Pipeline (Container-Based Install)"
-sidebar:
-  nav: "main"
 ---
 
 ## Overview
