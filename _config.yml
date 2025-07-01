@@ -1,6 +1,6 @@
 name: Cookbook
 theme: jekyll-theme-slate
-
+markdown: GFM
 minima:
   nav_pages:
     - ind_geno_qc.md
