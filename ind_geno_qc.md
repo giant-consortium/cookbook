@@ -1,6 +1,8 @@
 ---
-title: "Sample Variant QC Pipeline (Container-Based Install)"
 ---
+[🏠 Homepage](/)
+
+# Sample Variant QC Pipeline (Container-Based Install)
 
 ## Overview
 
@@ -37,3 +39,5 @@ This repository provides a containerized pipeline for sample variant quality con
 - Ensure all required paths in `parameters.txt` are correct and accessible.
 - Check stepwise outputs in the `output/study_name/` directory for errors.
 - For container issues, verify your container runtime is installed and running.
+
+[🏠 Homepage](/)

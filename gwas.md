@@ -1,6 +1,8 @@
 ---
-title: "Genome Wide Association Analysis"
 ---
+[🏠 Homepage](/)
+
+# Genome Wide Association Analysis
 
 This pipeline uses [REGENIE](https://rgcgithub.github.io/regenie/) software to perform genome-wide association analysis.
 The following steps are performed when running the pipeline :
@@ -60,3 +62,5 @@ docker run -it \
 **To run it on your own inputs**, you will need to **change the path passed to the `-v` flag** and provide the path where your input files and `vcfs` folder are located.
 
 ## Run pipeline using singularity
+
+[🏠 Homepage](/)

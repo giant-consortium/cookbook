@@ -1,5 +1,7 @@
 ---
 ---
+[🏠 Homepage](/)
+
 # Container Image Creation & Export (Developer Guide)
 
 This guide is for developers and advanced users. It explains how to:
@@ -8,8 +10,6 @@ This guide is for developers and advanced users. It explains how to:
 - Export it for use on other systems
 - Convert it to a Singularity/Apptainer image (from a local tar or Docker Hub)
 - Package a release with all necessary files
-
----
 
 ## 1. Build the Docker Image
 
@@ -20,7 +20,6 @@ docker build --no-cache -t sample_variant_qc:latest .
 ```
 
 > **Note:** In this example `sample_variant_qc` is the image name, and `latest` is the tag.
-
 > **Note:** If you are building the Docker image on a Mac (especially with Apple Silicon/M1/M2), you may need to specify the target platform to ensure compatibility with Linux servers or HPC environments.  
 > Add the `--platform` option to your build command, for example:
 >
@@ -123,3 +122,5 @@ tar czvf sample_variant_qc_release.tar.gz sample_variant_qc_release/
 
 - [Singularity/Apptainer Install & Conversion Scripts](containerization/singularity_install.md)
 - [Container Platform Setup for Users](containerization/container_install.md)
+
+[🏠 Homepage](/)

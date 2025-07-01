@@ -1,6 +1,8 @@
 ---
-title: "Post association checks"
 ---
+[🏠 Homepage](/)
+
+# Post Association Checks
 
 ## INTRODUCTION
 
@@ -48,3 +50,5 @@ Download the singularity image post_assoc_qc.sif and download it in the reposito
 ```
 
 ### post_assoc_checks-main structure
+
+[🏠 Homepage](/)
