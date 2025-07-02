@@ -1,12 +1,17 @@
 ---
 ---
-[<img src="../giant_logo.png" alt="Homepage" width="24" style="vertical-align:middle; margin-right:6px;"> Return to Homepage](./README.md)
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <a href="./index.html">⬅️ Return to Homepage</a>
+  <a href="./pre_phasing_checks.html">Go to Step 2 [Pre-Phasing Checks]➡️</a>
+</div>
 
 # Sample Variant QC Pipeline (Container-Based Install)
 
 ## Overview
 
 This repository provides a containerized pipeline for sample variant quality control (QC), ancestry prediction, and per-chromosome QC reporting. The pipeline is distributed as a Docker image, which can also be converted to a Singularity or Apptainer container for use on HPC systems.
+
+[Detailed Walkthrough of QC Pipeline](./detailed_steps/ind_geno_qc_steps.html)
 
 ## Quick Start
 

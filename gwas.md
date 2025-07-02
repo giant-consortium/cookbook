@@ -1,6 +1,9 @@
 ---
 ---
-[<img src="../giant_logo.png" alt="Homepage" width="24" style="vertical-align:middle; margin-right:6px;"> Return to Homepage](./README.md)
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <a href="./index.html">⬅️ Return to Homepage</a>
+  <a href="./post_gwas_checks.html">Go to Step 5 [Post-GWAS QC Checks] ➡️</a>
+</div>
 
 # Genome Wide Association Analysis
 

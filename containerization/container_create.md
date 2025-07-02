@@ -1,6 +1,9 @@
 ---
 ---
-[<img src="../giant_logo.png" alt="Homepage" width="40" style="vertical-align:middle; margin-right:2px;"> Return to Homepage](./../README.md)
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <a href="./../index.html">⬅️ Return to Homepage</a>
+  <a href="./../ind_geno_qc.html">Go to Step 1 [Individual and Genotype QC] ➡️</a>
+</div>
 
 # Container Image Creation & Export (Developer Guide)
 
