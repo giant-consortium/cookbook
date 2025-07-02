@@ -1,6 +1,6 @@
 ---
 ---
-[<img src="../giant_logo.png" alt="Homepage" width="24" style="vertical-align:middle; margin-right:6px;"> Return to Homepage](./../README.md)
+[⬅️ Return to Homepage](./../README.md) &nbsp;&nbsp;&nbsp; [Go to Step 1 ➡️](./../ind_geno_qc.md)
 
 # Container Platforms Supported
 
@@ -24,9 +24,9 @@ apptainer --version
 
 If you have **at least one** of these tools, you can download the corresponding container to run the association testing pipeline:
 
-- [Docker Images](gs://giant_deeper_imputation/docker_containers)
-- [Singularity Containers](gs://giant_deeper_imputation/singularity_containers)
-- [Apptainer Containers](gs://giant_deeper_imputation/singularity_containers)
+- [Docker Images](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/docker_containers)
+- [Singularity Containers](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers)
+- [Apptainer Containers](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers)
 
 > **Note:** If you have `gsutil` or Google Cloud Console installed, you can use `gsutil -m cp` for fast, parallelized file transfers.
 
@@ -43,7 +43,7 @@ Use the table below to identify the recommended tool for your system, then use t
 |     LINUX OS     |  YES / NO   |      SINGULARITY     |
 
 - [Docker Installation Guide](https://docs.docker.com/get-started/get-docker/)
-- [Singularity Installation Guide](containerization/singularity_install.md)
+- [Singularity Installation Guide](./singularity_install.md)
 
 ---
 
