@@ -1,6 +1,9 @@
 ---
 ---
-[⬅️ Return to Homepage](./../README.md) &nbsp;&nbsp;&nbsp; [Go to Step 1 ➡️](./../ind_geno_qc.md)
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <span>[⬅️ Return to Homepage](./../README.md)</span>
+  <span>[Go to Step 1 ➡️](./../ind_geno_qc.md)</span>
+</div>
 
 # Container Platforms Supported
 
