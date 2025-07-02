@@ -1,8 +1,8 @@
 ---
 ---
 <div style="display: flex; justify-content: space-between; align-items: center;">
-  <span>[⬅️ Return to Homepage](./../README.md)</span>
-  <span>[Go to Step 1 ➡️](./../ind_geno_qc.md)</span>
+  <a href="./../README.md">⬅️ Return to Homepage</a>
+  <a href="./../ind_geno_qc.md">Go to Step 1 ➡️</a>
 </div>
 
 # Container Platforms Supported
