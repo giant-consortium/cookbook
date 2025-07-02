@@ -2,7 +2,7 @@
 ---
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <a href="./../index.html">⬅️ Return to Homepage</a>
-  <a href="./pre_phasing_checks.html">Go to Step 2 [Pre-Phasing Checks]➡️</a>
+  <a href="./../pre_phasing_checks.html">Go to Step 2 [Pre-Phasing Checks]➡️</a>
 </div>
 
 ## Pipeline Implementation
