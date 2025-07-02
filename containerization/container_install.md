@@ -1,8 +1,8 @@
 ---
 ---
 <div style="display: flex; justify-content: space-between; align-items: center;">
-  <a href="./../README.md">⬅️ Return to Homepage</a>
-  <a href="./../ind_geno_qc.md">Go to Step 1 ➡️</a>
+  <a href="./../index.html">⬅️ Return to Homepage</a>
+  <a href="./../ind_geno_qc.html">Go to Step 1 ➡️</a>
 </div>
 
 # Container Platforms Supported
