@@ -1,7 +1,7 @@
 ---
 title: "Phenotype Pipeline"
 ---
-[🏠 Homepage](./../README.md)
+[<img src="../giant_logo.png" alt="Homepage" width="24" style="vertical-align:middle; margin-right:6px;"> Return to Homepage](./README.md)
 
 ## Overview
 
@@ -27,5 +27,3 @@ The output from this workflow will include:
 * tab delimited summaries of the phenotypes processed for GWAS
 * visualisation of raw, QCd', residualsised, and inverse-normalised values
 * sample lists for REGENIE that correspond to ancestry- and sex-stratified GWAS analysis
-
-[🏠 Homepage](./../README.md)

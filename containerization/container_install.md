@@ -1,6 +1,6 @@
 ---
 ---
-[🏠 Homepage](./../README.md)
+[<img src="../giant_logo.png" alt="Homepage" width="24" style="vertical-align:middle; margin-right:6px;"> Return to Homepage](./../README.md)
 
 # Container Platforms Supported
 
@@ -48,5 +48,3 @@ Use the table below to identify the recommended tool for your system, then use t
 ---
 
 You are now ready to run the pipeline! Continue with the next steps in the documentation.
-
-[🏠 Homepage](./../README.md)

@@ -1,6 +1,6 @@
 ---
 ---
-[🏠 Homepage](./../README.md)
+[<img src="../giant_logo.png" alt="Homepage" width="24" style="vertical-align:middle; margin-right:6px;"> Return to Homepage](./../README.md)
 
 # Singularity/Apptainer User Environment Setup
 
@@ -163,5 +163,3 @@ bash convert_docker_to_sif.sh --docker-hub ubuntu:22.04 --output ubuntu22.sif
 ```
 
 -------------------------------------------------------------------------------
-
-[🏠 Homepage](./../README.md)

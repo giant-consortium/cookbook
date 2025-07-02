@@ -1,6 +1,6 @@
 ---
 ---
-[🏠 Homepage](./../README.md)
+[<img src="../giant_logo.png" alt="Homepage" width="24" style="vertical-align:middle; margin-right:6px;"> Return to Homepage](./README.md)
 
 # Sample Variant QC Pipeline (Container-Based Install)
 
@@ -39,5 +39,3 @@ This repository provides a containerized pipeline for sample variant quality con
 - Ensure all required paths in `parameters.txt` are correct and accessible.
 - Check stepwise outputs in the `output/study_name/` directory for errors.
 - For container issues, verify your container runtime is installed and running.
-
-[🏠 Homepage](./../README.md)

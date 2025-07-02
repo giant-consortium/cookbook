@@ -1,6 +1,6 @@
 ---
 ---
-[🏠 Homepage](./../README.md)
+[<img src="../giant_logo.png" alt="Homepage" width="24" style="vertical-align:middle; margin-right:6px;"> Return to Homepage](./README.md)
 
 # Genome Wide Association Analysis
 
@@ -62,5 +62,3 @@ docker run -it \
 **To run it on your own inputs**, you will need to **change the path passed to the `-v` flag** and provide the path where your input files and `vcfs` folder are located.
 
 ## Run pipeline using singularity
-
-[🏠 Homepage](./../README.md)

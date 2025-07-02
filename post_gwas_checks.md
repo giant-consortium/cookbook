@@ -1,6 +1,6 @@
 ---
 ---
-[🏠 Homepage](./../README.md)
+[<img src="../giant_logo.png" alt="Homepage" width="24" style="vertical-align:middle; margin-right:6px;"> Return to Homepage](./README.md)
 
 # Post Association Checks
 
@@ -50,5 +50,3 @@ Download the singularity image post_assoc_qc.sif and download it in the reposito
 ```
 
 ### post_assoc_checks-main structure
-
-[🏠 Homepage](./../README.md)
