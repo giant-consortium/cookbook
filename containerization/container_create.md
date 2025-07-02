@@ -1,6 +1,6 @@
 ---
 ---
-[<img src="../giant_logo.png" alt="Homepage" width="40" style="vertical-align:middle; margin-right:2px;"> Return to Homepage](./../README.md)
+[<img src="../giant_logo.png" alt="Homepage" width="60" style="vertical-align:middle; margin-right:0px;"> Return to Homepage](./../README.md)
 
 # Container Image Creation & Export (Developer Guide)
 
