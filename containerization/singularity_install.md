@@ -1,6 +1,6 @@
 ---
 ---
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)
 
 # Singularity/Apptainer User Environment Setup
 
@@ -164,4 +164,4 @@ bash convert_docker_to_sif.sh --docker-hub ubuntu:22.04 --output ubuntu22.sif
 
 -------------------------------------------------------------------------------
 
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)

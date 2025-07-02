@@ -1,6 +1,6 @@
 ---
 ---
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)
 
 # Sample Variant QC Pipeline (Container-Based Install)
 
@@ -40,4 +40,4 @@ This repository provides a containerized pipeline for sample variant quality con
 - Check stepwise outputs in the `output/study_name/` directory for errors.
 - For container issues, verify your container runtime is installed and running.
 
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)

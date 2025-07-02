@@ -1,6 +1,6 @@
 ---
 ---
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)
 
 # Container Platforms Supported
 
@@ -49,4 +49,4 @@ Use the table below to identify the recommended tool for your system, then use t
 
 You are now ready to run the pipeline! Continue with the next steps in the documentation.
 
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)

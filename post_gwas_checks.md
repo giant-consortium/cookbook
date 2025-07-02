@@ -1,6 +1,6 @@
 ---
 ---
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)
 
 # Post Association Checks
 
@@ -51,4 +51,4 @@ Download the singularity image post_assoc_qc.sif and download it in the reposito
 
 ### post_assoc_checks-main structure
 
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)

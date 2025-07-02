@@ -1,6 +1,6 @@
 ---
 ---
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)
 
 # Container Image Creation & Export (Developer Guide)
 
@@ -123,4 +123,4 @@ tar czvf sample_variant_qc_release.tar.gz sample_variant_qc_release/
 - [Singularity/Apptainer Install & Conversion Scripts](containerization/singularity_install.md)
 - [Container Platform Setup for Users](containerization/container_install.md)
 
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)

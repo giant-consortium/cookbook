@@ -1,6 +1,6 @@
 ---
 ---
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)
 
 # Genome Wide Association Analysis
 
@@ -63,4 +63,4 @@ docker run -it \
 
 ## Run pipeline using singularity
 
-[🏠 Homepage](/)
+[🏠 Homepage](./../README.md)
