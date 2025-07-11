@@ -7,7 +7,7 @@
 
 # Post Association Checks
 
-## INTRODUCTION
+## Introduction
 
 This suite of programs is designed to automatically perform quality control (QC) of GWAS results. Most of the analyses are based on QC steps performed by **EasyX**, an R package that combines functions from **EasyStrata** and **EasyQC**.
 
@@ -67,7 +67,11 @@ gsutil auth login
 gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper_imputation/singularity_containers/post_assoc_qc_latest.sif?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&inv=1&invt=Ab1weA post_assoc_qc_latest.sif
 ```
 <details>
-<summary>If your HPC does not support gsutil</summary>, download the file manually from the following link: [Download `post_assoc_qc_latest.sif`](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&inv=1&invt=Ab1weA)
+<summary>If your HPC does not support gsutil</summary>
+
+If your HPC does not support `gsutil`, you can download the file manually from the [GIANT Singularity Containers page](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers).
+
+Look for: **`post_assoc_qc_latest.sif`** and download it to your working directory.
 </details>
 
 ### Step 3: Download TopMed Imputed Allele Frequencies (Build 38)
@@ -84,7 +88,3 @@ gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper
 # Extract it directly into the current folder (no subfolder)
 tar -xzf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz --strip-components=1
 ```
-<details>
-<summary>Alternatively, you may download the tarball manually from the link below and extract it manually into ref_data</summary>/: Download `parsed_topmed_imputed_allele_freq_4_easyx.tar.gz`</details>
-
-### post_assoc_checks-main structure
