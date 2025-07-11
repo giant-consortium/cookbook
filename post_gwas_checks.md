@@ -9,47 +9,82 @@
 
 ## INTRODUCTION
 
-This suite of programs is designed to automatically perform QC of GWAS. Most of the the analyses are based on QC performed by EasyX, an R package that combines functions from EasyStrata and EasyQC.
+This suite of programs is designed to automatically perform quality control (QC) of GWAS results. Most of the analyses are based on QC steps performed by **EasyX**, an R package that combines functions from **EasyStrata** and **EasyQC**.
 
-The suite consists of 5 programs:
+## Assumptions
 
-- **1_clean_gwas.R** – Prepares REGENIE GWAS output for **EASYX**.  
-- **2_allele_frequency_check.R** – Compares allele frequencies across six different genetic ancestries (**AFR**, **AMR**, **MID**, **EUR**, **EAS**, and **SAS**).  
-- **3_update_cfg_and_run_easyx.R** – **EasyX** is called via a configuration file with information on the GWAS input and parameter thresholds. The program automatically updates the configuration file with your input data and runs **EasyX**.  
-- **4_assoc_p_vs_af_diffs.R** – Compares whether associations are driven by a specific subpopulation among the individuals from a certain genetic ancestry (i.e., Finnish among European).  
-- **5_report_wrapper.Rmd** – A script that reads the output of the previous programs and summarizes the findings.
+Before running the pipeline, ensure the following:
 
-### Clone GitHub repo
+1. **GWAS output** is from **REGENIE** (compressed or uncompressed).
+2. **Genomic positions** are in **build 38 (hg38)**.
+3. **Singularity** can be run in your HPC environment.
 
-```bash
- git clone https://github.com/giant-consortium/post_assoc_checks.git
-```
+## Program Overview
 
-### STEP 1: get the pipeline ready to run
+Below is a summary of the programs and their functions:
 
-Once you have downloaded the repository you should have the following items:
+- `1_clean_gwas.R` – Prepares REGENIE GWAS output for **EasyX**.  
+- `2_allele_frequency_check.R` – Compares allele frequencies across six different genetic ancestries (**AFR**, **AMR**, **MID**, **EUR**, **EAS**, and **SAS**).  
+- `3_update_cfg_and_run_easyx.R` – Updates the EasyX configuration file with your input data and threshold parameters, and then runs EasyX.  
+- `4_assoc_p_vs_af_diffs.R` – Investigates whether associations are driven by a specific subpopulation (e.g., Finnish among Europeans).  
+- `5_report_wrapper.Rmd` – Reads outputs from the previous programs and summarizes the findings in a report.
 
-- **POST_ASSOC_PIPELINE.sh** - the commands to run the suite of programs. Once parameters are changed and you have a Singularity image downloaded, you are good to go!
-- **post_assoc_checks-main** - working directory where analyses are performed and results are saved
-- **Dockerfile** - a copy of the filte utilized to build the Docker and Singularity images.
-- **parameters** - the file where you assign the path and files utilized as input.
+---
 
-**What else is needed?**
+## Quick Start
 
-You need a singularity image with the programs and libraries required by our suite of programs.
+### Step 1: Clone the GitHub Repository
 
-Download the singularity image post_assoc_qc.sif and download it in the repository folder.
+Start by accessing your working directory in your HPC session and cloning the repository:
 
 ```bash
- wd=my_path/post_assoc_checks/
- cd $wd
- gcloud ---
-```
+# Set your working directory
+wd=your_wd
+cd $wd
 
-### STEP 2: run the pipeline
+# Clone the development branch (currently in use)
+git clone --branch tmp_wd --single-branch https://github.com/giant-consortium/post_assoc_checks.git
+```
+After cloning, you will see the following structure:
+
+- `POST_ASSOC_PIPELINE.sh` - Main script to run the pipeline. Once parameters are configured and the Singularity image is downloaded, you're good to go!
+- `post_assoc_checks-main` - Working directory where analyses are performed and results are saved.
+- `Dockerfile` - Used to build the Docker and Singularity images.
+- `parameters` - Configuration file where you define paths and input files.
+
+### Step 2: Download the Singularity Image
+
+If your HPC environment supports gsutil, you can download the Singularity image from the Google Cloud bucket:
 
 ```bash
- bash POST_ASS_PIPELINE.sh
+# Enter the repository
+cd your_wd/post_assoc_checks
+
+# Log in to Google Cloud
+gsutil auth login
+
+# Download the Singularity image
+gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper_imputation/singularity_containers/post_assoc_qc_latest.sif?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&inv=1&invt=Ab1weA post_assoc_qc_latest.sif
 ```
+<details>
+<summary>If your HPC does not support gsutil</summary>, download the file manually from the following link: [Download `post_assoc_qc_latest.sif`](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&inv=1&invt=Ab1weA)
+</details>
+
+### Step 3: Download TopMed Imputed Allele Frequencies (Build 38)
+
+One of the reference datasets used for allele frequency QC is hosted in a tarball on the Google Cloud bucket. This data must be placed in the ref_data folder with the proper structure.
+
+```bash
+# Go to the ref_data directory
+cd your_wd/post_assoc_checks/post_assoc_checks-main/ref_data/
+
+# Download the reference data tarball
+gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper_imputation/parsed_topmed_imputed_allele_freq_4_easyx.tar.gz?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&inv=1&invt=Ab1weA parsed_topmed_imputed_allele_freq_4_easyx.tar.gz
+
+# Extract it directly into the current folder (no subfolder)
+tar -xzf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz --strip-components=1
+```
+<details>
+<summary>Alternatively, you may download the tarball manually from the link below and extract it manually into ref_data</summary>/: Download `parsed_topmed_imputed_allele_freq_4_easyx.tar.gz`</details>
 
 ### post_assoc_checks-main structure
