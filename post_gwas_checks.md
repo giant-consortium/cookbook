@@ -66,13 +66,9 @@ gsutil auth login
 # Download the Singularity image
 gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper_imputation/singularity_containers/post_assoc_qc_latest.sif?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&inv=1&invt=Ab1weA post_assoc_qc_latest.sif
 ```
-<details>
-<summary>If your HPC does not support gsutil</summary>
-
-If your HPC does not support `gsutil`, you can download the file manually from the [GIANT Singularity Containers page](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers).
-
-Look for: **`post_assoc_qc_latest.sif`** and download it to your working directory.
-</details>
+> **Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
+> [**GIANT Singularity Containers page**](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers).  
+> Look for the file: **`post_assoc_qc_latest.sif`**, and save it to your working directory.
 
 ### Step 3: Download TopMed Imputed Allele Frequencies (Build 38)
 
