@@ -44,6 +44,9 @@ cd $wd
 
 # Clone the development branch (currently in use)
 git clone --branch tmp_wd --single-branch https://github.com/giant-consortium/post_assoc_checks.git
+
+# If you want to install the full repository use
+git clone https://github.com/giant-consortium/post_assoc_checks.git
 ```
 After cloning, you will see the following structure:
 
@@ -84,3 +87,8 @@ gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper
 # Extract it directly into the current folder (no subfolder)
 tar -xzf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz --strip-components=1
 ```
+
+> **Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
+> [**GIANT Singularity Containers page**](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers).  
+> Look for the file: **`parsed_topmed_imputed_allele_freq_4_easyx.tar.gz`**, and save it to your working directory.
+> 
