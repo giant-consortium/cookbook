@@ -85,7 +85,7 @@ cd your_wd/post_assoc_checks/post_assoc_checks-main/ref_data/
 gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper_imputation/parsed_topmed_imputed_allele_freq_4_easyx.tar.gz?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&inv=1&invt=Ab1weA parsed_topmed_imputed_allele_freq_4_easyx.tar.gz
 
 # Extract it directly into the current folder (no subfolder)
-tar -xzf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz --strip-components=1
+tar -xvf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz --strip-components=1
 ```
 
 > **Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
