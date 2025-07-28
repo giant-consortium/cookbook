@@ -96,9 +96,9 @@ Checking data against TOPMED reference panel
 
   Options Set:
     Reference Panel:             TOPMed
-    Bim filename:                ./results/PROTECT_merged_autoX_snps_qcd_nodupes_sorted.bim
+    Bim filename:                ./results/MYSTUDY_sorted.bim
     Reference filename:          /usr/local/bin/PASS.Variantsbravo-dbsnp-all.tab.gz
-    Allele frequencies filename: ./results/PROTECT_merged_autoX_snps_qcd_nodupes_sorted_freqs.frq
+    Allele frequencies filename: ./results/MYSTUDY_sorted_freqs.frq
     Output directory:            ./results
     Allele frequency threshold:  0.2
 
@@ -119,16 +119,16 @@ Checking data against TOPMED reference panel
   450000000 variants loaded
   460000000 variants loaded
 
-  Details written to log file: /home/ubuntu/giant/pre_phasing/results/LOG-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
+  Details written to log file: /home/ubuntu/giant/pre_phasing/results/LOG-MYSTUDY_sorted-TOPMed.txt
 
   Creating variant lists
-    /home/ubuntu/giant/pre_phasing/results/Force-Allele1-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/Strand-Flip-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/ID-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/Position-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/Chromosome-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/Exclude-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/FreqPlot-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/Force-Allele1-MYSTUDY_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/Strand-Flip-MYSTUDY_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/ID-MYSTUDY_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/Position-MYSTUDY_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/Chromosome-MYSTUDY_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/Exclude-MYSTUDY_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/FreqPlot-MYSTUDY_sorted-TOPMed.txt
 
   Matching to TOPMed ---
 
