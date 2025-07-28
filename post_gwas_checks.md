@@ -69,7 +69,7 @@ gsutil auth login
 # Download the Singularity image
 gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper_imputation/singularity_containers/post_assoc_qc_latest.sif?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&inv=1&invt=Ab1weA post_assoc_qc_latest.sif
 ```
-> **Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
+> **🔁Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
 > [**GIANT Singularity Containers page**](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers).  
 > Look for the file: **`post_assoc_qc_latest.sif`**, and save it to your working directory.
 
@@ -88,7 +88,7 @@ gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper
 tar -xvf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz --strip-components=1
 ```
 
-> **Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
+> **🔁Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
 > [**GIANT Singularity Containers page**](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers).  
 > Look for the file: **`parsed_topmed_imputed_allele_freq_4_easyx.tar.gz`**, and save it to your working directory.
 
@@ -98,7 +98,7 @@ Once all required data has been downloaded and stored in the appropriate folders
 Before running the pipeline, you must edit the parameter file located in:
 
 ```bash
-wd/post_assoc_checks/post_assoc_checks-main/
+your_wd/post_assoc_checks/post_assoc_checks-main/
 ```
 
 Only three fields are required:
@@ -119,7 +119,7 @@ The working directory must currently be set manually inside the POST_ASSO_PIPELI
 
 Open the script and modify the first line:
 ```bash
-wd=""
+your_wd=""
 ```
 ⚠️ Important: This should point to the working directory inside the container.
 
@@ -134,7 +134,7 @@ Then navigate to your working directory and run the pipeline:
 
 ```bash
 # Move to your working directory
-cd /wd/post_assoc_checks-main/
+cd /your_wd/post_assoc_checks-main/
 
 # Run the pipeline
 bash POST_ASSO_PIPELINE.sh
