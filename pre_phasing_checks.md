@@ -96,14 +96,14 @@ Checking data against TOPMED reference panel
 
   Options Set:
     Reference Panel:             TOPMed
-    Bim filename:                ./test_results/PROTECT_merged_autoX_snps_qcd_nodupes_sorted.bim
+    Bim filename:                ./results/PROTECT_merged_autoX_snps_qcd_nodupes_sorted.bim
     Reference filename:          /usr/local/bin/PASS.Variantsbravo-dbsnp-all.tab.gz
-    Allele frequencies filename: ./test_results/PROTECT_merged_autoX_snps_qcd_nodupes_sorted_freqs.frq
-    Output directory:            ./test_results
+    Allele frequencies filename: ./results/PROTECT_merged_autoX_snps_qcd_nodupes_sorted_freqs.frq
+    Output directory:            ./results
     Allele frequency threshold:  0.2
 
-  Path to plink bim file: /home/ubuntu/giant/pre_phasing/test_results
-  Writing output files to: ./test_results
+  Path to plink bim file: /home/ubuntu/giant/pre_phasing/results
+  Writing output files to: ./results
 
   Reading /usr/local/bin/PASS.Variantsbravo-dbsnp-all.tab.gz
   10000000 variants loaded
@@ -153,16 +153,16 @@ Checking data against TOPMED reference panel
   450000000 variants loaded
   460000000 variants loaded
 
-  Details written to log file: /home/ubuntu/giant/pre_phasing/test_results/LOG-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
+  Details written to log file: /home/ubuntu/giant/pre_phasing/results/LOG-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
 
   Creating variant lists
-    /home/ubuntu/giant/pre_phasing/test_results/Force-Allele1-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/test_results/Strand-Flip-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/test_results/ID-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/test_results/Position-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/test_results/Chromosome-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/test_results/Exclude-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/test_results/FreqPlot-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/Force-Allele1-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/Strand-Flip-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/ID-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/Position-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/Chromosome-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/Exclude-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
+    /home/ubuntu/giant/pre_phasing/results/FreqPlot-PROTECT_merged_autoX_snps_qcd_nodupes_sorted-TOPMed.txt
 
   Matching to TOPMed ---
 
@@ -224,6 +224,6 @@ Generating VCFs for phasing and imputation...
     21
     22
     23
-VCFs for TOPmed imputation can be found in ./test_results/vcfs_for_phasing_imputation/
+VCFs for TOPmed imputation can be found in ./results/vcfs_for_phasing_imputation/
 Pre-phasing and pre-imputation checks complete.
 ```
