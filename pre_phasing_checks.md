@@ -65,7 +65,7 @@ A check is made to ensure variants that overlap based on chromosome and base-pai
 Variants where alleles are consistent after account for potential strand flips are removed from the array-based genotype dataset of the study
 
 
-### Example terminal output from workflow (with genomic position reordering of variants required) 
+#### Example terminal output from workflow (with genomic position reordering of variants required) 
 
 ```
 bash PREPHASING_PIPELINE.sh 
