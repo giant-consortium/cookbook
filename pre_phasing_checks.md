@@ -35,7 +35,7 @@ We are asking studies of predominately European and South Asian genetic ancestry
    out_dir="/path/to/output/directory"
    ```
 
-3. **Run the pipeline:**
+3. **Run the pipeline. This will download the container if it does not already exist in the working directory**
 
    ```
    bash PREPHASING_PIPELINE.sh
@@ -81,7 +81,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 4338712576 (4.0G) [application/octet-stream]
 Saving to: ‘giant_prephasing_pipeline_latest.sif’
 
-giant_prephasing_pipeline_latest.sif      100%[==========================]   4.04G  47.8MB/s    in 90s
+giant_prephasing_pipeline_latest.sif    100%[======================]   4.04G  47.8MB/s  in 90s
 
 2025-07-28 13:09:12 (46.2 MB/s) - ‘giant_prephasing_pipeline_latest.sif’ saved [4338712576/4338712576]
 
