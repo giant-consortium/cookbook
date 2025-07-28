@@ -176,6 +176,9 @@ Generating VCFs for phasing and imputation...
     21
     22
     23
+
 VCFs for TOPmed imputation can be found in ./results/vcfs_for_phasing_imputation/
+
 Pre-phasing and pre-imputation checks complete.
+
 ```
