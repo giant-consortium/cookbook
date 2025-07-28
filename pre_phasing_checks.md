@@ -2,7 +2,7 @@
 ---
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <a href="./index.html">⬅️ Return to Homepage</a>
-  <a href="gwas.html">Go to Step 5 [GWAS]➡️</a>
+  <a href="phenotyping.html">Go to Step 3 [Phenotyping]➡️</a>
 </div>
 
 # Pre-phasing/imputation Pipeline 
