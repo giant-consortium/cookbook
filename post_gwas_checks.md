@@ -71,7 +71,15 @@ gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper
 ```
 > **🔁Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
 > [**GIANT Singularity Containers page**](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers).  
-> Look for the file: **`post_assoc_qc_latest.sif`**, and save it to your working directory.
+> Look for the file: **`post_assoc_qc_latest.sif`**, and save it.
+
+```bash
+# Enter the repository
+cd your_wd/post_assoc_checks
+
+# Download the file (replace <URL> with the actual download link)
+wget <URL>
+```
 
 ### Step 3: Download TopMed Imputed Allele Frequencies (Build 38)
 
@@ -89,8 +97,19 @@ tar -xvf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz --strip-components=1
 ```
 
 > **🔁Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
-> [**GIANT Singularity Containers page**](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers).  
-> Look for the file: **`parsed_topmed_imputed_allele_freq_4_easyx.tar.gz`**, and save it to your working directory.
+> [**GIANT Deeper Imputation page**](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/).  
+> Look for the file: **`parsed_topmed_imputed_allele_freq_4_easyx.tar.gz`**, and save it.
+
+```bash
+# Go to the ref_data directory
+cd your_wd/post_assoc_checks/post_assoc_checks-main/ref_data/
+
+# Download the file (replace <URL> with the actual download link)
+wget <URL>
+
+# Extract it directly into the current folder (no subfolder)
+tar -xvf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz --strip-components=1
+```
 
 ### Step 4: Run the Pipeline
 Once all required data has been downloaded and stored in the appropriate folders, you're ready to run the post-association checks pipeline.
