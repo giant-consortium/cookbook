@@ -26,13 +26,13 @@ We are asking studies of predominately European and South Asian genetic ancestry
  
    ```
    # Imputation reference panel - TOPMED or UKB
-   REF_PANEL=["TOPMED"|"UKB"]
+   ref_panel=["TOPMED"|"UKB"]
 
    # Directory containing plink data and prefix
-   PLINK_PREFIX="/path/to/plink_files"
+   plink_prefix="/path/to/plink_files"
 
    # Output directory for VFCs for phasing/imputatioon
-   OUT_DIR="/path/to/output/directory"
+   out_dir="/path/to/output/directory"
    ```
 
 3. **Run the pipeline:**
@@ -41,7 +41,7 @@ We are asking studies of predominately European and South Asian genetic ancestry
    bash PREPHASING_PIPELINE.sh
    ```
 
-4. **Outputs** will be saved in the directory specified by `OUT_DIR` in `parameters.txt` with the final VCFs for phasing and imputation saved in the subdirectory `vcfs_for_phasing_imputation/`.
+4. **Outputs** will be saved in the directory specified by `out_dir` in `parameters.txt` with the final VCFs for phasing and imputation saved in the subdirectory `vcfs_for_phasing_imputation/`.
 
 
 ## Details
