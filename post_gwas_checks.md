@@ -91,4 +91,51 @@ tar -xvf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz --strip-components=1
 > **Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
 > [**GIANT Singularity Containers page**](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers).  
 > Look for the file: **`parsed_topmed_imputed_allele_freq_4_easyx.tar.gz`**, and save it to your working directory.
-> 
+
+### Step 4: Run the Pipeline
+Once all required data has been downloaded and stored in the appropriate folders, you're ready to run the post-association checks pipeline.
+
+Before running the pipeline, you must edit the parameter file located in:
+
+```bash
+wd/post_assoc_checks/post_assoc_checks-main/
+```
+
+Only three fields are required:
+1. Full path to the REGENIE GWAS output
+2. Full path to the desired output directory
+3. A short name for the output files
+
+Example parameter file:
+
+```bash
+INPUT_GWAS_TOTAL_PATH=""
+OUTPUT_DIR=""
+OUTPUT_NAME="test"
+```
+
+### Step 5: Set the Working Directory
+The working directory must currently be set manually inside the POST_ASSO_PIPELINE.sh script. (In a future version, this will likely become a command-line parameter.)
+
+Open the script and modify the first line:
+```bash
+wd=""
+```
+⚠️ Important: This should point to the working directory inside the container.
+
+### Step 6: Run the Pipeline
+Make sure Singularity is available in your HPC environment:
+
+```bash
+module load singularity/3.8.7
+```
+
+Then navigate to your working directory and run the pipeline:
+
+```bash
+# Move to your working directory
+cd /wd/post_assoc_checks-main/
+
+# Run the pipeline
+bash POST_ASSO_PIPELINE.sh
+```
