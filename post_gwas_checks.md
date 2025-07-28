@@ -108,16 +108,17 @@ cd your_wd/post_assoc_checks/post_assoc_checks-main/ref_data/
 wget <URL>
 
 # Extract it directly into the current folder (no subfolder)
-tar -xvf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz --strip-components=1
+tar -xvf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz
 ```
+❗ I think we do not want to include --strip-components=1
 
 ### Step 4: Run the Pipeline
 Once all required data has been downloaded and stored in the appropriate folders, you're ready to run the post-association checks pipeline.
 
-Before running the pipeline, you must edit the parameter file located in:
+Before running the pipeline, you must edit the parameters file located in:
 
 ```bash
-your_wd/post_assoc_checks/post_assoc_checks-main/
+your_wd/post_assoc_checks/
 ```
 
 Only three fields are required:
@@ -130,7 +131,7 @@ Example parameter file:
 ```bash
 INPUT_GWAS_TOTAL_PATH=""
 OUTPUT_DIR=""
-OUTPUT_NAME="test"
+OUTPUT_NAME=""
 ```
 
 ### Step 5: Set the Working Directory
@@ -153,7 +154,7 @@ Then navigate to your working directory and run the pipeline:
 
 ```bash
 # Move to your working directory
-cd /your_wd/post_assoc_checks-main/
+cd /your_wd/post_assoc_checks/
 
 # Run the pipeline
 bash POST_ASSO_PIPELINE.sh
