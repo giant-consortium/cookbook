@@ -62,8 +62,12 @@ A check is made to ensure the allele frequencies of variants are consistent with
 A check is made to ensure variants that overlap based on chromosome and base-pair position have the same alleles. Variants where allele are different, are flipped is consistent with strand flips. 
 
 5. **Allele consistencies**
-Variants where alleles are consistent after account for potential strand flips are removed from the array-based genotype dataset of the study
+Variants where alleles are consistent after account for potential strand flips are removed from the array-based genotype dataset of the study. Palindromic SNPs with MAF > 0.4 removed also.
 
+6. **Duplicates**
+Variants with a chromosome and position shared with other variants will be removed from the array data
+
+In addition, the output VCF will force genotypes to be coded to REF and ALT as defined by the haplotype reference panels.
 
 #### Example terminal output from workflow (with genomic position reordering of variants required) 
 
