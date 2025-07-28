@@ -31,7 +31,6 @@ There are three parameters that need to be set in the `parameters.txt` file
   OUT_DIR="/path/to/output/directory"
   ```
 
-
 2. **Run the pipeline:**
 
    ```
