@@ -22,18 +22,18 @@ We are asking studies of predominately European and South Asian genetic ancestry
    git clone git@github.com:giant-consortium/pre_phasing.git
    ```
 
-2. **Edit `parameters.txt`** to set paths and options for your data. There are three parameters that need to be set in the `parameters.txt` file
+2. **Edit `parameters.txt` to set paths and options for your data**. There are three parameters that need to be set in the `parameters.txt` file.
+ 
+   ```
+   # Imputation reference panel - TOPMED or UKB
+   REF_PANEL=["TOPMED"|"UKB"]
 
-  ```
-  # Imputation reference panel - TOPMED or UKB
-  REF_PANEL=["TOPMED"|"UKB"]
+   # Directory containing plink data and prefix
+   PLINK_PREFIX="/path/to/plink_files"
 
-  # Directory containing plink data and prefix
-  PLINK_PREFIX="/path/to/plink_files"
-
-  # Output directory for VFCs for phasing/imputatioon
-  OUT_DIR="/path/to/output/directory"
-  ```
+   # Output directory for VFCs for phasing/imputatioon
+   OUT_DIR="/path/to/output/directory"
+   ```
 
 3. **Run the pipeline:**
 
