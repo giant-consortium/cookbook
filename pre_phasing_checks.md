@@ -81,7 +81,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 4338712576 (4.0G) [application/octet-stream]
 Saving to: ‘giant_prephasing_pipeline_latest.sif’
 
-giant_prephasing_pipeline_latest.sif                                           100%[==========================]   4.04G  47.8MB/s    in 90s
+giant_prephasing_pipeline_latest.sif      100%[==========================]   4.04G  47.8MB/s    in 90s
 
 2025-07-28 13:09:12 (46.2 MB/s) - ‘giant_prephasing_pipeline_latest.sif’ saved [4338712576/4338712576]
 
@@ -111,41 +111,7 @@ Checking data against TOPMED reference panel
   30000000 variants loaded
   40000000 variants loaded
   50000000 variants loaded
-  60000000 variants loaded
-  70000000 variants loaded
-  80000000 variants loaded
-  90000000 variants loaded
-  100000000 variants loaded
-  110000000 variants loaded
-  120000000 variants loaded
-  130000000 variants loaded
-  140000000 variants loaded
-  150000000 variants loaded
-  160000000 variants loaded
-  170000000 variants loaded
-  180000000 variants loaded
-  190000000 variants loaded
-  200000000 variants loaded
-  210000000 variants loaded
-  220000000 variants loaded
-  230000000 variants loaded
-  240000000 variants loaded
-  250000000 variants loaded
-  260000000 variants loaded
-  270000000 variants loaded
-  280000000 variants loaded
-  290000000 variants loaded
-  300000000 variants loaded
-  310000000 variants loaded
-  320000000 variants loaded
-  330000000 variants loaded
-  340000000 variants loaded
-  350000000 variants loaded
-  360000000 variants loaded
-  370000000 variants loaded
-  380000000 variants loaded
-  390000000 variants loaded
-  400000000 variants loaded
+  ...
   410000000 variants loaded
   420000000 variants loaded
   430000000 variants loaded
