@@ -26,13 +26,13 @@ We are asking studies of predominately European and South Asian genetic ancestry
  
    ```
    # Imputation reference panel - TOPMED or UKB
-   ref_panel=["TOPMED"|"UKB"]
+   ref_panel="TOPMED"
 
    # Directory containing plink data and prefix
-   plink_prefix="/path/to/plink_files"
+   plink_prefix="/home/ubuntu/MYSTUDY"
 
    # Output directory for VFCs for phasing/imputatioon
-   out_dir="/path/to/output/directory"
+   out_dir="./results"
    ```
 
 3. **Run the pipeline. This will download the container if it does not already exist in the working directory**
@@ -49,7 +49,8 @@ We are asking studies of predominately European and South Asian genetic ancestry
 There are several checks made to QC'd array data by this workflow as detailed below. Reference datasets are built into the .sif container file to enable comparisons between study genotype data and reference panel.
 
 1. **Chromosome and base-pair order**
-A check made is to ensure all variants are ordered in the `.bim` file by chromosome / base-pair position. Updates to the data will be made if unexpected ordering of variants has been identified.
+A check made is to ensure all variants are ordered in the `.bim` file by chromosome / base-pair position. Updates to the data will be made if unexpected ordering of variants has been identified. 
+The updated PLINK files will be placed in the directory assigned to the `out_dir` variable.
 
 2. **Overlap with imputation reference panel**
 A check is made to determine how many variants overlap with the imputation reference panel based on chromosome and base-pair position. Variants that do not overlap based on genomic coordinates will be removed.
@@ -64,7 +65,7 @@ A check is made to ensure variants that overlap based on chromosome and base-pai
 Variants where alleles are consistent after account for potential strand flips are removed from the array-based genotype dataset of the study
 
 
-## Example output from workflow
+### Example output from workflow (with genomic position reordering of variants required) 
 
 ```
 ------------------------------------------------------
@@ -81,7 +82,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 4338712576 (4.0G) [application/octet-stream]
 Saving to: ‘giant_prephasing_pipeline_latest.sif’
 
-giant_prephasing_pipeline_latest.sif    100%[======================]   4.04G  47.8MB/s  in 90s
+giant_prephasing_pipeline_latest.sif    100%[============]  4.04G  47.8MB/s  in 90s
 
 2025-07-28 13:09:12 (46.2 MB/s) - ‘giant_prephasing_pipeline_latest.sif’ saved [4338712576/4338712576]
 
