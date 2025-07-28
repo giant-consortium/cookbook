@@ -16,9 +16,7 @@ We are asking studies of predominately European and South Asian genetic ancestry
 
 ## Usage
 
-1. **Edit `parameters.txt`** to set paths and options for your data.
-
-There are three parameters that need to be set in the `parameters.txt` file
+1. **Edit `parameters.txt`** to set paths and options for your data. There are three parameters that need to be set in the `parameters.txt` file
 
   ```
   # Imputation reference panel - TOPMED or UKB
