@@ -35,10 +35,14 @@ We are asking studies of predominately European and South Asian genetic ancestry
    out_dir="./results"
    ```
 
-3. **Run the pipeline. This will download the container if it does not already exist in the working directory**
+3. **Run the pipeline**. This will download the container if it does not already exist in the working directory. You should specify whether you would like to use Apptainer or Singularity to run the container.
 
    ```
-   bash PREPHASING_PIPELINE.sh
+   # Run container using Apptainer
+   bash PREPHASING_PIPELINE.sh --apptainer
+   
+   # Run container using Singularity 
+   bash PREPHASING_PIPELINE.sh --singularity
    ```
 
 4. **Outputs** will be saved in the directory specified by `out_dir` in `parameters.txt` with the final VCFs for phasing and imputation saved in the subdirectory `vcfs_for_phasing_imputation/`.
