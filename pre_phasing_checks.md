@@ -76,7 +76,7 @@ In addition, the output VCF will force genotypes to be coded to REF and ALT as d
 #### Example terminal output from workflow (with genomic position reordering of variants required) 
 
 ```
-bash PREPHASING_PIPELINE.sh 
+bash PREPHASING_PIPELINE.sh --apptainer
 ------------------------------------------------------
 -     Pre-phasing and Imputation Checks Pipeline     -
 -         Questions to A.R.Wood@exeter.ac.uk         -
