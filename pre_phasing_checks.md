@@ -83,6 +83,7 @@ bash PREPHASING_PIPELINE.sh --apptainer
 -                       GIANT                        -
 ------------------------------------------------------
 
+Workflow will run using apptainer
 Downloading container...
 --2025-07-28 13:07:43--  https://storage.googleapis.com/giant_deeper_imputation/singularity_containers/giant_prephasing_pipeline_latest.sif
 Resolving storage.googleapis.com (storage.googleapis.com)... 142.250.129.207, 216.58.213.27, 142.251.30.207, ...
