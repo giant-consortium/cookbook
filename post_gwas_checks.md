@@ -15,7 +15,7 @@ This suite of programs is designed to automatically perform quality control (QC)
 
 Before running the pipeline, ensure the following:
 
-1. **GWAS output** is from **REGENIE** (compressed or uncompressed).
+1. **GWAS output** is from **REGENIE** (uncompressed).
 2. **Genomic positions** are in **build 38 (hg38)**.
 3. **Singularity** can be run in your HPC environment.
 
