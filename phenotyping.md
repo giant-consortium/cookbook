@@ -29,10 +29,11 @@ bash PHENOTYPE_PIPELINE.sh --singulairty
 The script expects a file that contains all variables for phenotype derivation for height, BMI and WHR, and all associated covariates. 
 
 Where possible, please provide variables to derive phenotypes are required:
+
 | Phenotype | Variables to priortise if available |
 | --- | --- |
 | HEIGHT | height (cm) |
-| BMI |  height (cm), weight (kg) |
+| BMI | height (cm), weight (kg) |
 | WHR | waist circumference (cm), hip circumference (cm) |
 
 
