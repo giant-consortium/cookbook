@@ -15,6 +15,7 @@ This repository provides a containerized pipeline for QC and deriviation of phen
 1. **Edit `parameters.txt`** to set filenames and options for your data. This includes mapping column names to data labels that can be interpreted by the pipeline.
 
 2. **Run the pipeline**
+
 ```
 # Run container using Apptainer
 bash PHENOTYPE_PIPELINE.sh --apptainer
