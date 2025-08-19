@@ -16,14 +16,13 @@ This repository provides a containerized pipeline for QC and deriviation of phen
 
 2. **Run the pipeline**
 
-```
-# Run container using Apptainer
-bash PHENOTYPE_PIPELINE.sh --apptainer
-
-# Run container using Singulairty
-bash PHENOTYPE_PIPELINE.sh --singulairty
-```
-
+    ```
+    # Run container using Apptainer
+    bash PHENOTYPE_PIPELINE.sh --apptainer
+    
+    # Run container using Singulairty
+    bash PHENOTYPE_PIPELINE.sh --singulairty
+    ```
 
 3. **Outputs** will be saved in the directory specified by `out_dir` in parameters.txt. Two sub-directories will be created:
 
