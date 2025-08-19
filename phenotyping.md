@@ -91,7 +91,11 @@ Where possible, please provide variables to derive phenotypes are required:
 
 Note, WHR adjusted for BMI GWAS will be derived by the pipeline.
 
-If you do not have measures of weight, waist and/or hip, pre-derived values for BMI and WHR can be used and these will be QC'd.
+If you do not have measures of weight, waist and/or hip, pre-derived values for BMI and WHR can be used and these will be QC'd. 
+A mixture of non-derived and pre-derived WHR and BMI values are allowed but if both are provided for a given primary GWAS, 
+the pipeline with priortise derivation of phenotypes over pre-derived phenotypes. For example, if height is provided alongside both weight and BMI, then the primary BMI GWAS
+will based on deriving BMI from height and weight - the pre-defined BMI variable will be ignored. 
+
 
 #### Quality control
 Variables used to derive BMI and WHR will first undergo QC prior to derivation of BMI and WHR that will subsequently be QC'd again.
@@ -119,7 +123,7 @@ If the same variable is to be used, then you can specify the same column header 
  
 Parameters that enable multiple measures:
 ```
-### WEIGHT - EXAMPLE: DIFFERENT MEASURE TO DERIVE BMI FOR BMI AND WHRadjBMI GWAS
+### WEIGHT - EXAMPLE: DIFFERENT MEASURES TO DERIVE BMI FOR BMI AND WHRadjBMI GWAS
 
 ## Column containing weight (kg) to derive phenotype for primary BMI GWAS
 weight_for_bmi_col="weight_baseline"
@@ -140,10 +144,10 @@ waist_for_whradjbmi_col="waist_followup"
 ### HIP = EXAMPLE: SAME MEASURES
 
 ## Column containing hip circumference (cm) for WHR GWAS
-hip_for_whr_col="hip_cm"
+hip_for_whr_col="hip_baseline"
 
 ## Column containing hip circumference (cm) for WHRadjBMI HWAS
-hip_for_whradjbmi_col="hip_follow_up"
+hip_for_whradjbmi_col="hip_followup"
 
 
 ### PRE-DERIVED BMI - EXAMPLE: SAME MEASURES
@@ -162,7 +166,6 @@ whr_col="WHR"
 
 ## Column name containing pre-derived WHR values for adjustment
 whr_for_whradjbmi_col="WHR"
-
 ```
 
 As a result, the pipeline allows for different ages for height, BMI, WHR and WHRadjBMI to be provided. 
@@ -170,17 +173,16 @@ If the same values are to be used, then you can specify the same column header f
 
 Parameters that enable multiple ages:
 ```
-
-## Column name for age associated with height
+## Column containing age associated with height
 age_height_col="Age"
 
-## Column name for age associated with weight measures [pre-]derived BMI values
+## Column containing age associated with weight measures [pre-]derived BMI values
 age_bmi_col="Age"
 
-## Column name for age associated with waist and hip measures or pre-derived WHR values
+## Column containing age associated with waist and hip measures or pre-derived WHR values
 age_whr_col="Age"
 
-## Column name for age associated with measures to derive WHRadjBMI
+## Column containing age associated with measures to derive WHRadjBMI
 age_whradjbmi_col="Age"
 
 ```
