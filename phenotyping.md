@@ -26,6 +26,7 @@ bash PHENOTYPE_PIPELINE.sh --singulairty
 
 ## Details
 
+### Expected input files to the script
 The script expects 3 files for input to be specified in the `parameters.txt` file.
 
 ```
