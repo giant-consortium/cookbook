@@ -72,10 +72,10 @@ P3    3     0.709639726  0.926419979  0.041459368    ...    0.613060395  0.31559
 Where possible, please provide variables to derive phenotypes are required:
 
 | Phenotype | Variables to priortise if available |
-| --- | --- |
-| HEIGHT | height (cm) |
-| BMI | height (cm), weight (kg) |
-| WHR | waist circumference (cm), hip circumference (cm) |
+| :---: | :---: |
+| **HEIGHT** | height (cm) |
+| **BMI** | height (cm), weight (kg) |
+| **WHR** | waist circumference (cm), hip circumference (cm) |
 
 Note, WHR adjusted for BMI GWAS will be derived by the pipeline.
 
@@ -87,14 +87,14 @@ Details of quality control applied to variables can be found in the following ta
 
 | Variable / Phenotype | Range Inclusion | Z-score Inclusion |
 | :---:       | :---:              | :---: |
-| HEIGHT    | 100 - 220 (cm)    | -5 < z < 5 |
-| BMI       | 15 - 100          | -5 < z < 5 |
-| WHR       | None              | -5 < z < 5 |
-| WHRadjBMI | None              | -5 < z < 5 |
-| WEIGHT    | None              | -5 < z < 5 |
-| WAIST     | 38.1 - 228.6 (cm) | -5 < z < 5 |
-| HIP       | None              | None |
-| AGE       | 18-110 (years)    | None |
+| **HEIGHT**    | 100 - 220 (cm)    | -5 < z < 5 |
+| **BMI**       | 15 - 100          | -5 < z < 5 |
+| **WHR**       | None              | -5 < z < 5 |
+| **WHRadjBMI** | None              | -5 < z < 5 |
+| **WEIGHT**    | None              | -5 < z < 5 |
+| **WAIST**     | 38.1 - 228.6 (cm) | -5 < z < 5 |
+| **HIP**       | None              | None |
+| **AGE**       | 18-110 (years)    | None |
 
 
 To account for the nature of EHR-based studies and other longitudinal studies, the pipeline allows for multiple measures of BMI and WHR to be provied. 
