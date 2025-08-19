@@ -6,7 +6,7 @@ title: "Phenotype Pipeline"
   <a href="./gwas.html">Go to Step 4 [Genome Wide Association Study] ➡️</a>
 </div>
 
-## Overview
+## Phenotype Pipeline Overview
 
 This repository provides a containerized pipeline for QC and deriviation of phenotype data for subsequent GWAS analysis.
 The pipeline is distributed as a .sif file that can be run using apptainer/singularity. 
