@@ -6,7 +6,7 @@ title: "Phenotype Pipeline"
   <a href="./gwas.html">Go to Step 4 [Genome Wide Association Study] ➡️</a>
 </div>
 
-# Phenotype Pipeline 
+# Phenotype Pipeline - DO NOT RUN YET
 
 ## Overview
 
