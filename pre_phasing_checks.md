@@ -7,7 +7,7 @@
 
 # Pre-phasing/imputation Pipeline 
 
-## Overview
+## Pre-phasing pipeline Overview
 
 This repository provides a containerized pipeline for data preparation for phasing and imputation on either the TOPmed imputation server or UK Biobank RAP. The pipeline is distributed as a .sif file that can be run using apptainer/singularity.
 Presently (July 2025) only checks against TOPmed are implemented.
@@ -16,7 +16,7 @@ We are asking studies of predominately European and South Asian genetic ancestry
 
 ## Usage
 
-1. **Clone the pre-phasing/imputation report from GitHub**
+1. **Clone the pre-phasing/imputation repo from GitHub**
 
    ```
    git clone git@github.com:giant-consortium/pre_phasing.git
