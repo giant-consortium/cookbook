@@ -68,7 +68,7 @@ P3    3     0.709639726  0.926419979  0.041459368    ...    0.613060395  0.31559
 ```
 
 
-### Derivation of phenotypes
+### 2. Derivation of phenotypes
 Where possible, please provide variables to derive phenotypes are required:
 
 | Phenotype | Variables to priortise if available |
@@ -79,6 +79,7 @@ Where possible, please provide variables to derive phenotypes are required:
 
 Note, WHR adjusted for BMI GWAS will be derived by the pipeline.
 
+#### Quality control
 Variables used to derive BMI and WHR will first undergo QC prior to derivation of BMI and WHR that will subsequently be QC'd again.
 If you do not have measures of weight, waist and/or hip, pre-derived values for BMI and WHR can be used and these will be QC'd.
 
@@ -93,7 +94,7 @@ Details of quality control applied to variables can be found in the following ta
 | WEIGHT    | None              | >\|5\| for males and females |
 | WAIST     | 38.1 - 228.6 (cm) | >\|5\| for males and females |
 | HIP       | None              | None |
-| AGE       | 18-110            | None |
+| AGE       | 18-110 (years)    | None |
 
 
 To account for the nature of EHR-based studies and other longitudinal studies, the pipeline allows for multiple measures of BMI and WHR to be provied. 
