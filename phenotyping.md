@@ -14,12 +14,14 @@ This repository provides a containerized pipeline for QC and deriviation of phen
 
 1. **Edit `parameters.txt`** to set filenames and options for your data. This includes mapping column names to data labels that can be interpreted by the pipeline.
 
-2. **Run the pipeline**```bash
+2. **Run the pipeline**
+```bash
 # Run container using Apptainer
 bash PHENOTYPE_PIPELINE.sh --apptainer
 
 # Run container using Singulairty
-bash PHENOTYPE_PIPELINE.sh --singulairty```
+bash PHENOTYPE_PIPELINE.sh --singulairty
+```
 
 3. **Outputs** will be saved in the directory specified by `out_dir` in parameters.txt. Two sub-directories will be created:
 
