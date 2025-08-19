@@ -106,12 +106,12 @@ Details of quality control applied to variables can be found in the following ta
 | :---:       | :---:              | :---: |
 | **HEIGHT**    | 100 - 220 (cm)    | -5 < z < 5 |
 | **BMI**       | 15 - 100          | -5 < z < 5 |
-| **WHR**       | None              | -5 < z < 5 |
-| **WHRadjBMI** | None              | -5 < z < 5 |
-| **WEIGHT**    | None              | -5 < z < 5 |
+| **WHR**       | Any               | -5 < z < 5 |
+| **WHRadjBMI** | Any               | -5 < z < 5 |
+| **WEIGHT**    | Any               | -5 < z < 5 |
 | **WAIST**     | 38.1 - 228.6 (cm) | -5 < z < 5 |
-| **HIP**       | None              | None |
-| **AGE**       | 18-110 (years)    | None |
+| **HIP**       | Any               | NA |
+| **AGE**       | 18-110 (years)    | NA |
 
 
 #### Allowing for differences in timing when measurements taken
