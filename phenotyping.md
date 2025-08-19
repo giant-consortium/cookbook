@@ -14,14 +14,13 @@ This repository provides a containerized pipeline for QC and deriviation of phen
 
 1. **Edit `parameters.txt`** to set filenames and options for your data. This includes mapping column names to data labels that can be interpreted by the pipeline.
 
-2. **Run the pipeline**
-```bash
+2. **Run the pipeline**```bash
 # Run container using Apptainer
 bash PHENOTYPE_PIPELINE.sh --apptainer
 
 # Run container using Singulairty
-bash PHENOTYPE_PIPELINE.sh --singulairty
-```
+bash PHENOTYPE_PIPELINE.sh --singulairty```
+
 3. **Outputs** will be saved in the directory specified by `out_dir` in parameters.txt. Two sub-directories will be created:
 
   * `regenie_input/`
@@ -89,9 +88,10 @@ Where possible, please provide variables to derive phenotypes are required:
 
 Note, WHR adjusted for BMI GWAS will be derived by the pipeline.
 
+If you do not have measures of weight, waist and/or hip, pre-derived values for BMI and WHR can be used and these will be QC'd.
+
 #### Quality control
 Variables used to derive BMI and WHR will first undergo QC prior to derivation of BMI and WHR that will subsequently be QC'd again.
-If you do not have measures of weight, waist and/or hip, pre-derived values for BMI and WHR can be used and these will be QC'd.
 
 Details of quality control applied to variables can be found in the following table. Exclusions based on z-scores are performed within ancestry-sex.
 
