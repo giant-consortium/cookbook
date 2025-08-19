@@ -183,6 +183,5 @@ age_whr_col="Age"
 ## Column with age at weight measurement or derived BMI, 
 #  and waist and hip measurement or pre-derived WHR for WHRadjBMI GWAS
 age_whradjbmi_col="Age"
-
 ```
 
