@@ -7,7 +7,7 @@
 
 # Pre-phasing Pipeline 
 
-## Pre-phasing pipeline Overview
+## Overview
 
 This repository provides a containerized pipeline for data preparation for phasing and imputation on either the TOPmed imputation server or UK Biobank RAP. The pipeline is distributed as a .sif file that can be run using apptainer/singularity.
 Presently (July 2025) only checks against TOPmed are implemented.
