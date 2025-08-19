@@ -97,7 +97,8 @@ Details of quality control applied to variables can be found in the following ta
 | **AGE**       | 18-110 (years)    | None |
 
 
-To account for the nature of EHR-based studies and other longitudinal studies, the pipeline allows for multiple measures of BMI and WHR to be provied. 
+#### Allowing for differences in timing when measurements taken
+To account for the nature of EHR-based studies and other longitudinal studies, the pipeline allows for multiple measures of BMI and WHR to be provided. 
 
 Specifically, two sets of variables may be provided for BMI if the variables used to derive primary BMI for GWAS and BMI used to adjust for WHR were measured at different times. 
 Similary, two sets of variables may be provided for WHR if the variables used to derive primary WHR for GWAS and WHR adjusted for BMI  were measured at different times. 
