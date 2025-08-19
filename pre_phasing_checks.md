@@ -5,7 +5,7 @@
   <a href="phenotyping.html">Go to Step 3 [Phenotyping]➡️</a>
 </div>
 
-# Pre-phasing/imputation Pipeline 
+# Pre-phasing Pipeline 
 
 ## Pre-phasing pipeline Overview
 
