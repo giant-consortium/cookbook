@@ -86,7 +86,7 @@ If you do not have measures of weight, waist and/or hip, pre-derived values for 
 Details of quality control applied to variables can be found in the following table. Exclusions based on z-scores are performed within ancestry-sex.
 
 | Variable / Phenotype | Range Inclusion | Z-score Inclusion |
-| ---       | ---               | --- |
+| :---:       | :---:              | :---: |
 | HEIGHT    | 100 - 220 (cm)    | -5 < z < 5 |
 | BMI       | 15 - 100          | -5 < z < 5 |
 | WHR       | None              | -5 < z < 5 |
