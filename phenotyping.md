@@ -24,6 +24,7 @@ bash PHENOTYPE_PIPELINE.sh --apptainer
 bash PHENOTYPE_PIPELINE.sh --singulairty
 ```
 
+
 3. **Outputs** will be saved in the directory specified by `out_dir` in parameters.txt. Two sub-directories will be created:
 
   * `regenie_input/`
