@@ -10,18 +10,41 @@ title: "Phenotype Pipeline"
 
 This repository provides a containerized pipeline for QC and deriviation of phenotype data for subsequent GWAS analysis.
 
-## Quick Start
+## Usage
 
-1. **Ensure all required containers are available**  
-   Confirm that the necessary container images (Docker, Singularity, or Apptainer) are downloaded and accessible on your system.
+1. **Edit `parameters.txt`** to set filenames and options for your data. This includes mapping column names to data labels that can be interpreted by the pipeline.
 
-2. **Edit `parameters.txt`** to set filenames and options for your data. This includes mapping column names to data labels that can be interpreted by the pipeline.
-
-3. ** Run the bash script that will run the docker
+2. ** Run the bash script that will run the docker
 
 ```bash
-bash PHENOTYPE_PIPELINE.sh
+# Run container using Apptainer
+bash PHENOTYPE_PIPELINE.sh --apptainer
+
+# Run container using Singulairty
+bash PHENOTYPE_PIPELINE.sh --singulairty
 ```
+
+## Details
+
+The script expects a file that contains all variables for phenotype derivation for height, BMI and WHR, and all associated covariates. 
+
+Where possible, please provide variables to derive phenotypes are required:
+  * HEIGHT : height (cm)
+  * BMI    : height (cm), weight (kg)
+  * WHR    : waist circumference (cm), hip circumference (cm) 
+
+Note, WHR adjusted for BMI GWAS will be derived by the pipeline.
+
+Variables used to derive BMI and WHR will first undergo QC prior to derivation of BMI and WHR that will subsequently be QC'd again.
+If you do not have measures of weight, waist and/or hip, pre-derived values for BMI and WHR can be used and these will be QC'd.
+
+To account for the nature of EHR-based studies and other longitudinal studies, the pipeline allows for multiple measures of BMI and WHR to be provied. 
+
+Specifically, two sets of variables may be provided for BMI if the variables used to derive primary BMI for GWAS and BMI used to adjust for WHR were measured at different times. 
+Similary, two sets of variables may be provided for WHR if the variables used to derive primary WHR for GWAS and WHR adjusted for BMI  were measured at different times. 
+As a result, the pipeline allows for different ages for height, BMI, WHR and WHRadjBMI to be provided.
+
+
 
 The output from this workflow will include:
 
