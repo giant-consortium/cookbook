@@ -28,7 +28,6 @@ bash PHENOTYPE_PIPELINE.sh --singulairty
 
 ### Expected input files to the script
 The script expects 3 files for input to be specified in the `parameters.txt` file.
-
 ```
 ## Filename containing phenotype and covariate data (required)
 PHENO_COV_FILE="/path/to/PhenoCovars.txt"
@@ -43,6 +42,17 @@ PCS_FILE="/path/to/FlashPCAStudyPCA.txt"
 #### Phenotype + Covariate File
 The script expects a file that contains all variables for phenotype derivation for height, BMI and WHR, and all associated covariates. 
 
+```
+ID    Age   Sex  Height  Weight  Waist  Hip    CatVar1  CatVar2  CatVar3
+P1    25    2    99      75.6    89     100    0        1        1
+P2    85    1    170     89.8    91     98     1        1        2
+P3    36    2    159     91.1    84     1020   0        2        3
+...
+```
+
+
+
+### Derivation of phenotypes
 Where possible, please provide variables to derive phenotypes are required:
 
 | Phenotype | Variables to priortise if available |
