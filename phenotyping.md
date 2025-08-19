@@ -113,7 +113,67 @@ Details of quality control applied to variables can be found in the following ta
 #### Allowing for differences in timing when measurements taken
 To account for the nature of EHR-based studies and other longitudinal studies, the pipeline allows for multiple measures of BMI and WHR to be provided. 
 
-Specifically, two sets of variables may be provided for BMI if the variables used to derive primary BMI for GWAS and BMI used to adjust for WHR were measured at different times. 
-Similary, two sets of variables may be provided for WHR if the variables used to derive primary WHR for GWAS and WHR adjusted for BMI  were measured at different times. 
-As a result, the pipeline allows for different ages for height, BMI, WHR and WHRadjBMI to be provided.
+Two sets of variables may be provided for BMI if the variables used to derive primary BMI for GWAS and BMI used to adjust for WHR were measured at different times. 
+Similary, two sets of variables may be provided for WHR if the variables used to derive primary WHR for GWAS and WHR adjusted for BMI were measured at different times.
+If the same variable is to be used, then you can specify the same column header for each
+ 
+Parameters that enable multiple measures:
+```
+### WEIGHT - EXAMPLE: DIFFERENT MEASURE TO DERIVE BMI FOR PRIMARY BMI and BMI FOR WHRadjbMI
+
+## Column name containing weight (kg) values to derive phenotype for primary BMI GWAS
+weight_for_bmi_col="weight_baseline"
+## Column name containing weight (kg) values to derive BMI for WHRadjBMI GWAS
+weight_for_whradjbmi_col="weight_followup"
+
+
+### WAIST - EXAMPLE: DIFFERENT MEASURES TO USE FOR WHR AND WHRadjBMI
+
+## Column name containing waist circumference (cm) values to derive WHR for primary WHR GWAS
+waist_for_whr_col="waist_baseline"
+## Column name containing waist circumference (cm) values to derive WHR for primary WHRadjBMI GWAS
+waist_for_whradjbmi_col="waist_followup"
+
+
+### HIP
+
+## Column name containing hip circumference (cm) values to derive WHR for primary WHR GWAS
+hip_for_whr_col="hip_cm"
+## Column name containing hip circumference (cm) values to derive WHR for primary WHRadjBMI HWAS
+hip_for_whradjbmi_col="hip_follow_up"
+
+
+### PRE-DERIVED BMI - EXAMPLE: SAME MEASURES
+
+## Column name for pre-derived BMI values
+bmi_col="BMI"
+## Column name containing pre-derived BMI values to adjust for
+bmi_for_whradjbmi_col="BMI"
+
+## Column name for pre-derived WHR values 
+whr_col="WHR"
+## Column name containing pre-derived WHR values for adjustment
+whr_for_whradjbmi_col="WHR"
+
+```
+
+As a result, the pipeline allows for different ages for height, BMI, WHR and WHRadjBMI to be provided. 
+If the same values are to be used, then you can specify the same column header for each
+
+Parameters that enable multiple ages:
+```
+
+## Column name for age associated with height
+age_height_col="Age"
+
+## Column name for age associated with weight measures [pre-]derived BMI values
+age_bmi_col="Age"
+
+## Column name for age associated with waist and hip measures or pre-derived WHR values
+age_whr_col="Age"
+
+## Column name for age associated with measures to derive WHRadjBMI
+age_whradjbmi_col="Age"
+
+```
 
