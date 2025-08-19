@@ -40,7 +40,7 @@ PCS_FILE="/path/to/FlashPCAStudyPCA.txt"
 ```
 
 #### Phenotype + Covariate File
-The script expects a file that contains all variables for phenotype derivation for height, BMI and WHR, and all associated covariates. 
+This file should be a tab-delimited file with header that contains all variables for phenotype derivation for height, BMI and WHR, and all associated covariates. 
 
 ```
 ID    Age   Sex  Height  Weight  Waist  Hip    CatVar1  CatVar2  CatVar3
@@ -49,6 +49,28 @@ P2    85    1    170     89.8    91     98     1        1        2
 P3    36    2    159     91.1    84     1020   0        2        3
 ...
 ```
+
+#### Ancestry label file
+This file should be a tab-delimited file with the header as shown with ancestry group assignment provided for each individual
+```
+IID     Ancestry
+P1      EUR
+P2      EUR
+P3      EUR
+...
+```
+
+#### Principal Components File
+This file should be a tab-delimited file with 20 PCs (FLASHPCA output format)
+```
+IID   FID   PC1          PC2          PC3            ...    PC18         PC19         PC20          
+P1    1     0.722770917  0.422132091  0.516251618    ...    0.05984563   0.74798664   0.310145635
+P2    2     0.584095559  0.154674118  0.243537544    ...    0.059630973  0.708644846  0.863891645
+P3    3     0.709639726  0.926419979  0.041459368    ...    0.613060395  0.315596588  0.719991385
+...
+```
+
+
 
 
 
