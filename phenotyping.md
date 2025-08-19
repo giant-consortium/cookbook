@@ -60,7 +60,7 @@ P2    85    1    170     89.8    91     98     1        1        2
 P3    36    2    159     91.1    84     1020   0        2        3
 ...
 ```
-##### Ancestry label file
+##### Ancestry label file - available from Individual and Genotype QC Pipeline
 This file should be a tab-delimited file with the header as shown with ancestry group assignment provided for each individual
 ```
 IID     Ancestry
@@ -69,7 +69,7 @@ P2      EUR
 P3      EUR
 ...
 ```
-##### Principal Components File
+##### Principal Components File - available from Individual and Genotype QC Pipeline
 This file should be a tab-delimited file with 20 PCs (FLASHPCA output format)
 ```
 IID   FID   PC1          PC2          PC3            ...    PC18         PC19         PC20          
