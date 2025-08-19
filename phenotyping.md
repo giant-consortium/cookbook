@@ -119,39 +119,47 @@ If the same variable is to be used, then you can specify the same column header 
  
 Parameters that enable multiple measures:
 ```
-### WEIGHT - EXAMPLE: DIFFERENT MEASURE TO DERIVE BMI FOR PRIMARY BMI and BMI FOR WHRadjbMI
+### WEIGHT - EXAMPLE: DIFFERENT MEASURE TO DERIVE BMI FOR BMI AND WHRadjBMI GWAS
 
-## Column name containing weight (kg) values to derive phenotype for primary BMI GWAS
+## Column containing weight (kg) to derive phenotype for primary BMI GWAS
 weight_for_bmi_col="weight_baseline"
-## Column name containing weight (kg) values to derive BMI for WHRadjBMI GWAS
+
+## Column containing weight (kg) values to derive BMI for WHRadjBMI GWAS
 weight_for_whradjbmi_col="weight_followup"
 
 
 ### WAIST - EXAMPLE: DIFFERENT MEASURES TO USE FOR WHR AND WHRadjBMI
 
-## Column name containing waist circumference (cm) values to derive WHR for primary WHR GWAS
+## Column containing waist circumference (cm) for WHR GWAS
 waist_for_whr_col="waist_baseline"
-## Column name containing waist circumference (cm) values to derive WHR for primary WHRadjBMI GWAS
+
+## Column containing waist circumference (cm) for WHRadjBMI GWAS
 waist_for_whradjbmi_col="waist_followup"
 
 
-### HIP
+### HIP = EXAMPLE: SAME MEASURES
 
-## Column name containing hip circumference (cm) values to derive WHR for primary WHR GWAS
+## Column containing hip circumference (cm) for WHR GWAS
 hip_for_whr_col="hip_cm"
-## Column name containing hip circumference (cm) values to derive WHR for primary WHRadjBMI HWAS
+
+## Column containing hip circumference (cm) for WHRadjBMI HWAS
 hip_for_whradjbmi_col="hip_follow_up"
 
 
 ### PRE-DERIVED BMI - EXAMPLE: SAME MEASURES
 
-## Column name for pre-derived BMI values
+## Column containing pre-derived BMI values
 bmi_col="BMI"
-## Column name containing pre-derived BMI values to adjust for
+
+## Column containing pre-derived BMI values to adjust for
 bmi_for_whradjbmi_col="BMI"
 
-## Column name for pre-derived WHR values 
+
+### PRE-DERIVED BMI - EXAMPLE: SAME MEASURES
+
+## Column containing pre-derived WHR values 
 whr_col="WHR"
+
 ## Column name containing pre-derived WHR values for adjustment
 whr_for_whradjbmi_col="WHR"
 
