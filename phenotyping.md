@@ -116,12 +116,3 @@ Specifically, two sets of variables may be provided for BMI if the variables use
 Similary, two sets of variables may be provided for WHR if the variables used to derive primary WHR for GWAS and WHR adjusted for BMI  were measured at different times. 
 As a result, the pipeline allows for different ages for height, BMI, WHR and WHRadjBMI to be provided.
 
-
-
-The output from this workflow will include:
-
-* a file for REGENIE containing values of ancestry-specific male and female inverse-normalised residuals.
-* a file for REGENIE containing continuous and categorical covariates specific to genotyping that were not incoporated into the residuals (if applicable)
-* tab delimited summaries of the phenotypes processed for GWAS
-* visualisation of raw, QCd', residualsised, and inverse-normalised values
-* sample lists for REGENIE that correspond to ancestry- and sex-stratified GWAS analysis
