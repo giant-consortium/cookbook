@@ -30,7 +30,7 @@ You should specify whether you would like to use Apptainer or Singularity to run
     bash PHENOTYPE_PIPELINE.sh --apptainer
     
     # Run container using Singulairty
-    bash PHENOTYPE_PIPELINE.sh --singulairty
+    bash PHENOTYPE_PIPELINE.sh --singularity
     ```
 
 4. **Outputs** will be saved in the directory specified by `out_dir` in parameters.txt. Two sub-directories will be created:
