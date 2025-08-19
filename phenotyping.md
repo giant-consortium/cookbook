@@ -93,7 +93,7 @@ Note, WHR adjusted for BMI GWAS will be derived by the pipeline.
 
 If you do not have measures of weight, waist and/or hip, pre-derived values for BMI and WHR can be used and these will be QC'd. 
 A mixture of non-derived and pre-derived WHR and BMI values are allowed but if both are provided for a given primary GWAS, 
-the pipeline with priortise derivation of phenotypes over pre-derived phenotypes. For example, if height is provided alongside both weight and BMI, then the primary BMI GWAS
+the pipeline with prioritise derivation of phenotypes over pre-derived phenotypes. For example, if height is provided alongside both weight and BMI, then the primary BMI GWAS
 will based on deriving BMI from height and weight - the pre-defined BMI variable will be ignored. 
 
 
@@ -115,10 +115,8 @@ Details of quality control applied to variables can be found in the following ta
 
 
 #### Allowing for differences in timing when measurements taken
-To account for the nature of EHR-based studies and other longitudinal studies, the pipeline allows for multiple measures of BMI and WHR to be provided. 
-
-Two sets of variables may be provided for BMI if the variables used to derive primary BMI for GWAS and BMI used to adjust for WHR were measured at different times. 
-Similary, two sets of variables may be provided for WHR if the variables used to derive primary WHR for GWAS and WHR adjusted for BMI were measured at different times.
+To account for the nature of EHR-based studies and other longitudinal studies,
+two sets of variables may be provided for BMI and WHR if the variables related to the BMI GWAS and WHR GWAS differ from those related to WHRadjBMI GWAS. 
 If the same variable is to be used, then you can specify the same column header for each
  
 Parameters that enable multiple measures:
@@ -173,16 +171,17 @@ If the same values are to be used, then you can specify the same column header f
 
 Parameters that enable multiple ages:
 ```
-## Column containing age associated with height
+## Column with age at height measurement for height GWAS
 age_height_col="Age"
 
-## Column containing age associated with weight measures [pre-]derived BMI values
+## Column with age at weight measurement or derived BMI for BMI GWAS
 age_bmi_col="Age"
 
-## Column containing age associated with waist and hip measures or pre-derived WHR values
+## Column with age at waist and hip measurement or pre-derived WHR for WHR GWAS
 age_whr_col="Age"
 
-## Column containing age associated with measures to derive WHRadjBMI
+## Column with age at weight measurement or derived BMI, 
+#  and waist and hip measurement or pre-derived WHR for WHRadjBMI GWAS
 age_whradjbmi_col="Age"
 
 ```
