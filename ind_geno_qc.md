@@ -5,42 +5,69 @@
   <a href="./pre_phasing_checks.html">Go to Step 2 [Pre-Phasing Checks]➡️</a>
 </div>
 
-# Sample Variant QC Pipeline (Container-Based Install)
+# Sample Variant QC Pipeline
 
 ## Overview
 
-This repository provides a containerized pipeline for sample variant quality control (QC), ancestry prediction, and per-chromosome QC reporting. The pipeline is distributed as a Docker image, which can also be converted to a Singularity or Apptainer container for use on HPC systems.
+This repository provides a containerized pipeline for sample variant quality control (QC), ancestry prediction, and per-chromosome QC reporting. The containers are downloaded as a part of the pipeline. The end user modifies execution parameters in parameters.txt, and specifies the application used to run the container as an argument while running the bash script (SAMPLE_VARIANT_QC_RUNNER.sh)
 
-[Detailed Walkthrough of QC Pipeline](./detailed_steps/ind_geno_qc_steps.html)
+## Requirements
+
+- Docker, Singularity or Apptainer
+- Bash shell
 
 ## Quick Start
 
-1. **Ensure all required containers are available**  
-   Confirm that the necessary container images (Docker, Singularity, or Apptainer) are downloaded and accessible on your system.
+1. **Clone the GitHub repository:**
 
-2. **Edit `parameters.txt`** to set paths and options for your data.
+   ```
+   git clone https://github.com/giant-consortium/sample_variant_qc.git
+   chmod +x SAMPLE_VARIANT_QC.sh
+   ```
+2. **Edit `parameters.txt`** to set paths and options for your data. The path_to_data and study_name are altered in every execution. Always set study_name to match the base name of your PLINK files (no file extensions).
+   
+   ```bash
+   E.g. If your files are named STUDY4_SAS.bed, STUDY4_SAS.bim, STUDY4_SAS.fam
+   study_name=STUDY4_SAS
+   ```
+   
+   If these are stored in a compressed form (.tar.gz) or in alternate formats (.ped/.map, .bgen) the conversion to PLINK is done automatically
+   
+   ```bash
+   E.g. If your files are named STUDY3_EUR.tar.gz (with .bed/.bim/.fam inside the .tar.gz)
+   study_name=STUDY3_EUR
+   ```
 
 3. **Run the pipeline:**
 
    ```bash
    # With Docker
-   ./RUNNER.sh --docker
+   ./SAMPLE_VARIANT_QC_RUNNER.sh.sh --docker
 
    # With Singularity
-   ./RUNNER.sh --singularity
+   ./SAMPLE_VARIANT_QC_RUNNER.sh.sh --singularity
 
    # With Apptainer
-   ./RUNNER.sh --apptainer
+   ./SAMPLE_VARIANT_QC_RUNNER.sh.sh --apptainer
 
    # To force data download:
-   ./RUNNER.sh --docker --force_data_download
+   ./SAMPLE_VARIANT_QC_RUNNER.sh --docker --force_data_download
    ```
 
-4. **Outputs** will be saved in the directory specified by `path_to_output` in `parameters.txt`.
+4. **Outputs** will be saved in a sub-folder named `study_name` at the path specified by `path_to_output` in `parameters.txt`. This sub-folder contains the following:
+- Pre-Basic-QC Statistics and report (sub-folder: PreQCStats)
+- Pre-Basic-QC PerChromosome Statistics (sub-folder: PreQCStats_PerChromosome)
+- Post-Basic QC PerChromosome Statistics (sub-folder: PostQCStats_PerChromosome)
+- Kinship Analysis and report(sub-folder: Kinship)
+- PCA Analysis Results and report (sub-folder: PCA)
+- Ancestry Label Assignment and report (sub-folder: Ancestry)
+- Ancestry-stratified PCA analysis (sub-folder: AncestrySpecificPCA)
+- Logs of the executions (sub-folder: Logs)
+- PDF reports from all substeps (includes a collated version, sub-folder: Reports)
 
 ## Troubleshooting
 
-- Check the log files in the `output/study_name/Logs` directory for errors.
+- Check the log files in the `./output/study_name/Logs` directory for errors.
 - Ensure all required paths in `parameters.txt` are correct and accessible.
-- Check stepwise outputs in the `output/study_name/` directory for errors.
+- Stepwise outputs are in the `./output/study_name/` directory.
 - For container issues, verify your container runtime is installed and running.
