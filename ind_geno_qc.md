@@ -50,15 +50,15 @@ This repository provides a containerized pipeline for sample variant quality con
    ```
 
 4. **Outputs** will be saved in a sub-folder named `study_name` at the path specified by `path_to_output` in `parameters.txt`. This sub-folder contains the following:
-- Pre-Basic-QC Statistics and report (sub-folder: PreQCStats)
-- Pre-Basic-QC PerChromosome Statistics (sub-folder: PreQCStats_PerChromosome)
-- Post-Basic QC PerChromosome Statistics (sub-folder: PostQCStats_PerChromosome)
-- Kinship Analysis and report(sub-folder: Kinship)
-- PCA Analysis Results and report (sub-folder: PCA)
-- Ancestry Label Assignment and report (sub-folder: Ancestry)
-- Ancestry-stratified PCA analysis (sub-folder: AncestrySpecificPCA)
-- Logs of the executions (sub-folder: Logs)
-- PDF reports from all substeps (includes a collated version, sub-folder: Reports)
+- PreQCStats: Pre-QC Statistics and report
+- PreQCStats_PerChromosome
+- PostQCStats_PerChromosome
+- Kinship: Includes analysis results and report
+- PCA: Includes analysis results and report
+- Ancestry : Includes ancestry assignment results and report
+- AncestrySpecificPCA: Ancestry-stratified PCA analysis
+- Logs
+- Reports: PDF reports from all substeps, includes a collated version
 
 ## Troubleshooting
 
