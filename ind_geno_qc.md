@@ -31,12 +31,7 @@ This repository provides a containerized pipeline for sample variant quality con
    study_name=STUDY4_SAS
    ```
    
-   If these are stored in a compressed form (.tar.gz) or in alternate formats (.ped/.map, .bgen) the conversion to PLINK is done automatically
-   
-   ```bash
-   E.g. If your files are named STUDY3_EUR.tar.gz (with .bed/.bim/.fam inside the .tar.gz)
-   study_name=STUDY3_EUR
-   ```
+   NOTE: If these are stored in a compressed form (.tar.gz) or in alternate formats (.ped/.map, .bgen) the conversion to PLINK is done automatically. Do not include the file extension in the study_name parameter.
 
 3. **Run the pipeline:**
 
