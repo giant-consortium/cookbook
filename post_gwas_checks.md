@@ -38,20 +38,22 @@ Additionall, with effects_vs_loadings.R, the program also checks whether associa
 
 Start by accessing your working directory in your HPC session and cloning the repository:
 
+This pipeline is still underdevelopment, we propose you download our temporal working branch: 
+```bash
+git clone --branch tmp_wd --single-branch https://github.com/giant-consortium/post_assoc_checks.git
+```
+
+Or download the main branch with:
+
 ```bash
 git clone https://github.com/giant-consortium/post_assoc_checks.git
 cd post_assoc_checks
 ```
-
 Alternatively, download it as a zip and transfer it:
-
 ```
 unzip  post_assoc_checks-main.zip
 cd post_assoc_checks-main
 ```
-
-# Clone the development branch (currently in use)
-git clone --branch tmp_wd --single-branch https://github.com/giant-consortium/post_assoc_checks.git
 
 # If you want to install the full repository use
 git clone https://github.com/giant-consortium/post_assoc_checks.git
