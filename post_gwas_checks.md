@@ -38,7 +38,7 @@ Additionall, with effects_vs_loadings.R, the program also checks whether associa
 
 Start by accessing your working directory in your HPC session and cloning the repository:
 
-This pipeline is still underdevelopment, we propose you download our temporal working branch: 
+This pipeline is still under development, we propose you download our temporal working branch: 
 ```bash
 git clone --branch tmp_wd --single-branch https://github.com/giant-consortium/post_assoc_checks.git
 ```
@@ -55,117 +55,72 @@ unzip  post_assoc_checks-main.zip
 cd post_assoc_checks-main
 ```
 
-# If you want to install the full repository use
-git clone https://github.com/giant-consortium/post_assoc_checks.git
+### STEP 2: Setting-up working directory:
+
+To run the pipeline you will only require to:
+
+1) Move GWAS to a folder nested in your working directory
+2) Update the parameters file
+3) Download the container data (singularity or apptainer images).
+
+#### 2.1 move data to a test data folder:
+
+Singularity seems to not be able to access the data unless it is in nested in the working directory.
+To avoid issues, make a new folder "test_data" in your working directory 
+
 ```
-After cloning, you will see the following structure:
-
-- `POST_ASSOC_PIPELINE.sh` - Main script to run the pipeline. Once parameters are configured and the Singularity image is downloaded, you're good to go!
-- `post_assoc_checks-main` - Working directory where analyses are performed and results are saved.
-- `Dockerfile` - Used to build the Docker and Singularity images.
-- `parameters` - Configuration file where you define paths and input files.
-
-### Step 2: Download the Singularity Image
-
-If your HPC environment supports gsutil, you can download the Singularity image from the Google Cloud bucket:
-
-```bash
-# Enter the repository
-cd your_wd/post_assoc_checks
-
-# Log in to Google Cloud
-gsutil auth login
-
-# Download the Singularity image
-gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper_imputation/singularity_containers/post_assoc_qc_latest.sif?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&inv=1&invt=Ab1weA post_assoc_qc_latest.sif
-```
-> **🔁Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
-> [**GIANT Singularity Containers page**](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/singularity_containers).  
-> Look for the file: **`post_assoc_qc_latest.sif`**, and save it.
-
-```bash
-# Enter the repository
-cd your_wd/post_assoc_checks
-
-# Download the file (replace <URL> with the actual download link)
-wget <URL>
+cp path_to_your_gwas test_data/.
 ```
 
-### Step 3: Download TopMed Imputed Allele Frequencies (Build 38)
+#### 2.2 UPDATE parameters file:
 
-One of the reference datasets used for allele frequency QC is hosted in a tarball on the Google Cloud bucket. This data must be placed in the ref_data folder with the proper structure.
+The parameter file contains variables that reference input and output data.
+We recommend having a specific folder per GWAS QC-ed. 
+Here is my example:
 
-```bash
-# Go to the ref_data directory
-cd your_wd/post_assoc_checks/post_assoc_checks-main/ref_data/
-
-# Download the reference data tarball
-gsutil cp https://console.cloud.google.com/storage/browser/_details/giant_deeper_imputation/parsed_topmed_imputed_allele_freq_4_easyx.tar.gz?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&inv=1&invt=Ab1weA parsed_topmed_imputed_allele_freq_4_easyx.tar.gz
-
-# Extract it directly into the current folder (no subfolder)
-tar -xvf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz --strip-components=1
+```
+WD="/maps/projects/kilpelainen-AUDIT/data/team_projects/giant_pc_loadings_tests/post_assoc_checks-tmp_wd"
+INPUT_GWAS_TOTAL_PATH="/maps/projects/kilpelainen-AUDIT/data/team_projects/giant_pc_loadings_tests/post_assoc_checks-tmp_wd/test_data/STUDYA_HEIGHT.regenie.gz"
+OUTPUT_DIR="/maps/projects/kilpelainen-AUDIT/data/team_projects/giant_pc_loadings_tests/post_assoc_checks-tmp_wd/test_results/height/"
+OUTPUT_NAME="height"
+REF_PATH="/maps/projects/kilpelainen-AUDIT/data/team_projects/giant_pc_loadings_tests/post_assoc_checks-tmp_wd/ref_data/"
 ```
 
-> **🔁Note:** If your HPC does not support `gsutil`, you can manually download the file from the  
-> [**GIANT Deeper Imputation page**](https://console.cloud.google.com/storage/browser/giant_deeper_imputation/).  
-> Look for the file: **`parsed_topmed_imputed_allele_freq_4_easyx.tar.gz`**, and save it.
+Importantly, the output folder should exist! The code does not generate them for you:
 
-```bash
-# Go to the ref_data directory
-cd your_wd/post_assoc_checks/post_assoc_checks-main/ref_data/
-
-# Download the file (replace <URL> with the actual download link)
-wget <URL>
-
-# Extract it directly into the current folder (no subfolder)
-tar -xvf parsed_topmed_imputed_allele_freq_4_easyx.tar.gz
 ```
-❗ I think we do not want to include --strip-components=1
-
-### Step 4: Run the Pipeline
-Once all required data has been downloaded and stored in the appropriate folders, you're ready to run the post-association checks pipeline.
-
-Before running the pipeline, you must edit the parameters file located in:
-
-```bash
-your_wd/post_assoc_checks/
+#In my working directory I created the output:
+mkdir test_results/height
 ```
 
-Only three fields are required:
-1. Full path to the REGENIE GWAS output
-2. Full path to the desired output directory
-3. A short name for the output files
+#### 2.3 Obtain container:
 
-Example parameter file:
+You can do so in several ways.
 
-```bash
-INPUT_GWAS_TOTAL_PATH=""
-OUTPUT_DIR=""
-OUTPUT_NAME=""
+If you have singularity and sudo permissions:
+
+```
+sudo singularity pull post_assoc_qc_latest.sif docker://mariogu5/post_assoc_qc:latest
 ```
 
-### Step 5: Set the Working Directory
-The working directory must currently be set manually inside the POST_ASSO_PIPELINE.sh script. (In a future version, this will likely become a command-line parameter.)
+If you do not...
 
-Open the script and modify the first line:
-```bash
-your_wd=""
 ```
-⚠️ Important: This should point to the working directory inside the container.
+wget https://storage.googleapis.com/giant_deeper_imputation/singularity_containers/post_assoc_qc_latest.sif 
+```
 
-### Step 6: Run the Pipeline
-Make sure Singularity is available in your HPC environment:
+### STEP 3: run the pipeline!!
 
-```bash
+Note that the minimum requirement to run the pipeline is having apptainer or singluarity available in your HPC environment. 
+My HPC works with modules so, for the bash script to work, I require to do the following:
+
+```
 module load singularity/3.8.7
 ```
 
-Then navigate to your working directory and run the pipeline:
+Keep in mind what you should do to have singularity or apptainer accessible in your environment! Once that is done:
 
-```bash
-# Move to your working directory
-cd /your_wd/post_assoc_checks/
-
-# Run the pipeline
+```
 bash POST_ASSO_PIPELINE.sh
 ```
+
