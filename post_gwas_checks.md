@@ -17,17 +17,18 @@ Before running the pipeline, ensure the following:
 
 1. **GWAS output** is from **REGENIE** (uncompressed).
 2. **Genomic positions** are in **build 38 (hg38)**.
-3. **Singularity** can be run in your HPC environment.
+3. **Apptainer** or **Singularity** can be run in your HPC environment.
 
 ## Program Overview
 
-Below is a summary of the programs and their functions:
+Below is a summary of the programs that use EasyX and their functions:
 
 - `1_clean_gwas.R` – Prepares REGENIE GWAS output for **EasyX**.  
 - `2_allele_frequency_check.R` – Compares allele frequencies across six different genetic ancestries (**AFR**, **AMR**, **MID**, **EUR**, **EAS**, and **SAS**).  
 - `3_update_cfg_and_run_easyx.R` – Updates the EasyX configuration file with your input data and threshold parameters, and then runs EasyX.  
-- `4_assoc_p_vs_af_diffs.R` – Investigates whether associations are driven by a specific subpopulation (e.g., Finnish among Europeans).  
-- `5_report_wrapper.Rmd` – Reads outputs from the previous programs and summarizes the findings in a report.
+- `4_report_wrapper.Rmd` – Reads outputs from the previous programs and summarizes the findings in a report.
+
+Additionall, with effects_vs_loadings.R, the program also checks whether associations are driven by a specific subpopulation (e.g., Finnish among Europeans).  
 
 ---
 
@@ -38,9 +39,16 @@ Below is a summary of the programs and their functions:
 Start by accessing your working directory in your HPC session and cloning the repository:
 
 ```bash
-# Set your working directory
-wd=your_wd
-cd $wd
+git clone https://github.com/giant-consortium/post_assoc_checks.git
+cd post_assoc_checks
+```
+
+Alternatively, download it as a zip and transfer it:
+
+```
+unzip  post_assoc_checks-main.zip
+cd post_assoc_checks-main
+```
 
 # Clone the development branch (currently in use)
 git clone --branch tmp_wd --single-branch https://github.com/giant-consortium/post_assoc_checks.git
