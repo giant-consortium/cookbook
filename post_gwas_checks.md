@@ -9,7 +9,8 @@
 
 ## Introduction
 
-This suite of programs is designed to automatically perform quality control (QC) of GWAS results. Most of the analyses are based on QC steps performed by **EasyX**, an R package that combines functions from **EasyStrata** and **EasyQC**.
+This suite of programs is designed to automatically perform **quality control (QC)** of GWAS results.  
+Most of the analyses rely on **EasyX**, an R package that combines functions from **EasyStrata** and **EasyQC**.
 
 ## Assumptions
 
@@ -24,11 +25,11 @@ Before running the pipeline, ensure the following:
 Below is a summary of the programs that use EasyX and their functions:
 
 - `1_clean_gwas.R` – Prepares REGENIE GWAS output for **EasyX**.  
-- `2_allele_frequency_check.R` – Compares allele frequencies across six different genetic ancestries (**AFR**, **AMR**, **MID**, **EUR**, **EAS**, and **SAS**).  
-- `3_update_cfg_and_run_easyx.R` – Updates the EasyX configuration file with your input data and threshold parameters, and then runs EasyX.  
-- `4_report_wrapper.Rmd` – Reads outputs from the previous programs and summarizes the findings in a report.
+- `2_allele_frequency_check.R` – Compares allele frequencies across six genetic ancestries (**AFR**, **AMR**, **MID**, **EUR**, **EAS**, **SAS**).  
+- `3_update_cfg_and_run_easyx.R` – Updates the EasyX configuration file with your input data and thresholds, then runs EasyX.  
+- `4_report_wrapper.Rmd` – Reads outputs from the previous programs and generates a summary report.  
 
-Additionall, with effects_vs_loadings.R, the program also checks whether associations are driven by a specific subpopulation (e.g., Finnish among Europeans).  
+Additionally, `effects_vs_loadings.R`, checks whether associations are driven by a specific subpopulation (e.g., Finnish among Europeans).  
 
 ---
 
@@ -36,89 +37,85 @@ Additionall, with effects_vs_loadings.R, the program also checks whether associa
 
 ### Step 1: Clone the GitHub Repository
 
-Start by accessing your working directory in your HPC session and cloning the repository:
+Navigate to your working directory in your HPC session and clone the repository.  
 
-This pipeline is still under development, we propose you download our temporal working branch: 
+**Development branch (recommended for testing):**
+
 ```bash
 git clone --branch tmp_wd --single-branch https://github.com/giant-consortium/post_assoc_checks.git
 ```
 
-Or download the main branch with:
+**Main branch:**
 
 ```bash
 git clone https://github.com/giant-consortium/post_assoc_checks.git
 cd post_assoc_checks
 ```
-Alternatively, download it as a zip and transfer it:
+
+**Or download as a ZIP and unzip:**
 ```
-unzip  post_assoc_checks-main.zip
+unzip post_assoc_checks-main.zip
 cd post_assoc_checks-main
 ```
 
-### STEP 2: Setting-up working directory:
+### STEP 2: Set Up Working Directory
 
 To run the pipeline you will only require to:
 
-1) Move GWAS to a folder nested in your working directory
-2) Update the parameters file
-3) Download the container data (singularity or apptainer images).
+1. Move GWAS data to a folder nested in your working directory.
+2. Update the parameters file.
+3. Download the container image (Singularity or Apptainer).
 
-#### 2.1 move data to a test data folder:
+#### 2.1 Move GWAS Data
 
-Singularity seems to not be able to access the data unless it is in nested in the working directory.
-To avoid issues, make a new folder "test_data" in your working directory 
+Singularity requires that data is nested within your working directory.
+Create a test_data folder and copy your GWAS file:
 
 ```
-cp path_to_your_gwas test_data/.
+mkdir -p test_data
+cp /path/to/your/gwas test_data/
 ```
 
-#### 2.2 UPDATE parameters file:
+#### 2.2 Update Parameters File
 
-The parameter file contains variables that reference input and output data.
-We recommend having a specific folder per GWAS QC-ed. 
-Here is my example:
+The parameter file contains variables referencing input/output paths.
+We recommend a separate folder per GWAS QC. Example:
 
 ```
 WD="/maps/projects/kilpelainen-AUDIT/data/team_projects/giant_pc_loadings_tests/post_assoc_checks-tmp_wd"
-INPUT_GWAS_TOTAL_PATH="/maps/projects/kilpelainen-AUDIT/data/team_projects/giant_pc_loadings_tests/post_assoc_checks-tmp_wd/test_data/STUDYA_HEIGHT.regenie.gz"
-OUTPUT_DIR="/maps/projects/kilpelainen-AUDIT/data/team_projects/giant_pc_loadings_tests/post_assoc_checks-tmp_wd/test_results/height/"
+INPUT_GWAS_TOTAL_PATH="$WD/test_data/STUDYA_HEIGHT.regenie.gz"
+OUTPUT_DIR="$WD/test_results/height/"
 OUTPUT_NAME="height"
-REF_PATH="/maps/projects/kilpelainen-AUDIT/data/team_projects/giant_pc_loadings_tests/post_assoc_checks-tmp_wd/ref_data/"
+REF_PATH="$WD/ref_data/"
 ```
 
-Importantly, the output folder should exist! The code does not generate them for you:
+**Important**: The output folder must exist beforehand:
 
 ```
-#In my working directory I created the output:
-mkdir test_results/height
+mkdir -p test_results/height
 ```
 
-#### 2.3 Obtain container:
+#### 2.3 Obtain Container
 
-You can do so in several ways.
-
-If you have singularity and sudo permissions:
-
+If you have Singularity and sudo permissions:
 ```
 sudo singularity pull post_assoc_qc_latest.sif docker://mariogu5/post_assoc_qc:latest
 ```
 
-If you do not...
-
+Otherwise, download directly:
 ```
-wget https://storage.googleapis.com/giant_deeper_imputation/singularity_containers/post_assoc_qc_latest.sif 
+wget https://storage.googleapis.com/giant_deeper_imputation/singularity_containers/post_assoc_qc_latest.sif
 ```
 
-### STEP 3: run the pipeline!!
+### Step 3: Run the Pipeline
 
-Note that the minimum requirement to run the pipeline is having apptainer or singluarity available in your HPC environment. 
-My HPC works with modules so, for the bash script to work, I require to do the following:
+Ensure Singularity or Apptainer is accessible. For example, if using HPC modules:
 
 ```
 module load singularity/3.8.7
 ```
 
-Keep in mind what you should do to have singularity or apptainer accessible in your environment! Once that is done:
+Then execute the pipeline:
 
 ```
 bash POST_ASSO_PIPELINE.sh
