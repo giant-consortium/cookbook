@@ -110,7 +110,7 @@ will based on deriving BMI from height and weight - the pre-defined BMI variable
 Variables used to derive BMI and WHR will first undergo QC prior to derivation of BMI and WHR that will subsequently be QC'd again.
 
 Details of quality control applied to variables can be found in the following table. 
-Z-scores are calculated within ancestry-sex specific strata, or within ancestry-sex-case/control strata for BMI and WHR if a case/control labels are  provided. 
+Z-scores are calculated within ancestry-sex specific strata, or within ancestry-sex-case/control strata for BMI and WHR if case/control labels are provided. 
 
 | Variable / Phenotype | Range Inclusion | Z-score Inclusion |
 | :---:       | :---:              | :---: |
