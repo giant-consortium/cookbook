@@ -46,9 +46,9 @@ chmod 777 step4_assoc.sif
 Modify the `parameters_gwas.txt` file with your input file names and parameters to be used to run the GWAS, see main inputs needed below.
 
 #### In/Out paths 
-- path_to_data : your local path where to find the input qced array files (bed, bim, fam)   
-- path_to_imputed_data : your local path where to find the imputed data files (vcf)   
-- path_to_output_dir : your local path for output files (will be created if it does not exist yet)  
+- `path_to_data` : your local path where to find the input qced array files (bed, bim, fam)   
+- `path_to_imputed_data` : your local path where to find the imputed data files (vcf)   
+- `path_to_output_dir` : your local path for output files (will be created if it does not exist yet)  
 
 #### REGENIE step 1/2 parameters
 - `study_QC_name` : Always set study_name to match the base name of your PLINK files (no file extensions). The pipeline accepts files in .bed/.bim/.fam.  
@@ -59,6 +59,8 @@ Modify the `parameters_gwas.txt` file with your input file names and parameters 
 - `cont_covar_col` : columns referring to **continuous** covariates from the covariate file, to be used for the gwas (`cont_covar_col`) : column names without quotes, separated by commas (no spaces)
 - `cat_covar_col` : columns referring to **categorical** covariates from the covariate file, to be used for the gwas (`cat_covar_col`) : column names without quotes, separated by commas (no spaces)
 - `path_to_samples_to_keep` : path to the keep file. The keep file is a tab-delimited file with 2 columns containing the participants FID and IID that you want to use in your gwas, but no colnames
+- `regenie_step1_flags` : string to add to REGENIE Step 1 command, by deafult it is `"--qt --bsize 1000"` where `--qt` stands for continuous/quantitative traits and changing it to `--bt` would be done for categorical/binary traits. For more info on which flags to use, please refer to [REGENIE documentation](https://rgcgithub.github.io/regenie/options/#basic-options).
+- `regenie_step2_flags` : string to add to REGENIE Step 1 command, by deafult it is `"--qt --bsize 400 --maxCatLevels 25 --minMAC 1"` (continuous/quantitative traits). A common option for binary trait analysis can be `"--bt --firth --approx --pThresh 0.01 --firth-se --af-cc"`. For more info on which flags to use, please refer to [REGENIE documentation](https://rgcgithub.github.io/regenie/options/#basic-options).
 
 ### Launch pipeline 
 
@@ -70,3 +72,4 @@ Run with apptainer
 ```bash
 ./assoc_pipeline_runner.sh apptainer
 ```
+
