@@ -53,8 +53,7 @@ You should specify whether you would like to use Apptainer or Singularity to run
 ## Details
 
 ## Overview of phenotype preparation for GWAS
-![Overview of phenotype data processing.](Overview_Phenotype_Pipeline.png)
-
+<img src="Overview_Phenotype_Pipeline.png"/>
 
 ### 1. Files required
 The script expects 3 files for input to be specified in the `parameters.txt` file.
