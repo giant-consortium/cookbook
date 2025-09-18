@@ -134,7 +134,7 @@ Details of quality control applied to variables can be found in the following ta
 Z-scores are calculated within ancestry-sex specific strata, or within ancestry-sex-case/control strata for BMI and WHR if case/control labels are provided. 
 
 | Variable / Phenotype | Range Inclusion | Z-score Inclusion |
-| :---:       | :---:               | :---: |
+| :---: | :---: | :---: |
 | **HEIGHT**    | 100 - 220 (cm)    | -5 < z < 5 |
 | **BMI**       | 15 - 100          | -5 < z(log BMI) < 5 |
 | **WHR**       | NA                | -5 < z < 5 |
