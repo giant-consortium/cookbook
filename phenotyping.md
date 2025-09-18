@@ -113,15 +113,13 @@ P3    3     0.709639726  0.926419979  0.041459368    ...    0.613060395  0.31559
 
 
 ### 2. Derivation of phenotypes
-Where possible, please provide variables to derive phenotypes are required:
+Where possible, please provide variables to derive BMI and WHR:
 
 | Phenotype | Variables to priortise if available |
 | :---: | :---: |
 | **HEIGHT** | height (cm) |
 | **BMI** | height (cm), weight (kg) |
 | **WHR** | waist circumference (cm), hip circumference (cm) |
-
-Note, WHR adjusted for BMI GWAS will be derived by the pipeline.
 
 If you do not have measures of weight, waist and/or hip, pre-derived values for BMI and WHR can be used and these will be QC'd. 
 A mixture of non-derived and pre-derived WHR and BMI values are allowed but if both are provided for a given primary GWAS, 
@@ -145,74 +143,59 @@ Z-scores are calculated within ancestry-sex specific strata, or within ancestry-
 | **HIP**       | NA                | NA |
 | **AGE**       | 18-110 (years)    | NA |
 
-#### Allowing for differences in timing when measurements taken
+
+## Parameters specific to phenotypes for GWAS
 To account for the nature of EHR-based studies and other longitudinal studies,
 two sets of variables may be provided for BMI and WHR if the variables related to the BMI GWAS and WHR GWAS differ from those related to WHRadjBMI GWAS. 
 If the same variable is to be used, then you can specify the same column header for each
  
-Parameters that enable multiple measures:
-```
-### WEIGHT - EXAMPLE: DIFFERENT MEASURES TO DERIVE BMI FOR BMI AND WHRadjBMI GWAS
 
-## Column containing weight (kg) to derive phenotype for primary BMI GWAS
-weight_for_bmi_col="weight_baseline"
+### Parameters related to Height GWAS
 
-## Column containing weight (kg) values to derive BMI for WHRadjBMI GWAS
-weight_for_whradjbmi_col="weight_followup"
+| Parameter | Description | Optional |
+| --- | --- | --- |
+| `height_col` | Column containing height values (cm) | Yes |
+| `age_height_col` | Column containing age at height values (years) | Yes |
+
+### Parameters related to BMI GWAS
+
+We would prefer for BMI to be derived from weight and height but a parameter is provided to specify pre-derived BMI if this is not possible.
+| Parameter | Description | Optional |
+| --- | --- | --- |
+| `weight_for_bmi_col` | Column containing weight values (kg) (used if height QC'd) | Yes |
+| `bmi_col`    | Column containing BMI values (ignored if deriving BMI) | Yes |
+| `age_bmi_col` | Column containing age related to BMI (years) | Yes |
+
+### Parameters related to WHR GWAS
+
+We would prefer for WHR to be derived from waist and hip but a parameter is provided to specify pre-derived WHR if this is not possible.
+| Parameter | Description | Optional |
+| --- | --- | --- |
+| `waist_for_whr_col` | Column containing waist values (cm) | Yes |
+| `hip_for_whr_col`   | Column containing hip values (cm) | Yes |
+| `whr_col`    | Column containing WHR values (ignored if deriving WHR) | Yes |
+| `age_whr_col` | Column containing age related to WHR (years) | Yes |
+
+### Parameters related to WHRadjBMI GWAS
+
+We would prefer for WHR and BMI to be derived from weight, height, waist and hip, but parameters are provided to specify pre-derived WHR and/or BMI if this is not possible.
+| Parameter | Description | Optional |
+| --- | --- | --- |
+| `waist_for_whradjbmi_col` | Column containing waist values (cm) | Yes |
+| `hip_for_whradjbmi_col`   | Column containing hip values (cm) | Yes |
+| `whr_col`    | Column containing WHR values (ignored if deriving WHR) | Yes |
+| `weight_for_whradjbmi_col` | Column containing weight values (kg) (used if height QC'd) | Yes |
+| `bmi_for_whradjbmi_col`    | Column containing BMI values (ignored if deriving BMI) | Yes |
+| `age_whradjbmi__col` | Column containing age related to WHR adjusted for BMI (years) | Yes |
 
 
-### WAIST - EXAMPLE: DIFFERENT MEASURES TO USE FOR WHR AND WHRadjBMI
+## Outputs
+All outputs will be directed to the parent output directory specififed by the `out_dir` parameter. A table of outputs within generated sub-directories is listed below:
 
-## Column containing waist circumference (cm) for WHR GWAS
-waist_for_whr_col="waist_baseline"
-
-## Column containing waist circumference (cm) for WHRadjBMI GWAS
-waist_for_whradjbmi_col="waist_followup"
-
-
-### HIP = EXAMPLE: SAME MEASURES
-
-## Column containing hip circumference (cm) for WHR GWAS
-hip_for_whr_col="hip_baseline"
-
-## Column containing hip circumference (cm) for WHRadjBMI HWAS
-hip_for_whradjbmi_col="hip_followup"
-
-
-### PRE-DERIVED BMI - EXAMPLE: SAME MEASURES
-
-## Column containing pre-derived BMI values
-bmi_col="BMI"
-
-## Column containing pre-derived BMI values to adjust for
-bmi_for_whradjbmi_col="BMI"
-
-
-### PRE-DERIVED BMI - EXAMPLE: SAME MEASURES
-
-## Column containing pre-derived WHR values 
-whr_col="WHR"
-
-## Column name containing pre-derived WHR values for adjustment
-whr_for_whradjbmi_col="WHR"
-```
-
-As a result, the pipeline allows for different ages for height, BMI, WHR and WHRadjBMI to be provided. 
-If the same values are to be used, then you can specify the same column header for each
-
-Parameters that enable multiple ages:
-```
-## Column with age at height measurement for height GWAS
-age_height_col="Age"
-
-## Column with age at weight measurement or derived BMI for BMI GWAS
-age_bmi_col="Age"
-
-## Column with age at waist and hip measurement or pre-derived WHR for WHR GWAS
-age_whr_col="Age"
-
-## Column with age at weight measurement or derived BMI, 
-#  and waist and hip measurement or pre-derived WHR for WHRadjBMI GWAS
-age_whradjbmi_col="Age"
-```
+| Subdirectory | Files | Descroption |
+| --- | --- | --- |
+| `regenie_input/` | `*.pheno`  | Tab-delimited file containing phenotypes to GWAS |
+| `regenie_input/` | `*.sample` | Sample lists for REGENIE to use inconjuction with the `*.pheno` file |
+| `summaries/` | `*.png` | Histograms and box-plots of phenotype disributions pre- and post-QC within strata |
+| `summaries/` | `*.txt` | Summaries of phenotypes and ages pre and post-QC within strata. |
 
