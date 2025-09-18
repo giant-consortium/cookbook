@@ -11,7 +11,7 @@ title: "Phenotype Pipeline"
 ## Overview
 
 This repository provides a containerized pipeline for QC and deriviation of phenotype data for subsequent GWAS analysis.
-The pipeline is distributed as a .sif file that can be run using apptainer/singularity. 
+The dependencies for the pipeline are distributed as a .sif file that can be run using apptainer/singularity. 
 
 ## Usage
 
@@ -20,7 +20,7 @@ The pipeline is distributed as a .sif file that can be run using apptainer/singu
    git clone git@github.com:giant-consortium/phenotype_processing.git
    ```
 
-2. **Navigate to `phenotype_processing/` directory
+2. **Navigate to `phenotype_processing/` directory**
    ```
    cd phenotype_processing/
    ```
@@ -51,6 +51,10 @@ You should specify whether you would like to use Apptainer or Singularity to run
 
 
 ## Details
+
+## Overview of phenotype preparation for GWAS
+![Overview of phenotype data processing.](Overview_Phenotype_Pipeline.png)
+
 
 ### 1. Files required
 The script expects 3 files for input to be specified in the `parameters.txt` file.
