@@ -20,9 +20,14 @@ The pipeline is distributed as a .sif file that can be run using apptainer/singu
    git clone git@github.com:giant-consortium/phenotype_processing.git
    ```
 
-2. **Edit `parameters.txt` to set filenames and options for your data.** This includes mapping column names to data labels that can be interpreted by the pipeline.
+2. **Navigate to `phenotype_processing/` directory
+   ```
+   cd phenotype_processing/
+   ```
 
-3. **Run the pipeline**. This will download the container if it does not already exist in the working directory. 
+3. **Edit `parameters.txt` to set filenames and options for your data.** This includes mapping column names to data labels that can be interpreted by the pipeline.
+
+4. **Run the pipeline**. This will download the container if it does not already exist in the working directory. 
 You should specify whether you would like to use Apptainer or Singularity to run the container.
 
     ```
@@ -33,7 +38,7 @@ You should specify whether you would like to use Apptainer or Singularity to run
     bash PHENOTYPE_PIPELINE.sh --singularity
     ```
 
-4. **Outputs** will be saved in the directory specified by `out_dir` in parameters.txt. Two sub-directories will be created:
+5. **Outputs** will be saved in the directory specified by `out_dir` in parameters.txt. Two sub-directories will be created:
 
   * `regenie_input/`
     * primary phenotype file
