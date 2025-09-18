@@ -112,7 +112,7 @@ P3    3     0.709639726  0.926419979  0.041459368    ...    0.613060395  0.31559
 
 
 
-### 2. Derivation of phenotypes
+### 3. Derivation of phenotypes
 Where possible, please provide variables to derive BMI and WHR:
 
 | Phenotype | Variables to priortise if available |
@@ -144,22 +144,23 @@ Z-scores are calculated within ancestry-sex specific strata, or within ancestry-
 | **AGE**       | 18-110 (years)    | NA |
 
 
-## Parameters specific to phenotypes for GWAS
+### 4. Parameters specific to phenotypes for GWAS
 To account for the nature of EHR-based studies and other longitudinal studies,
 two sets of variables may be provided for BMI and WHR if the variables related to the BMI GWAS and WHR GWAS differ from those related to WHRadjBMI GWAS. 
 If the same variable is to be used, then you can specify the same column header for each
  
 
-### Parameters related to Height GWAS
+#### Parameters related to Height GWAS
 
 | Parameter | Description | Optional |
 | --- | --- | --- |
 | `height_col` | Column containing height values (cm) | Yes |
 | `age_height_col` | Column containing age at height values (years) | Yes |
 
-### Parameters related to BMI GWAS
+#### Parameters related to BMI GWAS
 
 We would prefer for BMI to be derived from weight and height but a parameter is provided to specify pre-derived BMI if this is not possible.
+
 | Parameter | Description | Optional |
 | --- | --- | --- |
 | `weight_for_bmi_col` | Column containing weight values (kg) (used if height QC'd) | Yes |
@@ -169,6 +170,7 @@ We would prefer for BMI to be derived from weight and height but a parameter is 
 ### Parameters related to WHR GWAS
 
 We would prefer for WHR to be derived from waist and hip but a parameter is provided to specify pre-derived WHR if this is not possible.
+
 | Parameter | Description | Optional |
 | --- | --- | --- |
 | `waist_for_whr_col` | Column containing waist values (cm) | Yes |
@@ -179,6 +181,7 @@ We would prefer for WHR to be derived from waist and hip but a parameter is prov
 ### Parameters related to WHRadjBMI GWAS
 
 We would prefer for WHR and BMI to be derived from weight, height, waist and hip, but parameters are provided to specify pre-derived WHR and/or BMI if this is not possible.
+
 | Parameter | Description | Optional |
 | --- | --- | --- |
 | `waist_for_whradjbmi_col` | Column containing waist values (cm) | Yes |
