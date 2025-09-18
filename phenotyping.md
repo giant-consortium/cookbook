@@ -93,8 +93,9 @@ P3    3     0.709639726  0.926419979  0.041459368    ...    0.613060395  0.31559
 ```
 
 ### 2. General parameters related to study
+
 | Parameter | Description | Optional |
-| --- | --- | --- |
+| --- | :--- | --- |
 | `out_dir`| Parent directory for REGENIE input and summaries | No |
 | `study` | Name of Study | No |
 | `id_col` | Column containing individual IDs | No |
