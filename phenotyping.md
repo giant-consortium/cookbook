@@ -13,6 +13,10 @@ title: "Phenotype Pipeline"
 This repository provides a containerized pipeline for QC and deriviation of phenotype data for subsequent GWAS analysis.
 The dependencies for the pipeline are distributed as a .sif file that can be run using apptainer/singularity. 
 
+Typically, we expect baseline measures of anthropometric traits for analysis. However, for studies with longitudinal measures without a single baseline measure, 
+we suggest using the median value across the time-series. Age for the median value should either be captured or calculated.
+
+
 ## Usage
 
 1. **Clone the pre-phasing/imputation repo from GitHub**
