@@ -33,7 +33,7 @@ Welcome! This site is a practical guide for using the GIANT Consortium’s conta
 
 - **[Container Image Creation & Export](containerization/container_create.md)**
 - **[Singularity/Apptainer User Install & Conversion](containerization/singularity_install.md)**
-- **[Detailed QC Steps](detailed_steps/ind_geno_qc_steps.md)**
+- **[Detailed QC Steps](detailed_steps/ind_geno_qc_detailed.md)**
 
 ---
 
