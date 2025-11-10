@@ -148,6 +148,10 @@ The pipeline performs the following steps:
 9. **Ancestry-Specific PCA** - Generate population-specific PCs
 10. **Reporting** - Create comprehensive HTML/PDF reports
 
+## Workflow Diagram
+
+![Sample Variant QC Pipeline Flowchart](./Overview_SampleVariantQC_Pipeline.png)
+
 ## Troubleshooting
 
 - Check the log files in the `./output/study_name/Logs` directory for errors.

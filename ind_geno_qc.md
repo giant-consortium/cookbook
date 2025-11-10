@@ -108,6 +108,10 @@ The pipeline performs the following steps:
 9. **Ancestry-Specific PCA** - Generate population-specific PCs
 10. **Reporting** - Create comprehensive HTML/PDF reports
 
+## Workflow Diagram
+
+![Sample Variant QC Pipeline Flowchart](./Overview_SampleVariantQC_Pipeline.png)
+
 ## Default QC Thresholds
 
 - **Build check:** Requires ≥80% variant overlap between study and reference data (tested with no MAF threshold, MAF>1% and MAF>5%)
