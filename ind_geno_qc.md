@@ -143,7 +143,7 @@ Uses harmonized 1000 Genomes + HGDP data:
 
 ---
 
-**Note:** For detailed step-by-step documentation, see [GIANT_IndGenoQCSteps_DeeperImputation](detailed_steps/ind_geno_qc_detailed.md)
+**Note:** For detailed step-by-step documentation, see [GIANT_IndGenoQCSteps_DeeperImputation](dev_guides/ind_geno_qc_detailed.md)
 
 ---
 

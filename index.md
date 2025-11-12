@@ -9,8 +9,8 @@ Welcome! This site is a practical guide for using the GIANT Consortium’s conta
 
 ## 🚀 Quick Start
 
-- **[Install Container Tools](containerization/container_install.md)**  
-  Get Docker, Singularity, or Apptainer set up and obtain pre-built containers.
+- **[Setup Instructions](dev_guides/setup_instructions.md)**  
+  Set up container tools, SSH keys, and understand download-as-you-go vs pre-download options.
 
 - **[Sample & Genotype QC Pipeline](ind_geno_qc.md)**  
   Run the main QC pipeline for your study data.
@@ -31,9 +31,9 @@ Welcome! This site is a practical guide for using the GIANT Consortium’s conta
 
 ## 🛠️ Developer & Advanced Guides
 
-- **[Container Image Creation & Export](containerization/container_create.md)**
-- **[Singularity/Apptainer User Install & Conversion](containerization/singularity_install.md)**
-- **[Detailed QC Steps](detailed_steps/ind_geno_qc_detailed.md)**
+- **[Container Image Creation & Export](dev_guides/container_create.md)**
+- **[Singularity/Apptainer User Install & Conversion](dev_guides/singularity_install.md)**
+- **[Detailed QC Steps](dev_guides/ind_geno_qc_detailed.md)**
 
 ---
 
