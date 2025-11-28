@@ -117,19 +117,17 @@ P3    3     0.709639726  0.926419979  0.041459368    ...    0.613060395  0.31559
 
 
 ### 3. Derivation of phenotypes
-Where possible, please provide variables to derive BMI and WHR:
+If possible, please provide variables to derive BMI and WHR, as well as any pre-derived values for BMI and WHR:
 
-| Phenotype | Variables to priortise if available |
+| Phenotype | Variables to include if available |
 | :---: | :---: |
 | **HEIGHT** | height (cm) |
-| **BMI** | height (cm), weight (kg) |
-| **WHR** | waist circumference (cm), hip circumference (cm) |
+| **BMI** | height (cm), weight (kg), pre-derived BMI |
+| **WHR** | waist circumference (cm), hip circumference (cm), pre-derived WHR |
 
-If you do not have measures of weight, waist and/or hip, pre-derived values for BMI and WHR can be used and these will be QC'd. 
-A mixture of non-derived and pre-derived WHR and BMI values are allowed but if both are provided for a given primary GWAS, 
-the pipeline with prioritise derivation of phenotypes over pre-derived phenotypes. For example, if height is provided alongside both weight and BMI, then the primary BMI GWAS
-will based on deriving BMI from height and weight - the pre-defined BMI variable will be ignored. 
-
+If variables to derive BMI and/or WHR have been provided, the pipeline will prioritise derivation of the phenotypes and only use pre-derived values (if provided) to fill any missing data where possible. 
+Note, derivation of BMI and WHR will include QC of variables used prior to QC of BMI and WHR. If variables are not available to derive BMI and/or WHR but variables exist with pre-derived values, these will be used. 
+  
 #### Quality control
 Variables used to derive BMI and WHR will first undergo QC prior to derivation of BMI and WHR that will subsequently be QC'd again.
 
