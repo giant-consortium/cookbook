@@ -9,8 +9,7 @@
 
 ## Introduction
 
-This suite of programs is designed to automatically perform **quality control (QC)** of GWAS results.  
-Most of the analyses rely on **EasyX**, an R package that combines functions from **EasyStrata** and **EasyQC**.
+This repository contains scripts for performing quality checks on association analysis data, both pre- and post-meta-analysis.
 
 ## Assumptions
 
@@ -20,104 +19,101 @@ Before running the pipeline, ensure the following:
 2. **Genomic positions** are in **build 38 (hg38)**.
 3. **Apptainer** or **Singularity** can be run in your HPC environment.
 
-## Program Overview
-
-Below is a summary of the programs that use EasyX and their functions:
-
-- `1_clean_gwas.R` – Prepares REGENIE GWAS output for **EasyX**.  
-- `2_allele_frequency_check.R` – Compares allele frequencies across six genetic ancestries (**AFR**, **AMR**, **MID**, **EUR**, **EAS**, **SAS**).  
-- `3_update_cfg_and_run_easyx.R` – Updates the EasyX configuration file with your input data and thresholds, then runs EasyX.  
-- `4_report_wrapper.Rmd` – Reads outputs from the previous programs and generates a summary report.  
-
-Additionally, `effects_vs_loadings.R`, checks whether associations are driven by a specific subpopulation (e.g., Finnish among Europeans).  
-
 ---
 
 ## Quick Start
 
-### Step 1: Clone the GitHub Repository
+### STEP 1: Download the Repository
 
-Navigate to your working directory in your HPC session and clone the repository.  
+Navigate to your working directory and download the repository:
 
-**Development branch (recommended for testing):**
-
-```bash
-git clone --branch tmp_wd --single-branch https://github.com/giant-consortium/post_assoc_checks.git
 ```
-
-**Main branch:**
-
-```bash
 git clone https://github.com/giant-consortium/post_assoc_checks.git
 cd post_assoc_checks
 ```
 
-**Or download as a ZIP and unzip:**
+Alternatively, you can download the repository as a ZIP file and extract it:
+
 ```
-unzip post_assoc_checks-main.zip
+unzip  post_assoc_checks-main.zip
 cd post_assoc_checks-main
 ```
 
-### STEP 2: Set Up Working Directory
+### STEP 2: Set Up Your Working Directory
 
-To run the pipeline you will only require to:
+To run the pipeline, you need to:
 
-1. Move GWAS data to a folder nested in your working directory.
-2. Update the parameters file.
-3. Download the container image (Singularity or Apptainer).
+1) Move your GWAS data into a folder nested within your working directory.
+2) Update the parameters file.
+3) Download the required container (Singularity or Apptainer image).
 
-#### 2.1 Move GWAS Data
+#### 2.1 Organize GWAS Data
 
-Singularity requires that data is nested within your working directory.
-Create a test_data folder and copy your GWAS file:
-
-```
-mkdir -p test_data
-cp /path/to/your/gwas test_data/
-```
-
-#### 2.2 Update Parameters File
-
-The parameter file contains variables referencing input/output paths.
-We recommend a separate folder per GWAS QC. Example:
+Singularity may not access data outside your working directory. To avoid issues, create a folder named test_data inside your working directory and copy your GWAS file there:
 
 ```
-WD="/maps/projects/kilpelainen-AUDIT/data/team_projects/giant_pc_loadings_tests/post_assoc_checks-tmp_wd"
-INPUT_GWAS_TOTAL_PATH="$WD/test_data/STUDYA_HEIGHT.regenie.gz"
-OUTPUT_DIR="$WD/test_results/height/"
-OUTPUT_NAME="height"
-REF_PATH="$WD/ref_data/"
+cp path_to_your_gwas test_data/.
 ```
 
-**Important**: The output folder must exist beforehand:
+#### 2.2 Update the Parameters File
+
+The parameters file specifies paths for input and output data. We recommend maintaining a separate folder for each GWAS QC run. Here’s an example:
 
 ```
-mkdir -p test_results/height
+# Absolute directory path to GWAS input:
+gwas_results="/maps/projects/kilpelainen-AUDIT/people/zlc436/giant_test_17112025/STUDYA_HEIGHT.regenie.gz"
+
+#Output directory and name:
+output_dir="/maps/projects/kilpelainen-AUDIT/people/zlc436/giant_test_17112025/post_assoc_checks/test_results/height/"
+
+# Absolute path to parent directory containing 1000G+HGDP genotypes (hgdp_1kg_hg38_ref_data/) and subject lists (hgdp_1kg_population_labels/)
+# These directories and  will exist if you have run the individual and genotype QC pipeline
+# If unsure or have not run the indiviudual and genotype QC pipeline, leave blank
+kg_hgdp_ref_dir=""
+
+# Absolute ath of reference data for EasyX. If you have not run this pipeline before, leave blank
+easyx_ref_dir=""
 ```
 
-#### 2.3 Obtain Container
+#### 2.3 Download the Container
+
+You can obtain the container in multiple ways:
 
 If you have Singularity and sudo permissions:
+
 ```
 sudo singularity pull post_assoc_qc_latest.sif docker://mariogu5/post_assoc_qc:latest
 ```
 
-Otherwise, download directly:
-```
-wget https://storage.googleapis.com/giant_deeper_imputation/singularity_containers/post_assoc_qc_latest.sif
-```
-
-### Step 3: Run the Pipeline
-
-Ensure Singularity or Apptainer is accessible. For example, if using HPC modules:
+If you don’t have sudo permissions:
 
 ```
-module load singularity/3.8.7
+wget https://storage.googleapis.com/giant_deeper_imputation/singularity_containers/post_assoc_qc_latest.sif 
 ```
 
-Then execute the pipeline:
+### STEP 3: Run the Pipeline
+
+The pipeline requires Apptainer or Singularity in your HPC environment.
+
+Example (using modules):
 
 ```
-bash POST_ASSO_PIPELINE.sh
+module load apptainer/1.4.0-rc
+bash POST_ASSO_PIPELINE.sh --apptainer
 ```
 
+If running via a job scheduler, it is recommended to first navigate to the working directory. Example SLURM/SGE script (queue_post_assoc) calling the pipeline:
+
+```
+#! /bin/bash
+#SBATCH -J 'pipeline_test_17102025'
+#SBATCH --cpus-per-task=8
+#SBATCH --output=pipeline_%j.log
+#SBATCH --error=pipeline_%j.err
+
+module load apptainer/1.4.0-rc
+
+cd /projects/kilpelainen-AUDIT/people/zlc436/giant_test_14112025/post_assoc_checks
+
+bash POST_ASSO_PIPELINE.sh --apptainer
+```
