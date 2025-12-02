@@ -15,7 +15,7 @@ This repository contains scripts for performing quality checks on association an
 
 Before running the pipeline, ensure the following:
 
-1. **GWAS output** is from **REGENIE** (uncompressed).
+1. **GWAS output** is from **REGENIE**.
 2. **Genomic positions** are in **build 38 (hg38)**.
 3. **Apptainer** or **Singularity** can be run in your HPC environment.
 
