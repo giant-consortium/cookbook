@@ -192,7 +192,7 @@ all_results/
 
 Each GWAS has its own parameters file, own output directory, and independent log files.
 
-### OPTION 2: Run GWAS in Parallel (SLURM Job Array)
+## OPTION 2: Run GWAS in Parallel (SLURM Job Array)
 
 This option runs each GWAS as an independent SLURM job. This is recommended for clusters with multiple nodes or cores and allows much faster processing when you have many GWAS.
 
