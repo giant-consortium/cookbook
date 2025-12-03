@@ -263,18 +263,18 @@ sbatch run_multi_gwas_array.slurm
 all_results/
     HEIGHT/
         HEIGHT_parameters.txt
-        HEIGHT.log
+        HEIGHT.err and .log files
         <pipeline output>
     BMI/
         BMI_parameters.txt
-        BMI.log
+        BMI.err and .log files
         <pipeline output>
     WHR/
         WHR_parameters.txt
-        WHR.log
+        WHR.err and .log files
         <pipeline output>
 ```
-- Logs for each GWAS are saved as <GWAS_NAME>.log in its output folder
+- Logs for each GWAS are saved as <GWAS_NAME>.err and .log files in its output folder
 - The parameters used for each GWAS are saved as <GWAS_NAME>_parameters.txt
 - The pipeline output is fully contained within the GWAS-specific folder
 
