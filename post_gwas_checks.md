@@ -121,7 +121,7 @@ bash POST_ASSO_PIPELINE.sh --apptainer
 
 # OPTIONAL: Running the Pipeline for Multiple GWAS Files 
 
-If you need to process multiple GWAS summary statistics files, this repository includes an optional wrapper that automatically runs the Post Association Checks pipeline on each file. You can run GWAS sequentially or in parallel, without manually editing parameter files for each run.
+If you need to process multiple GWAS summary statistics files, this repository includes wrappers that automatically run the Post Association Checks pipeline on each file. You can run GWAS sequentially or in parallel, without manually editing parameter files for each run.
 
 ## OPTION 1: Run GWAS Sequentially (one after the other)
 
@@ -141,11 +141,10 @@ Inside post_assoc_checks/, you will find:
 multi_gwas_runner.sh        # wrapper to run all GWAS sequentially
 params_template.txt         # template used to auto-generate parameter files
 gwas_list.txt               # list your GWAS files here
-run_multi_gwas.slurm        # SLURM script (sequential execution)
-all_results/                # auto-created output folder
+run_multi_gwas.slurm        # SLURM script for sequential execution
 ```
 
-### STEP 1: Add Your GWAS Files to gwas_list.txt
+### STEP 1: Add Your GWAS Files
 
 Edit post_assoc_checks/gwas_list.txt and list the absolute paths to all GWAS files you want to process. Example:
 ```
@@ -164,15 +163,22 @@ output_dir="__OUTDIR__"
 kg_hgdp_ref_dir=""
 easyx_ref_dir=""
 ```
-You do not need to modify this unless you want to add optional reference data paths.
+You only need to modify this if you want to specify optional reference data paths.
 
-### STEP 3: Run the Multi-GWAS Wrapper (Sequential)
+### STEP 3: Set Up Your Working Directory
 
-Submit the sequential wrapper (for HPC clusters using SLURM):
+Edit the WORKDIR variable in multi_gwas_runner.sh to point to your current working directory:
+```
+WORKDIR="/maps/projects/kilpelainen-AUDIT/people/wfs758/others/giant/w5_post_gwas_qc_v5/post_assoc_checks"
+```
+
+### STEP 4: Run the Multi-GWAS Wrapper (Sequential)
+
+Submit the SLURM job for sequential execution:
 ```
 sbatch run_multi_gwas.slurm
 ```
-This runs one GWAS after another. All outputs and parameters are organized in all_results/.
+All outputs and parameters will be organized under all_results/.
 
 ### Output Structure
 
@@ -194,14 +200,23 @@ Each GWAS has its own parameters file, own output directory, and independent log
 
 ## OPTION 2: Run GWAS in Parallel (SLURM Job Array)
 
-This option runs each GWAS as an independent SLURM job. This is recommended for clusters with multiple nodes or cores and allows much faster processing when you have many GWAS.
+This option runs each GWAS as an independent SLURM job. Recommended for clusters with multiple nodes or cores, allowing faster processing for many GWAS.
 
-How This Works:
+What This Wrapper Does:
 
-1. SLURM job arrays submit multiple jobs at once. Each job gets a unique array ID corresponding to a GWAS in your list.
+1.Submits a SLURM job array; each job gets a unique ID corresponding to a GWAS in your list.
 2. Each job creates its own output folder in all_results/<GWAS_NAME>/.
 3. Logs (stdout + stderr) are saved per GWAS in the same folder.
 4. A parameters file is automatically generated for each GWAS.
+
+## Files Provided for Multi-GWAS Support
+
+Inside post_assoc_checks/, you will find: 
+```
+params_template.txt               # template used to auto-generate parameter files
+gwas_list.txt                     # list your GWAS files here
+run_multi_gwas_array.slurm        # SLURM script for parallel execution
+```
 
 ### STEP 1: Check Number of GWAS
 
@@ -229,7 +244,16 @@ Depending on the GWAS size and your HPC cluster:
 - Increase --mem if your GWAS is large
 - Increase --time if processing takes longer
 
-### STEP 4: Submit the Job Array
+### STEP 4: Set Up Your Working Directory
+
+Edit the WORKDIR variable in run_multi_gwas_array.slurm to point to your current working directory:
+```
+WORKDIR="/maps/projects/kilpelainen-AUDIT/people/wfs758/others/giant/w5_post_gwas_qc_v5/post_assoc_checks"
+```
+
+### STEP 5: Submit the Job Array
+
+Submit the SLURM array to start processing all GWAS:
 ```
 sbatch run_multi_gwas_array.slurm
 ```
@@ -250,6 +274,8 @@ all_results/
         WHR.log
         <pipeline output>
 ```
-- Logs for each GWAS are saved as <GWAS_NAME>.log in its output folder.
-- The parameters used for each GWAS are saved as <GWAS_NAME>_parameters.txt.
-- The pipeline output is fully contained within the GWAS-specific folder.
+- Logs for each GWAS are saved as <GWAS_NAME>.log in its output folder
+- The parameters used for each GWAS are saved as <GWAS_NAME>_parameters.txt
+- The pipeline output is fully contained within the GWAS-specific folder
+
+
