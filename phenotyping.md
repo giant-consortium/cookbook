@@ -210,7 +210,7 @@ We would prefer for WHR and BMI to be derived from weight, height, waist and hip
 
 ## Outputs
 All outputs will be directed to the parent output directory specififed by the `out_dir` parameter. 
-Sub-directories called broad and strict will be created to store phenotypes for all individuals and individuals where there confidence around the ancstry label is >0.8 
+Sub-directories called `broad/` and `strict/` will be created to store phenotypes for all individuals and individuals where there confidence around the ancstry label is >0.8 
 (if data on the confidence around estimating broad ancestry is provided in the ancestry_file file).
 
 A table of outputs within generated sub-directories is listed below:
