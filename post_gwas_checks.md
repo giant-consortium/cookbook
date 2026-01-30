@@ -84,7 +84,7 @@ cd /projects/kilpelainen-AUDIT/people/zlc436/giant_test_14112025/post_assoc_chec
 bash POST_ASSO_PIPELINE.sh --apptainer
 ```
 
-# #OUTPUT:
+## OUTPUT:
 
 Your output directory should now present a subfolder with your GWAS name. Inside that folder you will observe:
 
