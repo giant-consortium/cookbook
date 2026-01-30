@@ -36,13 +36,13 @@ unzip  post_assoc_checks-main.zip
 cd post_assoc_checks-main
 ```
 
-## STEP 2: Set Up Your Working Directory
+## STEP 2: Edit Parameters File
 
-To run the pipeline, you need to:
+The parameters file is the way the code reads:
 
-1) Move your GWAS data into a folder nested within your working directory.
-2) Update the parameters file.
-3) Download the required container (Singularity or Apptainer image).
+1) Your input GWAS
+2) Input reference data
+3) Your output path
 
 ### 2.1 Organize GWAS Data
 
