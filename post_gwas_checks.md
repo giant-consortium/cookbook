@@ -84,13 +84,15 @@ cd /projects/kilpelainen-AUDIT/people/zlc436/giant_test_14112025/post_assoc_chec
 bash POST_ASSO_PIPELINE.sh --apptainer
 ```
 
-##Output folder:
+# #OUTPUT:
 
 Your output directory should now present a subfolder with your GWAS name. Inside that folder you will observe:
 
 1) 4_report_wrapper.html #the QC report for your GWAS.
 2) cleaned.txt file - your input GWAS with variants that pass the QC.
 3) tmp_file - a folder with intermediary files utilized to generate the report.
+
+Here is an example of the folder structure with the example names provided in the parameter example in STEP 2:
 
 ```
 output_dir
