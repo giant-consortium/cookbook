@@ -93,7 +93,8 @@ Your output directory should now present a subfolder with your GWAS name. Inside
 3) tmp_file - a folder with intermediary files utilized to generate the report.
 
 ```
-output_dir ------- STUDYA_HEIGHT.regenie
+output_dir
+    | ------- STUDYA_HEIGHT.regenie
                       |
                       |
                       | ------- 4_report_wrapper.html
