@@ -20,10 +20,6 @@ Before running the pipeline, ensure the following:
 3. **Apptainer** or **Singularity** can be run in your HPC environment.
 
 ---
-
-# Post Association Checks
-This repository contains scripts for performing quality checks on association analysis data, both pre- and post-meta-analysis.
-
 ## STEP 1: Download the Repository
 
 Navigate to your working directory and download the repository:
