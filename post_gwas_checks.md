@@ -95,8 +95,6 @@ Your output directory should now present a subfolder with your GWAS name. Inside
 ```
 output_dir
     | ------- STUDYA_HEIGHT.regenie
-                      |
-                      |
                       | ------- 4_report_wrapper.html
                       | ------- cleaned.txt
                       | ------- tmp_file
