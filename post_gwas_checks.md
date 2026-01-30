@@ -49,7 +49,7 @@ output_dir="/projects/kilpelainen-AUDIT/people/zlc436/giant_test_11012026/post_a
 
 # Absolute path to parent directory containing 1000G+HGDP genotypes (hgdp_1kg_hg38_ref_data/)
 # These directory will exist if you have run the individual and genotype QC pipeline
-# *Independently of the folder name, the directory should contain hg38_ref_data.bed, hg38_ref_data.bim and hg38_ref_data.fam* 
+# Independently of the folder name, the directory should contain hg38_ref_data.bed, hg38_ref_data.bim and hg38_ref_data.fam
 # If unsure or have not run the indiviudual and genotype QC pipeline, leave blank - data will be automatically downloaded
 kg_hgdp_ref_dir="/projects/kilpelainen-AUDIT/people/zlc436/giant_test_02122025/RefData/"
 
