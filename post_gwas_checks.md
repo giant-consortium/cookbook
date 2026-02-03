@@ -84,24 +84,29 @@ cd /projects/kilpelainen-AUDIT/people/zlc436/giant_test_14112025/post_assoc_chec
 bash POST_ASSO_PIPELINE.sh --apptainer
 ```
 
-## OUTPUT:
+---
+## Output
 
-Your output directory should now present a subfolder with your GWAS name. Inside that folder you will observe:
+After running the workflow, your output directory will contain a subfolder named after your GWAS. Inside this folder, you will find:
 
-1) 4_report_wrapper.html #the QC report for your GWAS.
-2) cleaned.txt file - your input GWAS with variants that pass the QC.
-3) tmp_file - a folder with intermediary files utilized to generate the report.
+- 4_report_wrapper.html – The QC report summarizing the quality control results for your GWAS.
 
-Here is an example of the folder structure with the example names provided in the parameter example in STEP 2:
+- cleaned.txt – Your input GWAS file, filtered to include only variants that passed QC.
+
+- tmp_file/ – A folder containing intermediate files generated during the creation of the QC report.
+
+**Example Folder Structure**
+Using the example names from STEP 2, the folder structure would look like this:
 
 ```
 output_dir
-    | ------- STUDYA_HEIGHT.regenie
-                      | ------- 4_report_wrapper.html
-                      | ------- cleaned.txt
-                      | ------- tmp_file
+└── STUDYA_HEIGHT.regenie
+    ├── 4_report_wrapper.html
+    ├── cleaned.txt
+    └── tmp_file/
 ```
 
+---
 # OPTIONAL: Running the Pipeline for Multiple GWAS Files 
 
 If you need to process multiple GWAS summary statistics files, this repository includes wrappers that automatically run the Post Association Checks pipeline on each file. You can run GWAS sequentially or in parallel, without manually editing parameter files for each run.
