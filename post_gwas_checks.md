@@ -96,6 +96,7 @@ After running the workflow, your output directory will contain a subfolder named
 - tmp_file/ – A folder containing intermediate files generated during the creation of the QC report.
 
 **Example Folder Structure**
+
 Using the example names from STEP 2, the folder structure would look like this:
 
 ```
