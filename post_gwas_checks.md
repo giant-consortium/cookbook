@@ -32,7 +32,7 @@ cd post_assoc_checks
 Alternatively, you can download the repository as a ZIP file and extract it:
 
 ```
-unzip  post_assoc_checks-main.zip
+unzip post_assoc_checks-main.zip
 cd post_assoc_checks-main
 ```
 
