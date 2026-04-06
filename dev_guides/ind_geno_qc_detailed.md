@@ -6,8 +6,6 @@
   <a href="./pre_phasing_checks.html">Go to Step 2 [Pre-Phasing Checks] ➡️</a>
 </div>
 
-# Sample Variant QC Pipeline [WITH IMPLEMENTATION DETAILS]
-
 <style>
 .hero-title {
    font-size: 2.4rem;
@@ -28,33 +26,41 @@
 
 # Overview
 
-This repository contains scripts and utilities for running a comprehensive sample variant quality control (QC) pipeline, including ancestry prediction and per-chromosome QC reporting. The containerized implementation ensures reproducible execution across different computing environments.
+This repository contains scripts and utilities for running a comprehensive sample variant quality control (QC) pipeline for human genomics datasets, including ancestry prediction and per-chromosome QC reporting. It is primarily designed for use with biobank scale array-sequencing datasets, but provides support for WGS datasets as well.
+
+The containerized implementation ensures reproducible execution across different computing environments. This was designed as part of the Deeper Imputation effort by the GIANT Consortium.
 
 # Features
 
 - **Automated Build Detection** (hg37/hg38) with liftover using progressive MAF filtering strategies
 - **Comprehensive QC** filtering and statistics with customizable thresholds
-- **Ancestry Prediction** using 1000G + HGDP reference data with MANCS or Random Forest algorithms
+- **Ancestry Prediction** using 1000G + HGDP reference data with Multiple-Ancestry Nearest Control Selection (MANCS) or Random Forest algorithms
 - **Principal Component Analysis** for population structure with projection capabilities
 - **Kinship Analysis** using KING to identify related samples
 - **Interactive Reports** with consistent styling and comprehensive plots
 - **Containerized** execution with Docker/Singularity/Apptainer support
 - **Multi-format Input Support** (.bed/.bim/.fam, BGEN, .ped/.map, compressed archives)
 
-# Requirements
+# Characteristics of Container-Based Solution
+
+## Platform Requirements
 
 - Docker, Singularity or Apptainer
 - 8GB+ RAM, 50GB+ storage recommended
 - Linux/macOS (Windows via WSL)
-- Bash shell
-- (Optional) R and Python if running outside the container
 
-# Input/Output
+## Accepted Input File Formats for Genotype Data
 
-**Accepts:** PLINK files (.bed/.bim/.fam), BGEN, .ped/.map, compressed archives (.tar.gz)  
-**Produces:** QC'd genotypes, ancestry labels, PCs, kinship results, HTML/PDF reports
+- .bed/.bim/.fam
+- .ped/.map
+- BGEN
+- PGEN
 
-# Directory Structure
+## Generated Output Files
+
+-
+
+# Internal Directory Structure
 
 ```bash
 sample_variant_qc/
@@ -96,7 +102,7 @@ sample_variant_qc/
 │       ├── setup.py
 │       └── src/fast_filter_relateds/
 ├── data/                          # Reference/population files (downloaded at first run)
-├── output/                        # Output directory for results and reports
+├── output/                        # Output directory for results and reports (created in first run)
 ├── parameters.txt                 # Configuration file for pipeline variables
 ├── checksums.sha256               # SHA-256 checksums for downloaded artifacts
 ├── Dockerfile                     # Docker image definition
