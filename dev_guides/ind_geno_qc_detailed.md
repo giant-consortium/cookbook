@@ -22,7 +22,7 @@
 }
 </style>
 
-<h1 class="hero-title">Sample Variant QC Pipeline [WITH IMPLEMENTATION DETAILS]</h1>
+<h1 class="hero-title"> Implementation Details of Sample Variant QC </h1>
 
 # Overview
 
@@ -58,59 +58,6 @@ The containerized implementation ensures reproducible execution across different
 
 ## Generated Output Files
 
--
-
-# Internal Directory Structure
-
-```bash
-sample_variant_qc/
-├── scripts/                       # Main pipeline and stepwise shell scripts
-│   ├── RunQCPipeline.sh           # Top-level orchestrator (called inside container)
-│   ├── Step0_Setup.sh
-│   ├── Step1_CheckBuild.sh
-│   ├── Step2_PreQC.sh
-│   ├── Step3_BasicQC.sh
-│   ├── Step4_SNPIntersectAndPrune.sh
-│   ├── Step5_KinshipTest.sh
-│   ├── Step6_PCA.sh
-│   ├── Step7_AncestryModel.sh
-│   ├── Step8_AncestrySpecificPCA.sh
-│   └── Step9_CleanUp.sh
-├── utils/                         # R scripts, Python helpers, plotting, and support utilities
-│   ├── align_variants.sh          # Allele harmonization between study and reference
-│   ├── check_build.R              # Build detection (hg37/hg38) via variant overlap
-│   ├── compute_palindromes_summary.sh  # Palindromic SNP diagnostics
-│   ├── convert_to_hg37.sh         # Liftover hg38 → hg37
-│   ├── convert_to_hg38.sh         # Liftover hg37 → hg38
-│   ├── filter_het_rate.py         # Het rate (IQR-based) outlier detection
-│   ├── filter_fscore.py           # F-score (SD-based) outlier detection
-│   ├── filter_relateds.py         # Greedy related-sample removal (Python fallback)
-│   ├── plot_pca.R                 # Standardized PCA plotting functions
-│   ├── qc_report_style.css        # Shared CSS for all HTML reports
-│   ├── report_ancestry_predictions.Rmd
-│   ├── report_ancestry_specific_pca.Rmd
-│   ├── report_kinship.Rmd
-│   ├── report_pca.Rmd
-│   ├── report_per_chrom_qc_stats.Rmd
-│   ├── report_qc_stats.Rmd
-│   ├── report_snp_intersect_for_pca.Rmd
-│   ├── stack_ancestry_pca.py      # Combine per-ancestry PCA outputs
-│   ├── train_pca_model.py         # Ancestry prediction (MANCS / RF)
-│   ├── write_manifest.sh          # File provenance tracking helper
-│   └── fast_filter_relateds/      # Cython-optimized related-sample filtering
-│       ├── cli.py
-│       ├── setup.py
-│       └── src/fast_filter_relateds/
-├── data/                          # Reference/population files (downloaded at first run)
-├── output/                        # Output directory for results and reports (created in first run)
-├── parameters.txt                 # Configuration file for pipeline variables
-├── checksums.sha256               # SHA-256 checksums for downloaded artifacts
-├── Dockerfile                     # Docker image definition
-└── SAMPLE_VARIANT_QC_RUNNER.sh    # Main host-side execution script
-```
-
-# Output Structure
-
 ```bash
 output/
 └── STUDY_NAME_Outputs/
@@ -128,7 +75,7 @@ output/
     └── Reports/                     # HTML and PDF summary reports
 ```
 
-# Default QC Thresholds
+## Default QC Thresholds
 
 - **Build check:** Requires ≥80% variant overlap between study and reference data (tested with no MAF threshold, MAF>1% and MAF>5%)
 - **Sample call rate:** 90% (0.9)
