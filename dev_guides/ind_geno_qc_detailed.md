@@ -41,63 +41,6 @@ The containerized implementation ensures reproducible execution across different
 - **Containerized** execution with Docker/Singularity/Apptainer support
 - **Multi-format Input Support** (.bed/.bim/.fam, BGEN, .ped/.map, compressed archives)
 
-# Characteristics of Container-Based Solution
-
-## Platform Requirements
-
-- Docker, Singularity or Apptainer
-- 8GB+ RAM, 50GB+ storage recommended
-- Linux/macOS (Windows via WSL)
-
-## Accepted Input File Formats for Genotype Data
-
-- .bed/.bim/.fam
-- .ped/.map
-- BGEN
-- PGEN
-
-## Generated Output Files
-
-```bash
-output/
-└── STUDY_NAME_Outputs/
-    ├── Ancestry/                    # Ancestry predictions and population labels
-    ├── AncestrySpecificPCA/         # Population-specific principal components
-    ├── Kinship/                     # Relatedness analysis results
-    ├── Logs/                        # Pipeline execution logs and error messages
-    ├── PCA/                         # Principal component analysis outputs
-    ├── PostBasicQC/                 # Genotype files after basic QC filtering
-    ├── PostQC_PerChromosome/        # QC'd data split by chromosome
-    ├── PostQCStats_PerChromosome/   # QC statistics per chromosome
-    ├── PostSampleVariantQC/         # Final QC'd genotype files
-    ├── PreQCStats/                  # Pre-QC baseline statistics
-    ├── PreQCStats_PerChromosome/    # Pre-QC statistics per chromosome
-    └── Reports/                     # HTML and PDF summary reports
-```
-
-## Default QC Thresholds
-
-- **Build check:** Requires ≥80% variant overlap between study and reference data (tested with no MAF threshold, MAF>1% and MAF>5%)
-- **Sample call rate:** 90% (0.9)
-- **Variant call rate:** 90% (0.9)  
-- **Minor allele frequency:** 0.1% (0.001)
-- **Hardy-Weinberg equilibrium:** p > 1e-6 (single-ancestry) or p > 1e-12 (multi-ancestry)
-- **Sample heterozygosity:** F-score within mean ± 4 SD (default), or het rate within median ± 3 IQR
-- **Kinship threshold:** 0.354 (MZ twins/duplicates only)
-- **Ancestry prediction algorithm:** MANCS (Multi-Ancestry Nearest Control Selection)
-- **Ancestry confidence:** 80% (0.8), fallback to 75% if no samples meet 80%
-
-*All thresholds are customizable via `parameters.txt`*
-
-# Reference Data
-
-Uses harmonized 1000 Genomes + HGDP data:
-
-- **3,280 samples**, 8.15M high-quality variants
-- **Continental ancestry labels** (AFR, AMR, EAS, EUR, SAS)
-- **Available in hg37 and hg38 builds**
-- **Source:** gnomAD v3.1.2 HGDP + 1KG subset with additional QC filtering
-
 # Quick Start
 
 1. **Clone the GitHub repository:**
@@ -120,25 +63,39 @@ Uses harmonized 1000 Genomes + HGDP data:
 3. **Run the pipeline:**
 
    ```bash
-   # With Docker
-   ./SAMPLE_VARIANT_QC_RUNNER.sh --docker
-
-   # With Singularity
-   ./SAMPLE_VARIANT_QC_RUNNER.sh --singularity
-
-   # With Apptainer (default if no runtime specified)
-   ./SAMPLE_VARIANT_QC_RUNNER.sh --apptainer
-
-   # To force data download:
-   ./SAMPLE_VARIANT_QC_RUNNER.sh --docker --force_data_download
-
-   # To get the most recent containers:
-   ./SAMPLE_VARIANT_QC_RUNNER.sh --docker --get_update
+   # With containerization software
+   # Apptainer is the default if no runtime specified
+   ./SAMPLE_VARIANT_QC_RUNNER.sh [--docker] [--singularity] [--apptainer]
    ```
 
 4. **Outputs** will be saved in a sub-folder named `study_name` at the path specified by `path_to_output` in `parameters.txt`.
 
-# Pipeline Overview
+# Troubleshooting
+
+- Check the log files in the `./output/study_name/Logs` directory for errors.
+- Ensure all required paths in `parameters.txt` are correct and accessible.
+- Stepwise outputs are in the `./output/study_name/` directory.
+- For container issues, verify your container runtime is installed and running.
+- If build detection fails, check variant overlap diagnostics in the logs.
+
+---
+
+# Characteristics of Container-Based Solution
+
+## Platform Requirements
+
+- Docker, Singularity or Apptainer
+- 8GB+ RAM, 50GB+ storage recommended
+- Linux/macOS (Windows via WSL)
+
+## Accepted Input File Formats for Genotype Data
+
+- .bed/.bim/.fam
+- .ped/.map
+- BGEN
+- PGEN
+
+## Pipeline Overview
 
 The pipeline performs the following steps:
 
@@ -155,19 +112,51 @@ The pipeline performs the following steps:
 | 8 | `Step8_AncestrySpecificPCA.sh` | Ancestry-specific PCA |
 | 9 | `Step9_CleanUp.sh` | Report consolidation & cleanup |
 
-# Workflow Diagram
+## Default Quality Control (QC) Thresholds
+
+- **Build check:** Requires ≥80% variant overlap between study and reference data (tested with no MAF threshold, MAF>1% and MAF>5%)
+- **Sample call rate:** 90% (0.9)
+- **Variant call rate:** 90% (0.9)  
+- **Minor allele frequency:** 0.1% (0.001)
+- **Hardy-Weinberg equilibrium:** p > 1e-6 (single-ancestry) or p > 1e-12 (multi-ancestry)
+- **Sample heterozygosity:** F-score within mean ± 4 SD (default), or het rate within median ± 3 IQR
+- **Kinship threshold:** 0.354 (MZ twins/duplicates only)
+- **Ancestry prediction algorithm:** MANCS (Multi-Ancestry Nearest Control Selection)
+- **Ancestry confidence:** 80% (0.8), fallback to 75% if no samples meet 80%
+
+*All thresholds are customizable via `parameters.txt`*
+
+## Workflow Diagram
 
 ![Sample Variant QC Pipeline Flowchart](./Overview_SampleVariantQC_Pipeline.png)
 
-# Troubleshooting
+## Generated Output Structure with Description
 
-- Check the log files in the `./output/study_name/Logs` directory for errors.
-- Ensure all required paths in `parameters.txt` are correct and accessible.
-- Stepwise outputs are in the `./output/study_name/` directory.
-- For container issues, verify your container runtime is installed and running.
-- If build detection fails, check variant overlap diagnostics in the logs.
+```bash
+output/
+└── STUDY_NAME_Outputs/
+    ├── Ancestry/                    # Ancestry predictions and population labels
+    ├── AncestrySpecificPCA/         # Population-specific principal components
+    ├── Kinship/                     # Relatedness analysis results
+    ├── Logs/                        # Pipeline execution logs and error messages
+    ├── PCA/                         # Principal component analysis outputs
+    ├── PostBasicQC/                 # Genotype files after basic QC filtering
+    ├── PostQC_PerChromosome/        # QC'd data split by chromosome
+    ├── PostQCStats_PerChromosome/   # QC statistics per chromosome
+    ├── PostSampleVariantQC/         # Final QC'd genotype files
+    ├── PreQCStats/                  # Pre-QC baseline statistics
+    ├── PreQCStats_PerChromosome/    # Pre-QC statistics per chromosome
+    └── Reports/                     # HTML and PDF summary reports
+```
 
----
+## Reference Data for Ancestry Prediction
+
+Uses harmonized 1000 Genomes + HGDP data:
+
+- **3,280 samples**, 8.15M high-quality variants
+- **Continental ancestry labels** (AFR, AMR, EAS, EUR, SAS)
+- **Available in hg37 and hg38 builds**
+- **Source:** gnomAD v3.1.2 HGDP + 1KG subset with additional QC filtering
 
 # Pipeline Implementation Details
 
@@ -188,10 +177,10 @@ Supported flags:
 | `--docker` | Run pipeline via Docker (downloads/loads docker .tar) |
 | `--singularity` | Run pipeline via Singularity |
 | `--apptainer` | Run pipeline via Apptainer (default if none specified) |
-| `--force_data_download` | Force download of reference data |
-| `--get_update` | Re-download container artifacts (refresh .tar / .sif) |
+| `--force_data_download` | Force re-download of reference data, useful if data corruption is suspected |
+| `--get_update` | Re-download container images (refresh .tar / .sif) |
 | `--interactive` | Run container interactively (shell) |
-| `--no_ld_king` | Use container image variant without LD-based KING |
+| `--no_ld_king` | Use container image variant where relatedness estimation does **not** use LD pruned SNPs |
 
 ### Checksums / integrity
 
