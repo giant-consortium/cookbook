@@ -1,37 +1,33 @@
 ---
 ---
 
-<div style="display: flex; justify-content: space-between; align-items: center;">
-  <a href="./../index.html">⬅️ Return to Homepage</a>
-  <a href="./../pre_phasing_checks.html">Go to Step 2 [Pre-Phasing Checks] ➡️</a>
-</div>
-
 # Sample Variant QC Pipeline — Implementation Guide
 
-> For setup instructions, input formats, QC thresholds, and usage guidance, see the [Sample Variant QC Pipeline overview](./../ind_geno_qc.html).
-
-## Workflow Diagram
-
-![Sample Variant QC Pipeline Overview](./../diagrams/overview/Overview_SampleVariantQC_Pipeline.png)
+See also: [Pipeline overview and QC thresholds](./../ind_geno_qc.html) · [Homepage](./../index.html) · [Workflow diagram](./../diagrams/overview/Overview_SampleVariantQC_Pipeline.png)
 
 ---
 
-## Pipeline Steps
+## Contents
 
-| Step | Name | Script | Details |
-| ---- | ---- | ------ | ------- |
-| 0 | Setup and Format Conversion | `Step0_Setup.sh` | [View →](./ind_geno_qc_step0.html) |
-| 1 | Build Detection and Liftover | `Step1_CheckBuild.sh` | [View →](./ind_geno_qc_step1.html) |
-| 2 | Pre-QC Statistics | `Step2_PreQC.sh` | [View →](./ind_geno_qc_step2.html) |
-| 3 | Basic Sample and Variant-Level QC | `Step3_BasicQC.sh` | [View →](./ind_geno_qc_step3.html) |
-| 4 | SNP Intersection and LD Pruning | `Step4_SNPIntersectForPCA.sh` | [View →](./ind_geno_qc_step4.html) |
-| 5 | Relatedness Estimation | `Step5_KinshipTest.sh` | [View →](./ind_geno_qc_step5.html) |
-| 6 | Principal Component Analysis | `Step6_PCA.sh` | [View →](./ind_geno_qc_step6.html) |
-| 7 | Ancestry Prediction | `Step7_AncestryModel.sh` | [View →](./ind_geno_qc_step7.html) |
-| 8 | Ancestry-Specific PCA | `Step8_AncestrySpecificPCA.sh` | [View →](./ind_geno_qc_step8.html) |
-| 9 | Cleanup and Reporting | `CleanUp.sh` | [View →](./ind_geno_qc_step9.html) |
+| # | Section | Description |
+|---|---------|-------------|
+| — | [Runner script](#runner) | Entry point — downloads data, builds image, runs pipeline |
+| — | [Reference datasets](#reference) | 1KG/HGDP reference data used for ancestry and QC |
+| — | [Development environment](#environment) | Dockerfile and tool versions |
+| 0 | [Setup and Format Conversion](./ind_geno_qc_step0.html) | `Step0_Setup.sh` — format conversion, directory setup |
+| 1 | [Build Detection and Liftover](./ind_geno_qc_step1.html) | `Step1_CheckBuild.sh` — hg38/hg37 detection, liftover |
+| 2 | [Pre-QC Statistics](./ind_geno_qc_step2.html) | `Step2_PreQC.sh` — call rates, HWE, sex check |
+| 3 | [Basic Sample and Variant-Level QC](./ind_geno_qc_step3.html) | `Step3_BasicQC.sh` — MAF, MAC, HWE, heterozygosity filters |
+| 4 | [SNP Intersection and LD Pruning](./ind_geno_qc_step4.html) | `Step4_SNPIntersectForPCA.sh` — variant harmonisation |
+| 5 | [Relatedness Estimation](./ind_geno_qc_step5.html) | `Step5_KinshipTest.sh` — KING via PLINK2 |
+| 6 | [Principal Component Analysis](./ind_geno_qc_step6.html) | `Step6_PCA.sh` — FlashPCA, study projection onto reference |
+| 7 | [Ancestry Prediction](./ind_geno_qc_step7.html) | `Step7_AncestryModel.sh` — MANCS / Random Forest |
+| 8 | [Ancestry-Specific PCA](./ind_geno_qc_step8.html) | `Step8_AncestrySpecificPCA.sh` — per-ancestry projections |
+| 9 | [Cleanup and Reporting](./ind_geno_qc_step9.html) | `CleanUp.sh` — final dataset, PDF report |
 
 ---
+
+<a id="runner"></a>
 
 ## SAMPLE_VARIANT_QC_RUNNER.sh
 
@@ -59,6 +55,8 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 ---
 
+<a id="reference"></a>
+
 ## Reference Datasets
 
 **Data Source:** 1000 Genomes (1KG) and Human Genome Diversity Project (HGDP) datasets, harmonized by gnomAD
@@ -77,6 +75,8 @@ This file configures paths, performs data downloads, and builds the Docker image
 4. **Build availability:** hg38 (primary) and hg37 (liftover)
 
 ---
+
+<a id="environment"></a>
 
 ## Development Environment (Dockerfile)
 

@@ -22,22 +22,29 @@ header h2 {
   font-weight: normal;
 }
 
-// ── Layout: widen the content column, narrow the sidebar ─────────────────────
-#content-wrapper .inner {
-  max-width: 100%;
+// ── Layout: flex wrapper so sidebar sits beside content ──────────────────────
+#main_inner {
+  display: flex !important;
+  gap: 30px;
+  align-items: flex-start;
+  padding: 20px 10px !important;
 }
 
-section#main-content {
-  width: calc(100% - 230px) !important;
+#site_sidebar {
+  width: 190px;
+  flex-shrink: 0;
+  font-size: 0.82em;
+  line-height: 1.5;
+  position: sticky;
+  top: 20px;
 }
 
-aside#sidebar {
-  width: 200px !important;
-  font-size: 0.85em;
+#main_content {
+  flex: 1;
+  min-width: 0;
 }
 
 // ── Content headings: reduce scale ───────────────────────────────────────────
-section#main-content,
 #main_content {
   h1 { font-size: 1.6em; }
   h2 { font-size: 1.25em; }
