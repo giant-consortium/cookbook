@@ -20,30 +20,35 @@
         #header_title {
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 4px;
         }
         #header_home_link {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
         }
         #header_logo {
-            width: 48px;
+            width: 52px;
             height: auto;
-            vertical-align: middle;
+            display: block;
+            border: none;
+            box-shadow: none;
+            outline: none;
         }
         #header_name {
-            font-size: 1.5em;
+            font-size: 1.55em;
             font-weight: bold;
             color: #fff;
-            line-height: 1;
+            line-height: 1.1;
         }
         #header_tagline {
             font-size: 1.0em;
             color: #ccc;
             font-weight: normal;
-            margin-left: 58px; /* logo width + gap */
+            padding-left: 64px; /* logo 52px + gap 12px */
+            display: block;
+            line-height: 1.4;
         }
 
         /* Override slate .inner max-width so content fills the viewport */
@@ -104,9 +109,9 @@
         /* Sidebar nav styles */
         .site-nav strong {
             display: block;
-            margin: 14px 0 4px;
-            color: #aaa;
-            font-size: 0.72em;
+            margin: 14px 0 5px;
+            color: #bbb;
+            font-size: 0.76em;
             text-transform: uppercase;
             letter-spacing: 0.06em;
         }
@@ -126,9 +131,9 @@
         }
 
         .site-nav ul li a {
-            color: #ccc;
+            color: #ddd;
             text-decoration: none;
-            font-size: 0.87em;
+            font-size: 0.95em;
         }
 
         .site-nav ul li a:hover {
