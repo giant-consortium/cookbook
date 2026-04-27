@@ -10,24 +10,40 @@
     {% seo %}
     {% include head-custom.html %}
     <style>
-        /* Header: shrink the large dark banner */
+        /* Header */
         header {
-            padding: 20px 0;
+            padding: 16px 0;
         }
-
         header .inner {
-            padding: 6px 10px;
+            padding: 8px 20px;
         }
-
-        #project_title {
-            font-size: 1.4em;
-            margin: 0 0 4px;
+        #header_title {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
         }
-
-        #project_tagline {
-            font-size: 0.9em;
-            margin: 0;
+        #header_home_link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        #header_logo {
+            width: 48px;
+            height: auto;
+            vertical-align: middle;
+        }
+        #header_name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #fff;
+            line-height: 1;
+        }
+        #header_tagline {
+            font-size: 1.0em;
+            color: #ccc;
             font-weight: normal;
+            margin-left: 58px; /* logo width + gap */
         }
 
         /* Override slate .inner max-width so content fills the viewport */
@@ -44,12 +60,15 @@
 
         /* Sidebar */
         #site_sidebar {
-            width: 175px;
+            width: 220px;
             flex-shrink: 0;
-            font-size: 0.82em;
-            line-height: 1.55;
+            font-size: 0.83em;
+            line-height: 1.6;
             position: sticky;
             top: 20px;
+            background: #2b2b2b;
+            border-radius: 6px;
+            padding: 14px 16px;
         }
 
         /* Main content: fills remaining space */
@@ -127,8 +146,13 @@
             {% if site.github.is_project_page %}
             <a id="forkme_banner" href="{{ site.github.repository_url }}">View on GitHub</a>
             {% endif %}
-            <h1 id="project_title">{{ site.title | default: site.github.repository_name }}</h1>
-            <h2 id="project_tagline">{{ site.description | default: site.github.project_tagline }}</h2>
+            <div id="header_title">
+              <a href="{{ '/' | relative_url }}" id="header_home_link">
+                <img src="{{ '/giant_logo.png' | relative_url }}" alt="GIANT" id="header_logo">
+                <span id="header_name">GIANT Deeper Imputation</span>
+              </a>
+              <div id="header_tagline">Analysis Cookbook</div>
+            </div>
         </header>
     </div>
 
