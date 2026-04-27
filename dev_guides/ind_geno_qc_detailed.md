@@ -95,7 +95,7 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 #### Step 0: Setup and Format Conversion
 
-<details open>
+<details open markdown="1">
 <summary><strong>Step 0: Setup and Format Conversion</strong> — <code>Step0_Setup.sh</code></summary>
 
 <br>
@@ -119,7 +119,7 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 #### Step 1: Build Detection and Liftover
 
-<details>
+<details markdown="1">
 <summary><strong>Step 1: Build Detection and Liftover</strong> — <code>Step1_CheckBuild.sh</code></summary>
 
 <br>
@@ -157,7 +157,7 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 #### Step 2: Pre-QC Statistics
 
-<details>
+<details markdown="1">
 <summary><strong>Step 2: Pre-QC Statistics</strong> — <code>Step2_PreQC.sh</code></summary>
 
 <br>
@@ -188,7 +188,7 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 #### Step 3: Basic Sample and Variant-Level QC
 
-<details>
+<details markdown="1">
 <summary><strong>Step 3: Basic Sample and Variant-Level QC</strong> — <code>Step3_BasicQC.sh</code></summary>
 
 <br>
@@ -224,7 +224,7 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 #### Step 4: SNP Intersection and LD Pruning
 
-<details>
+<details markdown="1">
 <summary><strong>Step 4: SNP Intersection and LD Pruning</strong> — <code>Step4_SNPIntersectForPCA.sh</code></summary>
 
 <br>
@@ -257,7 +257,7 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 #### Step 5: Relatedness Estimation
 
-<details>
+<details markdown="1">
 <summary><strong>Step 5: Relatedness Estimation</strong> — <code>Step5_KinshipTest.sh</code></summary>
 
 <br>
@@ -283,7 +283,7 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 #### Step 6: Principal Component Analysis
 
-<details>
+<details markdown="1">
 <summary><strong>Step 6: Principal Component Analysis</strong> — <code>Step6_PCA.sh</code></summary>
 
 <br>
@@ -308,7 +308,7 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 #### Step 7: Ancestry Prediction
 
-<details>
+<details markdown="1">
 <summary><strong>Step 7: Ancestry Prediction</strong> — <code>Step7_AncestryModel.sh</code></summary>
 
 <br>
@@ -341,7 +341,7 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 #### Step 8: Ancestry-Specific PCA
 
-<details>
+<details markdown="1">
 <summary><strong>Step 8: Ancestry-Specific PCA</strong> — <code>Step8_AncestrySpecificPCA.sh</code></summary>
 
 <br>
@@ -361,7 +361,7 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 #### Step 9: Cleanup and Reporting
 
-<details>
+<details markdown="1">
 <summary><strong>Step 9: Cleanup and Reporting</strong> — <code>CleanUp.sh</code></summary>
 
 <br>
