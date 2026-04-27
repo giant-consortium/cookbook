@@ -14,20 +14,24 @@
         header {
             padding: 16px 0;
         }
+
         header .inner {
             padding: 8px 20px;
         }
+
         #header_title {
             display: flex;
             flex-direction: column;
             gap: 4px;
         }
+
         #header_home_link {
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
         }
+
         #header_logo {
             width: 52px;
             height: auto;
@@ -36,17 +40,19 @@
             box-shadow: none;
             outline: none;
         }
+
         #header_name {
             font-size: 1.55em;
             font-weight: bold;
             color: #fff;
             line-height: 1.1;
         }
+
         #header_tagline {
             font-size: 1.0em;
             color: #ccc;
             font-weight: normal;
-            padding-left: 96px;
+            padding-left: 75px;
             display: block;
             line-height: 1.4;
         }
@@ -152,11 +158,11 @@
             <a id="forkme_banner" href="{{ site.github.repository_url }}">View on GitHub</a>
             {% endif %}
             <div id="header_title">
-              <a href="{{ '/' | relative_url }}" id="header_home_link">
-                <img src="{{ '/giant_logo.png' | relative_url }}" alt="GIANT" id="header_logo">
-                <span id="header_name">GIANT Deeper Imputation</span>
-              </a>
-              <div id="header_tagline">Analysis Cookbook</div>
+                <a href="{{ '/' | relative_url }}" id="header_home_link">
+                    <img src="{{ '/giant_logo.png' | relative_url }}" alt="GIANT" id="header_logo">
+                    <span id="header_name">GIANT Deeper Imputation</span>
+                </a>
+                <div id="header_tagline">Analysis Cookbook</div>
             </div>
         </header>
     </div>
