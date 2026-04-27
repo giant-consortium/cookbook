@@ -1,101 +1,76 @@
---- --- @import "{{ site.theme }}";
+---
+---
+@import "{{ site.theme }}";
 
-// ── Header: shrink the large dark banner ──────────────────────────────────────
-header {
-    padding: 20px 0 !important;
+// ── Header: shrink the large dark banner ─────────────────────────────────────
+header { padding: 20px 0 !important; }
+header .inner { padding: 6px 10px !important; }
+header h1 { font-size: 1.4em !important; margin: 0 0 4px !important; }
+header h2 { font-size: 0.9em !important; margin: 0 !important; font-weight: normal; }
+
+// ── Override slate .inner max-width so content fills the page ─────────────────
+#main_content_wrap .inner {
+  max-width: 1200px !important;
+  width: 95% !important;
+  padding: 20px 30px !important;
 }
 
-header .inner {
-    padding: 6px 10px !important;
-}
-
-header h1 {
-    font-size: 1.4em !important;
-    margin: 0 0 4px !important;
-}
-
-header h2 {
-    font-size: 0.9em !important;
-    margin: 0 !important;
-    font-weight: normal;
-}
-
-// ── Layout: flex wrapper so sidebar sits beside content ──────────────────────
+// ── Layout: sidebar + content side by side ────────────────────────────────────
 #main_inner {
-    display: flex !important;
-    gap: 30px;
-    align-items: flex-start;
-    padding: 20px 10px !important;
+  display: flex !important;
+  gap: 30px;
+  align-items: flex-start;
+  max-width: none !important;
+  padding: 0 !important;
 }
 
 #site_sidebar {
-    width: 190px;
-    flex-shrink: 0;
-    font-size: 0.82em;
-    line-height: 1.5;
-    position: sticky;
-    top: 20px;
+  width: 180px;
+  flex-shrink: 0;
+  font-size: 0.82em;
+  line-height: 1.5;
+  position: sticky;
+  top: 20px;
 }
 
 #main_content {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 // ── Content headings: reduce scale ───────────────────────────────────────────
 #main_content {
-    h1 {
-        font-size: 1.6em;
-    }
-
-    h2 {
-        font-size: 1.25em;
-    }
-
-    h3 {
-        font-size: 1.1em;
-    }
-
-    h4 {
-        font-size: 0.95em;
-        font-weight: bold;
-    }
+  h1 { font-size: 1.6em; }
+  h2 { font-size: 1.25em; }
+  h3 { font-size: 1.1em; }
+  h4 { font-size: 0.95em; font-weight: bold; }
 }
 
 // ── Images: never overflow the column ────────────────────────────────────────
-section#main-content img,
-#main_content img {
-    max-width: 100%;
-    height: auto;
-}
+#main_content img { max-width: 100%; height: auto; }
 
 // ── Sidebar navigation ────────────────────────────────────────────────────────
 .site-nav strong {
-    display: block;
-    margin: 12px 0 4px;
-    color: #aaa;
-    font-size: 0.75em;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  display: block;
+  margin: 12px 0 4px;
+  color: #aaa;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .site-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 8px 0;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px 0;
 }
 
-.site-nav ul li {
-    margin: 3px 0;
-}
+.site-nav ul li { margin: 3px 0; }
 
 .site-nav ul li a {
-    color: #ccc;
-    text-decoration: none;
-    font-size: 0.88em;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.88em;
 }
 
-.site-nav ul li a:hover {
-    color: #fff;
-    text-decoration: underline;
-}
+.site-nav ul li a:hover { color: #fff; text-decoration: underline; }

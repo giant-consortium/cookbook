@@ -1,4 +1,5 @@
 ---
+layout: default
 ---
 
 # Sample Variant QC Pipeline — Implementation Guide

@@ -1,4 +1,5 @@
 ---
+layout: default
 title: "Phenotype Pipeline"
 ---
 <div style="display: flex; justify-content: space-between; align-items: center;">
