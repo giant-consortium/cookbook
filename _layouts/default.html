@@ -10,63 +10,112 @@
     {% seo %}
     {% include head-custom.html %}
     <style>
-      /* Header: shrink the large dark banner */
-      header { padding: 20px 0; }
-      header .inner { padding: 6px 10px; }
-      #project_title { font-size: 1.4em; margin: 0 0 4px; }
-      #project_tagline { font-size: 0.9em; margin: 0; font-weight: normal; }
+        /* Header: shrink the large dark banner */
+        header {
+            padding: 20px 0;
+        }
 
-      /* Override slate .inner max-width so content fills the viewport */
-      #main_inner {
-        max-width: 1100px !important;
-        width: 95vw !important;
-        margin: 0 auto;
-        padding: 24px 30px !important;
-        display: flex;
-        gap: 32px;
-        align-items: flex-start;
-        box-sizing: border-box;
-      }
+        header .inner {
+            padding: 6px 10px;
+        }
 
-      /* Sidebar */
-      #site_sidebar {
-        width: 175px;
-        flex-shrink: 0;
-        font-size: 0.82em;
-        line-height: 1.55;
-        position: sticky;
-        top: 20px;
-      }
+        #project_title {
+            font-size: 1.4em;
+            margin: 0 0 4px;
+        }
 
-      /* Main content: fills remaining space */
-      #main_content {
-        flex: 1;
-        min-width: 0;
-      }
+        #project_tagline {
+            font-size: 0.9em;
+            margin: 0;
+            font-weight: normal;
+        }
 
-      /* Headings: smaller scale */
-      #main_content h1 { font-size: 1.6em; }
-      #main_content h2 { font-size: 1.25em; }
-      #main_content h3 { font-size: 1.1em; }
-      #main_content h4 { font-size: 0.95em; font-weight: bold; }
+        /* Override slate .inner max-width so content fills the viewport */
+        #main_inner {
+            max-width: 1100px !important;
+            width: 95vw !important;
+            margin: 0 auto;
+            padding: 24px 30px !important;
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+            box-sizing: border-box;
+        }
 
-      /* Images: never overflow */
-      #main_content img { max-width: 100%; height: auto; }
+        /* Sidebar */
+        #site_sidebar {
+            width: 175px;
+            flex-shrink: 0;
+            font-size: 0.82em;
+            line-height: 1.55;
+            position: sticky;
+            top: 20px;
+        }
 
-      /* Sidebar nav styles */
-      .site-nav strong {
-        display: block;
-        margin: 14px 0 4px;
-        color: #aaa;
-        font-size: 0.72em;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-      }
-      .site-nav strong:first-child { margin-top: 0; }
-      .site-nav ul { list-style: none; padding: 0; margin: 0 0 6px; }
-      .site-nav ul li { margin: 2px 0; }
-      .site-nav ul li a { color: #ccc; text-decoration: none; font-size: 0.87em; }
-      .site-nav ul li a:hover { color: #fff; text-decoration: underline; }
+        /* Main content: fills remaining space */
+        #main_content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* Headings: smaller scale */
+        #main_content h1 {
+            font-size: 1.6em;
+        }
+
+        #main_content h2 {
+            font-size: 1.25em;
+        }
+
+        #main_content h3 {
+            font-size: 1.1em;
+        }
+
+        #main_content h4 {
+            font-size: 0.95em;
+            font-weight: bold;
+        }
+
+        /* Images: never overflow */
+        #main_content img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Sidebar nav styles */
+        .site-nav strong {
+            display: block;
+            margin: 14px 0 4px;
+            color: #aaa;
+            font-size: 0.72em;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .site-nav strong:first-child {
+            margin-top: 0;
+        }
+
+        .site-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px;
+        }
+
+        .site-nav ul li {
+            margin: 2px 0;
+        }
+
+        .site-nav ul li a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.87em;
+        }
+
+        .site-nav ul li a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
     </style>
 </head>
 
