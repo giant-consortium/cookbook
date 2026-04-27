@@ -2,8 +2,8 @@
 ---
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
-  <a href="../index.html">⬅️ Return to Homepage</a>
-  <a href="../pre_phasing_checks.html">Go to Step 2 [Pre-Phasing Checks] ➡️</a>
+  <a href="./../index.html">⬅️ Return to Homepage</a>
+  <a href="./../pre_phasing_checks.html">Go to Step 2 [Pre-Phasing Checks] ➡️</a>
 </div>
 
 # Sample Variant QC Pipeline — Detailed Guide
@@ -151,7 +151,7 @@ The pipeline performs the following steps:
 
 ## Workflow Diagram
 
-![Sample Variant QC Pipeline Overview](../diagrams/overview/Overview_SampleVariantQC_Pipeline.png)
+![Sample Variant QC Pipeline Overview](./../diagrams/overview/Overview_SampleVariantQC_Pipeline.png)
 
 ## Troubleshooting
 
@@ -170,17 +170,17 @@ The following sections walk through each pipeline step in detail, covering the s
 ### Jump to a Step
 
 | Step | Name | Script |
-|------|------|--------|
-| [0](#step-0-setup-and-format-conversion) | Setup and Format Conversion | `Step0_Setup.sh` |
-| [1](#step-1-build-detection-and-liftover) | Build Detection and Liftover | `Step1_CheckBuild.sh` |
-| [2](#step-2-pre-qc-statistics) | Pre-QC Statistics | `Step2_PreQC.sh` |
-| [3](#step-3-basic-sample-and-variant-level-qc) | Basic Sample and Variant-Level QC | `Step3_BasicQC.sh` |
-| [4](#step-4-snp-intersection-and-ld-pruning) | SNP Intersection and LD Pruning | `Step4_SNPIntersectForPCA.sh` |
-| [5](#step-5-relatedness-estimation) | Relatedness Estimation | `Step5_KinshipTest.sh` |
-| [6](#step-6-principal-component-analysis) | Principal Component Analysis | `Step6_PCA.sh` |
-| [7](#step-7-ancestry-prediction) | Ancestry Prediction | `Step7_AncestryModel.sh` |
-| [8](#step-8-ancestry-specific-pca) | Ancestry-Specific PCA | `Step8_AncestrySpecificPCA.sh` |
-| [9](#step-9-cleanup-and-reporting) | Cleanup and Reporting | `CleanUp.sh` |
+| ------ | ------ | -------- |
+| [0](#step-0) | Setup and Format Conversion | `Step0_Setup.sh` |
+| [1](#step-1) | Build Detection and Liftover | `Step1_CheckBuild.sh` |
+| [2](#step-2) | Pre-QC Statistics | `Step2_PreQC.sh` |
+| [3](#step-3) | Basic Sample and Variant-Level QC | `Step3_BasicQC.sh` |
+| [4](#step-4) | SNP Intersection and LD Pruning | `Step4_SNPIntersectForPCA.sh` |
+| [5](#step-5) | Relatedness Estimation | `Step5_KinshipTest.sh` |
+| [6](#step-6) | Principal Component Analysis | `Step6_PCA.sh` |
+| [7](#step-7) | Ancestry Prediction | `Step7_AncestryModel.sh` |
+| [8](#step-8) | Ancestry-Specific PCA | `Step8_AncestrySpecificPCA.sh` |
+| [9](#step-9) | Cleanup and Reporting | `CleanUp.sh` |
 
 ### SAMPLE_VARIANT_QC_RUNNER.sh
 
@@ -242,9 +242,14 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 #### Step 0: Setup and Format Conversion
 
-**Script:** `Step0_Setup.sh`
+{: #step-0}
 
-![Step 0: Setup](../diagrams/ind_geno_qc/Step0.png)
+<details open>
+<summary><strong>Step 0: Setup and Format Conversion</strong> — <code>Step0_Setup.sh</code></summary>
+
+<br>
+
+![Step 0: Setup](./../diagrams/ind_geno_qc/Step0.png)
 
 1. **Binary setup:** Copy PLINK1.9 and PLINK2 binaries to `/` directory
 2. **Format detection and conversion:** Convert study files to PLINK format
@@ -257,11 +262,20 @@ This file configures paths, performs data downloads, and builds the Docker image
    - Study-specific output: `./output/<STUDY_NAME>_Outputs/`
    - Subdirectories: InitialQC, PCA, Kinship, Ancestry, Logs
 
+</details>
+
 #### Step 1: Build Detection and Liftover
 
-**Script:** `Step1_CheckBuild.sh` | **Utility:** `./utils/check_build.R`
+{: #step-1}
 
-![Step 1: Build Detection](../diagrams/ind_geno_qc/Step1.png)
+<details>
+<summary><strong>Step 1: Build Detection and Liftover</strong> — <code>Step1_CheckBuild.sh</code></summary>
+
+<br>
+
+**Utility:** `./utils/check_build.R`
+
+![Step 1: Build Detection](./../diagrams/ind_geno_qc/Step1.png)
 
 **Build Check Process:**
 
@@ -286,11 +300,20 @@ This file configures paths, performs data downloads, and builds the Docker image
 3. Perform coordinate conversion
 4. Archive original files with `_hg37` suffix
 
+</details>
+
 #### Step 2: Pre-QC Statistics
 
-**Script:** `Step2_PreQC.sh` | **Report:** `./utils/report_qc_stats.Rmd`
+{: #step-2}
 
-![Step 2: Pre-QC Statistics](../diagrams/ind_geno_qc/Step2.png)
+<details>
+<summary><strong>Step 2: Pre-QC Statistics</strong> — <code>Step2_PreQC.sh</code></summary>
+
+<br>
+
+**Report:** `./utils/report_qc_stats.Rmd`
+
+![Step 2: Pre-QC Statistics](./../diagrams/ind_geno_qc/Step2.png)
 
 **Calculate pre-QC statistics:**
 
@@ -308,11 +331,20 @@ This file configures paths, performs data downloads, and builds the Docker image
 - **WGS data:** Calculate per-chromosome pre-QC statistics for all chromosomes
 - **Array data:** Proceed directly to Step 3 (Basic QC)
 
+</details>
+
 #### Step 3: Basic Sample and Variant-Level QC
 
-**Script:** `Step3_BasicQC.sh` | **Utility:** `./utils/filter_heterozygosity.py`
+{: #step-3}
 
-![Step 3: Basic Sample and Variant-Level QC](../diagrams/ind_geno_qc/Step3.png)
+<details>
+<summary><strong>Step 3: Basic Sample and Variant-Level QC</strong> — <code>Step3_BasicQC.sh</code></summary>
+
+<br>
+
+**Utility:** `./utils/filter_heterozygosity.py`
+
+![Step 3: Basic Sample and Variant-Level QC](./../diagrams/ind_geno_qc/Step3.png)
 
 **Pre-filtering:** Restrict to bi-allelic variants
 
@@ -335,11 +367,18 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 **Output:** QC'd STUDY file in PLINK format (`.bed/.bim/.fam`) in `./output/<study_name>/PostBasicQC/`
 
+</details>
+
 #### Step 4: SNP Intersection and LD Pruning
 
-**Script:** `Step4_SNPIntersectForPCA.sh`
+{: #step-4}
 
-![Step 4: SNP Intersection and LD Pruning](../diagrams/ind_geno_qc/Step4.png)
+<details>
+<summary><strong>Step 4: SNP Intersection and LD Pruning</strong> — <code>Step4_SNPIntersectForPCA.sh</code></summary>
+
+<br>
+
+![Step 4: SNP Intersection and LD Pruning](./../diagrams/ind_geno_qc/Step4.png)
 
 **Step 4A — Get Canonical List of Variants:**
 
@@ -361,11 +400,20 @@ This file configures paths, performs data downloads, and builds the Docker image
 1. **Study file:** Restrict post-QC study data to list of LD-pruned SNPs. This produces the **STUDY file for relatedness estimation** (`.bed/.bim/.fam`)
 2. **Reference file:** Restrict reference data to list of LD-pruned SNPs. This produces the **REFERENCE data for ancestry estimation** (`.bed/.bim/.fam`)
 
+</details>
+
 #### Step 5: Relatedness Estimation
 
-**Script:** `Step5_KinshipTest.sh` | **Report:** `./utils/report_kinship.Rmd`
+{: #step-5}
 
-![Step 5: Relatedness Estimation using KING](../diagrams/ind_geno_qc/Step5.png)
+<details>
+<summary><strong>Step 5: Relatedness Estimation</strong> — <code>Step5_KinshipTest.sh</code></summary>
+
+<br>
+
+**Report:** `./utils/report_kinship.Rmd`
+
+![Step 5: Relatedness Estimation using KING](./../diagrams/ind_geno_qc/Step5.png)
 
 **Implementation:**
 
@@ -378,11 +426,20 @@ This file configures paths, performs data downloads, and builds the Docker image
 7. **Create ancestry file:** Remove related samples from the STUDY relatedness file. This produces the **STUDY file for ancestry estimation** (`.bed/.bim/.fam`)
 8. **Visualization:** Kinship coefficient distributions and plots
 
+</details>
+
 #### Step 6: Principal Component Analysis
 
-**Script:** `Step6_PCA.sh` | **Utility:** `./utils/plot_pca.R` | **Report:** `./utils/report_pca.Rmd`
+{: #step-6}
 
-![Step 6: Principal Component Analysis](../diagrams/ind_geno_qc/Step6.png)
+<details>
+<summary><strong>Step 6: Principal Component Analysis</strong> — <code>Step6_PCA.sh</code></summary>
+
+<br>
+
+**Utilities:** `./utils/plot_pca.R` | **Report:** `./utils/report_pca.Rmd`
+
+![Step 6: Principal Component Analysis](./../diagrams/ind_geno_qc/Step6.png)
 
 **Implementation:**
 
@@ -394,11 +451,20 @@ This file configures paths, performs data downloads, and builds the Docker image
 
 **Standardized plotting:** Consistent formatting across all PCA visualizations using `./utils/plot_pca.R`
 
+</details>
+
 #### Step 7: Ancestry Prediction
 
-**Script:** `Step7_AncestryModel.sh` | **Utility:** `./utils/train_pca_model.py` | **Report:** `./utils/report_ancestry_predictions.Rmd`
+{: #step-7}
 
-![Step 7: Ancestry Prediction](../diagrams/ind_geno_qc/Step7.png)
+<details>
+<summary><strong>Step 7: Ancestry Prediction</strong> — <code>Step7_AncestryModel.sh</code></summary>
+
+<br>
+
+**Utility:** `./utils/train_pca_model.py` | **Report:** `./utils/report_ancestry_predictions.Rmd`
+
+![Step 7: Ancestry Prediction](./../diagrams/ind_geno_qc/Step7.png)
 
 **Model training:**
 
@@ -418,11 +484,18 @@ This file configures paths, performs data downloads, and builds the Docker image
 3. **Output:** Per-sample ancestry prediction
 4. **Visualization:** PC plots with ancestry predictions and confidence distributions
 
+</details>
+
 #### Step 8: Ancestry-Specific PCA
 
-**Script:** `Step8_AncestrySpecificPCA.sh`
+{: #step-8}
 
-![Step 8: Ancestry-Specific PCA](../diagrams/ind_geno_qc/Step8.png)
+<details>
+<summary><strong>Step 8: Ancestry-Specific PCA</strong> — <code>Step8_AncestrySpecificPCA.sh</code></summary>
+
+<br>
+
+![Step 8: Ancestry-Specific PCA](./../diagrams/ind_geno_qc/Step8.png)
 
 **Process:**
 
@@ -431,11 +504,18 @@ This file configures paths, performs data downloads, and builds the Docker image
 3. **Projection:** Project samples of selected ancestry onto REFERENCE PC space using FlashPCA
 4. **Output:** Ancestry-specific PC files for downstream association analyses
 
+</details>
+
 #### Step 9: Cleanup and Reporting
 
-**Script:** `CleanUp.sh`
+{: #step-9}
 
-![Step 9: Cleanup](../diagrams/ind_geno_qc/Step9.png)
+<details>
+<summary><strong>Step 9: Cleanup and Reporting</strong> — <code>CleanUp.sh</code></summary>
+
+<br>
+
+![Step 9: Cleanup](./../diagrams/ind_geno_qc/Step9.png)
 
 **Create final Post-QC dataset:**
 
@@ -448,3 +528,5 @@ This file configures paths, performs data downloads, and builds the Docker image
 3. **Combined reporting:** Collate PDFs into a single output report, producing the final **Sample Variant QC Report**
 
 > **Styling Note:** All HTML reports use consistent formatting via `./utils/qc_report_style.css`
+
+</details>
