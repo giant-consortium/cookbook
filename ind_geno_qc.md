@@ -14,18 +14,19 @@ This pipeline provides comprehensive quality control for genomic variant data, i
 
 ## Features
 
-- **Automated Build Detection** (hg37/hg38) with liftover
-- **Comprehensive QC** filtering and statistics
-- **Ancestry Prediction** using 1000G + HGDP reference data
-- **Principal Component Analysis** for population structure
-- **Kinship Analysis** to identify related samples
-- **Interactive Reports** with plots and summaries
-- **Containerized** execution with Docker/Singularity/Apptainer
+- **Automated Build Detection** (hg37/hg38) with liftover using progressive MAF filtering strategies
+- **Comprehensive QC** filtering and statistics with customizable thresholds
+- **Ancestry Prediction** using 1000G + HGDP reference data with MANCS or Random Forest algorithms
+- **Principal Component Analysis** for population structure with projection capabilities
+- **Kinship Analysis** using KING to identify related samples
+- **Interactive Reports** with consistent styling and comprehensive plots
+- **Containerized** execution with Docker/Singularity/Apptainer support
+- **Multi-format Input Support** (.bed/.bim/.fam, BGEN, .pgen, .ped/.map, compressed archives)
 
 ## Requirements
 
 - Docker, Singularity or Apptainer
-- 8GB+ RAM, 50GB storage
+- 8GB+ RAM, 50GB+ storage recommended
 - Linux/macOS (Windows via WSL)
 - Bash shell
 
@@ -46,7 +47,7 @@ This pipeline provides comprehensive quality control for genomic variant data, i
    study_name=STUDY4_SAS
    ```
 
-   **Note:** If these are stored in a compressed form (.tar.gz) or in alternate formats (.ped/.map, .bgen) the conversion to PLINK is done automatically. Do not include the file extension in the `study_name` parameter.
+   **Note:** If these are stored in a compressed form (.tar.gz) or in alternate formats (.ped/.map, .bgen, .pgen) the conversion to PLINK is done automatically. Do not include the file extension in the `study_name` parameter.
 
 3. **Run the pipeline:**
 
@@ -71,7 +72,7 @@ This pipeline provides comprehensive quality control for genomic variant data, i
 
 ### Input/Output
 
-**Accepts:** PLINK files (.bed/.bim/.fam), BGEN, .ped/.map, compressed archives  
+**Accepts:** PLINK files (.bed/.bim/.fam), BGEN, .pgen, .ped/.map, compressed archives (.tar.gz)  
 **Produces:** QC'd genotypes, ancestry labels, PCs, kinship results, HTML/PDF reports
 
 ### Output Structure
@@ -93,6 +94,21 @@ output/
     └── Reports/                     # HTML and PDF summary reports
 ```
 
+### Repository Structure
+
+```bash
+sample_variant_qc/
+├── scripts/                 # Main pipeline and stepwise shell scripts
+├── utils/                   # R scripts, plotting, and support utilities  
+├── data/                    # Input data (e.g., population files)
+├── output/                  # Output directory for results and reports
+├── config/
+│   ├── parameters.txt       # Configuration file for pipeline variables
+│   └── mounts.txt          # Mount path definitions
+├── Dockerfile              # Docker image definition
+└── SAMPLE_VARIANT_QC_RUNNER.sh  # Main execution script
+```
+
 ## Pipeline Overview
 
 The pipeline performs the following steps:
@@ -100,9 +116,9 @@ The pipeline performs the following steps:
 1. **Setup & Format Conversion** - Convert input to PLINK format
 2. **Build Detection** - Determine hg37/hg38 and liftover if needed  
 3. **Pre-QC Statistics** - Generate baseline quality metrics
-4. **Basic QC** - Filter samples/variants (Default: call rate, MAF, HWE)
-5. **Kinship Analysis** - Identify related samples using KING
-6. **SNP Intersection** - Align with reference data for PCA
+4. **Basic QC** - Filter samples/variants (call rate, MAF, MAC, HWE, heterozygosity)
+5. **SNP Intersection & LD Pruning** - Align with reference data, prepare for relatedness and ancestry estimation
+6. **Relatedness Estimation** - Identify related samples using KING
 7. **PCA Generation** - Calculate population structure covariates
 8. **Ancestry Prediction** - Assign continental ancestry labels
 9. **Ancestry-Specific PCA** - Generate population-specific PCs
@@ -110,19 +126,20 @@ The pipeline performs the following steps:
 
 ## Workflow Diagram
 
-![Sample Variant QC Pipeline Flowchart](./Overview_SampleVariantQC_Pipeline.png)
+![Sample Variant QC Pipeline Flowchart](./diagrams/overview/Overview_SampleVariantQC_Pipeline.png)
 
 ## Default QC Thresholds
 
 - **Build check:** Requires ≥80% variant overlap between study and reference data (tested with no MAF threshold, MAF>1% and MAF>5%)
 - **Sample call rate:** 90% (0.9)
 - **Variant call rate:** 90% (0.9)  
-- **Minor allele frequency:** 1% (0.01)
-- **Hardy-Weinberg equilibrium:** p > 1e-50
-- **Sample heterozygosity:** within 3 IQR of median
+- **Minor allele frequency:** 0.1% (0.001)
+- **Minor allele count:** ≥5
+- **Hardy-Weinberg equilibrium:** p > 1e-12 for homogeneous cohorts, p > 1e-6 for mixed ancestry cohorts
+- **Sample heterozygosity:** outliers based on heterozygosity (configurable method)
 - **Kinship threshold:** 0.354 (MZ twins/duplicates only)
 - **Ancestry prediction algorithm:** MANCS (Multi-Ancestry Nearest Control Selection)
-- **Ancestry confidence:** 80% (0.8)
+- **Ancestry confidence:** 80% (0.8), fallback to 75th percentile if no samples meet 80%
 
 *All thresholds are customizable via `parameters.txt`*
 
@@ -130,9 +147,10 @@ The pipeline performs the following steps:
 
 Uses harmonized 1000 Genomes + HGDP data:
 
-- 3,280 samples, 8.15M high-quality variants
-- Continental ancestry labels (AFR, AMR, EAS, EUR, SAS)
-- Available in hg37 and hg38 builds
+- **3,280 samples**, 8.15M high-quality variants
+- **Continental ancestry labels** (AFR, AMR, EAS, EUR, SAS)
+- **Available in hg37 and hg38 builds**
+- **Source:** gnomAD v3.1.2 HGDP + 1KG subset with additional QC filtering
 
 ## Troubleshooting
 
@@ -140,11 +158,8 @@ Uses harmonized 1000 Genomes + HGDP data:
 - Ensure all required paths in `parameters.txt` are correct and accessible.
 - Stepwise outputs are in the `./output/study_name/` directory.
 - For container issues, verify your container runtime is installed and running.
+- If build detection fails, check variant overlap diagnostics in the logs.
 
 ---
 
-**Note:** For detailed step-by-step documentation, see [GIANT_IndGenoQCSteps_DeeperImputation](dev_guides/ind_geno_qc_detailed.md)
-
----
-
-[<img src="giant_logo.png" alt="Homepage" width="24" style="vertical-align:middle; margin-right:6px;"> Return to Homepage](README.md)
+**For implementation details on each pipeline step**, see [Sample Variant QC Pipeline — Detailed Guide](dev_guides/ind_geno_qc_detailed.html)
