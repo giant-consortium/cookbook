@@ -27,9 +27,15 @@
 
         #header_home_link {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
             text-decoration: none;
+        }
+
+        #header_text_block {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
         #header_logo {
@@ -39,6 +45,7 @@
             border: none;
             box-shadow: none;
             outline: none;
+            margin-top: 3px;
         }
 
         #header_name {
@@ -46,17 +53,13 @@
             font-weight: bold;
             color: #fff;
             line-height: 1;
-            margin-bottom: 2px;
         }
 
         #header_tagline {
             font-size: 1.0em;
             color: #ccc;
             font-weight: normal;
-            padding-left: 64px;
-            display: block;
             line-height: 1;
-            margin-top: 0;
         }
 
         /* Override slate .inner max-width so content fills the viewport */
@@ -91,23 +94,11 @@
             min-width: 0;
         }
 
-        /* Headings: smaller scale */
-        #main_content h1 {
-            font-size: 1.6em;
-        }
-
-        #main_content h2 {
-            font-size: 1.25em;
-        }
-
-        #main_content h3 {
-            font-size: 1.1em;
-        }
-
-        #main_content h4 {
-            font-size: 0.95em;
-            font-weight: bold;
-        }
+        /* Headings: smaller scale, no theme border-bottom */
+        #main_content h1 { font-size: 1.6em; border-bottom: none; }
+        #main_content h2 { font-size: 1.25em; border-bottom: none; }
+        #main_content h3 { font-size: 1.1em; border-bottom: none; }
+        #main_content h4 { font-size: 0.95em; font-weight: bold; }
 
         /* Images: never overflow */
         #main_content img {
@@ -167,9 +158,11 @@
             <div id="header_title">
                 <a href="{{ '/' | relative_url }}" id="header_home_link">
                     <img src="{{ '/giant_logo.png' | relative_url }}" alt="GIANT" id="header_logo">
-                    <span id="header_name">GIANT Deeper Imputation</span>
+                    <div id="header_text_block">
+                        <span id="header_name">GIANT Deeper Imputation</span>
+                        <span id="header_tagline">Analysis Cookbook</span>
+                    </div>
                 </a>
-                <div id="header_tagline">Analysis Cookbook</div>
             </div>
         </header>
     </div>

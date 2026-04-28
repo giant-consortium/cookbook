@@ -1,6 +1,5 @@
 
-# <img src="giant_logo.png" alt="GIANT Consortium Logo" width="80" style="vertical-align:middle; margin:0; padding:0; display:inline;"> GIANT Deeper Imputation
-<span style="padding-left:96px; font-size:1.1em; color:#555;">Analysis Cookbook</span>
+# <img src="giant_logo.png" alt="GIANT Consortium Logo" width="80" style="vertical-align:middle; margin:0; padding:0; display:inline;"> GIANT Deeper Imputation<br><span style="font-size:0.6em; font-weight:normal; color:#666; margin-left:4px;">Analysis Cookbook</span>
 
 ---
 
@@ -42,7 +41,5 @@ Welcome! This site is a practical guide for using the GIANT Consortium’s conta
 
 - Each documentation page links to relevant scripts and configuration files.
 - For troubleshooting, see the "Troubleshooting" section in each pipeline step.
-
----
 
 _This project is maintained by the [giant-consortium](https://github.com/giant-consortium)._
