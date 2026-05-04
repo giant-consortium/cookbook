@@ -2,6 +2,11 @@
 layout: default
 ---
 
+<style>
+  table { font-size: 0.85em; }
+  table th, table td { padding: 4px 8px; }
+</style>
+
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <a href="./index.html">⬅️ Return to Homepage</a>
   <a href="./pre_phasing_checks.html">Go to Step 2 [Pre-Phasing Checks] ➡️</a>
@@ -84,13 +89,13 @@ output/<study_name>_Outputs/
 ├── Kinship/                   # Relatedness analysis results
 ├── Logs/                      # Pipeline execution logs
 ├── PCA/                       # Principal component analysis outputs
-├── PostBasicQC/               # OUTPUT QC'd genotypes → feed into Step 2
+├── PostBasicQC/               # **OUTPUT QC'd genotypes; input for Step 2**
 ├── PostQC_PerChromosome/      # QC'd data split by chromosome
 ├── PostQCStats_PerChromosome/ # Per-chromosome QC statistics
 ├── PostSampleVariantQC/       # Final QC'd genotype files
 ├── PreQCStats/                # Baseline statistics (pre-QC)
 ├── PreQCStats_PerChromosome/  # Per-chromosome baseline statistics
-└── Reports/                   # OUTPUT Combined PDF report to upload
+└── Reports/                   # **OUTPUT Combined PDF report to upload**
 ```
 
 ---
@@ -131,7 +136,11 @@ output/<study_name>_Outputs/
 9. **Ancestry-Specific PCA** — per-ancestry projections
 10. **Reporting** — produce combined HTML/PDF report
 
-![Sample Variant QC Pipeline Flowchart](./diagrams/overview/Overview_SampleVariantQC_Pipeline.png)
+<a href="./diagrams/overview/Overview_SampleVariantQC_Pipeline.png" target="_blank">
+  <img src="./diagrams/overview/Overview_SampleVariantQC_Pipeline.png" alt="Sample Variant QC Pipeline Flowchart" style="width: 100%; max-width: 100%;" />
+</a>
+
+*Click the image to view full size.*
 
 ---
 
