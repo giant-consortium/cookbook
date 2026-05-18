@@ -15,7 +15,7 @@ layout: default
 
 ---
 
-![Step 3: Basic Sample and Variant-Level QC](./../diagrams/ind_geno_qc/Step3.png)
+![Step 3: Basic Sample and Variant-Level QC](./../diagrams/ind_geno_qc/Workflow1_Step3.png)
 
 ## Pre-filtering
 

@@ -15,7 +15,7 @@ layout: default
 
 ---
 
-![Step 4: SNP Intersection and LD Pruning](./../diagrams/ind_geno_qc/Step4.png)
+![Step 4: SNP Intersection and LD Pruning](./../diagrams/ind_geno_qc/Workflow1_Step4.png)
 
 ## Step 4A — Get Canonical List of Variants
 

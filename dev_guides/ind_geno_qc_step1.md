@@ -15,7 +15,7 @@ layout: default
 
 ---
 
-![Step 1: Build Detection](./../diagrams/ind_geno_qc/Step1.png)
+![Step 1: Build Detection](./../diagrams/ind_geno_qc/Workflow1_Step1.png)
 
 ## Build Check Process
 

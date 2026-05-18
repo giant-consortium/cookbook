@@ -13,7 +13,7 @@ layout: default
 
 ---
 
-![Step 0: Setup](./../diagrams/ind_geno_qc/Step0.png)
+![Step 0: Setup](./../diagrams/ind_geno_qc/Workflow1_Step0.png)
 
 ## Steps
 

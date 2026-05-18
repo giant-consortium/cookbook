@@ -3,35 +3,29 @@ layout: default
 ---
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
-  <a href="./ind_geno_qc_step8.html">⬅️ Step 8: Ancestry-Specific PCA</a>
-  <a href="./ind_geno_qc_detailed.html">⬅️ Back to Pipeline Overview</a>
+  <a href="./ind_geno_qc_step8.html">⬅️ Step 8: Finalize Outputs</a>
+  <a href="./ind_geno_qc_step10.html">Step 10: Clean and Consolidate ➡️</a>
 </div>
 
 [Back to Pipeline Overview](./ind_geno_qc_detailed.html)
 
-# Step 9: Cleanup and Reporting
+# Step 9: Ancestry-Specific PCA
 
-**Script:** `CleanUp.sh`
+**Script:** `Step9_AncestrySpecificPCA.sh`
 
 ---
 
-![Step 9: Cleanup](./../diagrams/ind_geno_qc/Step9.png)
+![Step 9: Ancestry-Specific PCA](./../diagrams/ind_geno_qc/Workflow1_Step9.png)
 
-## Create Final Post-QC Dataset
+## Process
 
-1. **Combine exclusions:** Take STUDY file after basic QC and remove samples excluded due to relatedness (from Step 5) → produces the final **Post QC STUDY dataset** (`.bed/.bim/.fam`)
-
-## Reporting and Cleanup
-
-1. **File logging:** Log list of files in all output directories
-2. **Report conversion:** Convert HTML reports to PDF format
-3. **Combined reporting:** Collate PDFs into a single output report → produces the final **Sample Variant QC Report**
-
-> **Styling Note:** All HTML reports use consistent formatting via `./utils/qc_report_style.css`
+1. **Sample count check:** Only proceed with PCA if there are at least 2 samples for the ancestry group.
+2. **Run FlashPCA:** Perform PCA for each ancestry-specific subset using FlashPCA, handling cases where the number of PCs is limited by sample size.
+3. **Output:** Ancestry-specific PC files for downstream association analysis
 
 ---
 
 <div style="display: flex; justify-content: space-between;">
-  <a href="./ind_geno_qc_step8.html">⬅️ Step 8: Ancestry-Specific PCA</a>
-  <a href="./ind_geno_qc_detailed.html">Back to Pipeline Overview ➡️</a>
+  <a href="./ind_geno_qc_step8.html">⬅️ Step 8: Finalize Outputs</a>
+  <a href="./ind_geno_qc_step10.html">Step 10: Clean and Consolidate ➡️</a>
 </div>

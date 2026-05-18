@@ -15,7 +15,7 @@ layout: default
 
 ---
 
-![Step 7: Ancestry Prediction](./../diagrams/ind_geno_qc/Step7.png)
+![Step 7: Ancestry Prediction](./../diagrams/ind_geno_qc/Workflow1_Step7.png)
 
 ## Model Training
 

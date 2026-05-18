@@ -15,7 +15,7 @@ layout: default
 
 ---
 
-![Step 2: Pre-QC Statistics](./../diagrams/ind_geno_qc/Step2.png)
+![Step 2: Pre-QC Statistics](./../diagrams/ind_geno_qc/Workflow1_Step2.png)
 
 ## Calculate Pre-QC Statistics
 

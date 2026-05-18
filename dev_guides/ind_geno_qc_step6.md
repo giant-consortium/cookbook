@@ -15,7 +15,7 @@ layout: default
 
 ---
 
-![Step 6: Principal Component Analysis](./../diagrams/ind_geno_qc/Step6.png)
+![Step 6: Principal Component Analysis](./../diagrams/ind_geno_qcWorkflow1_Step6.png)
 
 ## Implementation
 

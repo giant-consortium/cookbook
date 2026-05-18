@@ -15,7 +15,7 @@ layout: default
 
 ---
 
-![Step 5: Relatedness Estimation using KING](./../diagrams/ind_geno_qc/Step5.png)
+![Step 5: Relatedness Estimation using KING](./../diagrams/ind_geno_qc/Workflow1_Step5.png)
 
 ## Implementation
 
