@@ -69,7 +69,8 @@ After the pipeline completes, all final outputs are in `output/<study_name>_Outp
 
 - **`<study_name>_postQC.bed/bim/fam`** → Clean genotypes for imputation
 - **`<study_name>_Combined_Report.pdf`** → QC summary (upload to GIANT)
-- **`<study_name>_<ancestry>_PCA.txt`** → Ancestry-specific PCs for GWAS covariates
+- **`<study_name>_<ancestry>_PCA.txt`** → Per-ancestry PCs for GWAS covariates
+- **`<study_name>_combined_ancestry_pca.tsv`** → All-ancestry PCs in one file
 - **`<study_name>_AncestryPredictions.txt`** → Continental ancestry labels
 
 ---
@@ -105,9 +106,11 @@ These are the **final QC'd files** produced by this step:
 | `<study_name>_AncestryPredictions.txt` | Continental ancestry labels with confidence scores
 | `<study_name>_projections.txt` | **Global PCs** (samples projected onto reference space)
 | `<study_name>_<ancestry>_PCA.txt` | **Ancestry-specific PCs** (fine-scale structure)
-| `<study_name>_combined_ancestry_pca.tsv` | Consolidated ancestry-specific PCs (all ancestries)
+| `<study_name>_combined_ancestry_pca.tsv` | Consolidated ancestry-specific PCs (all ancestries) |
 | `<study_name>_rsid_mapping.txt` | rsID to chr:pos mapping (if rsIDs present)
 | `<study_name>_Combined_Report.pdf` | **QC summary report**; **Upload to GIANT** |
+
+> **Note:** Samples from small ancestry groups may be absent from `_combined_ancestry_pca.tsv` if FlashPCA could not compute the full `num_pcs` PCs for that group. Use the per-ancestry `_<ancestry>_PCA.txt` files if you need those samples.
 
 ### Intermediate Outputs (for QC review)
 
@@ -191,6 +194,7 @@ Uses harmonized 1000 Genomes + HGDP data (gnomAD v3.1.2):
 
 - Check `output/<study_name>_Outputs/Logs/` for error messages.
 - Verify all paths in `parameters.txt` are correct and accessible.
+- **Avoid symlinks** in `path_to_data`, `path_to_output`, or any reference data path. Container bind-mounts resolve the symlink target on the host but do not re-expose it inside the container — use the real absolute path instead.
 - Ensure your container runtime is installed and running.
 - If build detection fails, inspect variant-overlap diagnostics in the logs.
 - Re-run with `--force_data_download` if reference data appears corrupted.
