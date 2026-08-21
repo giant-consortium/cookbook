@@ -2,7 +2,7 @@
 layout: default
 ---
 <div style="display: flex; justify-content: space-between; align-items: center;">
-  <a href="./index.html">⬅️ Return to Homepage</a>
+  <a href="dev_guides/topmed_imputation.html">⬅️ Go to Step 3 [TOPMed Imputation]</a>
   <a href="./post_gwas_checks.html">Go to Step 5 [Post-GWAS QC Checks] ➡️</a>
 </div>
 

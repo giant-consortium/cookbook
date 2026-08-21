@@ -9,6 +9,7 @@ layout: default
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <a href="./index.html">⬅️ Return to Homepage</a>
+  <a href="dev_guides/multi_array.html">🔀 Multi-Array Studies</a>
   <a href="./pre_phasing_checks.html">Go to Step 2 [Pre-Phasing Checks] ➡️</a>
 </div>
 
@@ -72,6 +73,10 @@ After the pipeline completes, all final outputs are in `output/<study_name>_Outp
 - **`<study_name>_<ancestry>_PCA.txt`** → Per-ancestry PCs for GWAS covariates
 - **`<study_name>_combined_ancestry_pca.tsv`** → All-ancestry PCs in one file
 - **`<study_name>_AncestryPredictions.txt`** → Continental ancestry labels
+
+> **Note on `temp/` directory:** The pipeline creates a `temp/` directory at `<path_to_output>/<study_name>_Outputs/temp` during the run (in-container: `/home/output/<study_name>_Outputs/temp`). It is automatically removed at the end of the pipeline run. Do not place any files in this directory.
+
+> **Provenance:** A copy of the `parameters.txt` used for the run is saved to the output directory.
 
 ---
 
@@ -198,6 +203,7 @@ Uses harmonized 1000 Genomes + HGDP data (gnomAD v3.1.2):
 - Ensure your container runtime is installed and running.
 - If build detection fails, inspect variant-overlap diagnostics in the logs.
 - Re-run with `--force_data_download` if reference data appears corrupted.
+- For studies genotyped across multiple arrays, see [Handling Studies Genotyped on Multiple Arrays](dev_guides/multi_array.html).
 
 ---
 

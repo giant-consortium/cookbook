@@ -11,7 +11,7 @@ See also: [Pipeline overview and QC thresholds](./../ind_geno_qc.html) · [Homep
 ## Contents
 
 | # | Section | Description |
-|---|---------|-------------|
+| --- | --------- | ------------- |
 | — | [Runner script](#runner) | Entry point — downloads data, builds image, runs pipeline |
 | — | [Reference datasets](#reference) | 1KG/HGDP reference data used for ancestry and QC |
 | — | [Development environment](#environment) | Dockerfile and tool versions |

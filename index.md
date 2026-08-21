@@ -21,6 +21,9 @@ Welcome! This site is a practical guide for using the GIANT Consortium’s conta
 - **[Pre-phasing Checks](pre_phasing_checks.md)**  
   Ensure your data is ready for phasing.
 
+- **[TOPMed Imputation](dev_guides/topmed_imputation.md)**  
+  Submit phased data to the TOPMed imputation server.
+
 - **[GWAS Pipeline](gwas.md)**  
   Perform genome-wide association analysis.
 

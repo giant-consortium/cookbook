@@ -3,7 +3,7 @@ layout: default
 ---
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <a href="./index.html">⬅️ Return to Homepage</a>
-  <a href="phenotyping.html">Go to Step 3 [Phenotyping]➡️</a>
+  <a href="dev_guides/topmed_imputation.html">Go to Step 3 [TOPMed Imputation] ➡️</a>
 </div>
 
 # Pre-phasing Pipeline 
