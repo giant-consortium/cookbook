@@ -24,7 +24,7 @@ The following steps are performed when running the pipeline :
  git clone https://github.com/giant-consortium/association_analysis.git
 ```
 
-### Download docker/apptainer container
+### Download container
 
 Once inside the `association_analysis` repo, run the following command needed to download either the docker or apptainer file :
 
@@ -35,7 +35,7 @@ wget -L https://storage.googleapis.com/giant_deeper_imputation/docker_containers
 chmod 777 step4_assoc.tar
 ```
 
-#### Apptainer
+#### Apptainer/Singularity
 ```bash
 wget -L https://storage.googleapis.com/giant_deeper_imputation/singularity_containers/step4_assoc.sif .
 
@@ -48,8 +48,12 @@ Modify the `parameters_gwas.txt` file with your input file names and parameters 
 
 #### In/Out paths 
 - `path_to_data` : your local path where to find the input qced array files (bed, bim, fam)   
-- `path_to_imputed_data` : your local path where to find the imputed data files (vcf)   
+- `path_to_imputed_data` : your local path where to find the imputed data files (vcf, or plink files in either bed or pgen format)   
 - `path_to_output_dir` : your local path for output files (will be created if it does not exist yet)  
+- `imputed_file_pattern` : glob pattern (relative to `path_to_imputed_data`) selecting which genotype files to use, e.g. `chr*` matches `chr1.vcf.gz` ... `chr22.vcf.gz`. Use `*` to match every file in the directory (previous behaviour).
+- `genotype_output_format` : genotype format used to prepare REGENIE step 2 input, either `pgen` (default, fastest, hard-call dosages) or `bgen` (retains continuous imputation dosages, as required by some consortia protocols).
+
+The pipeline is checkpointed: each stage (VCF/PLINK conversion, REGENIE step 1, REGENIE step 2 per chromosome) is skipped if its expected output already exists in `path_to_output_dir`. If a run fails partway through, simply re-run the same command — completed stages are skipped and the pipeline resumes from where it stopped. To force a stage to redo its work, delete its output files before re-running.
 
 #### REGENIE step 1/2 parameters
 - `study_QC_name` : Always set study_name to match the base name of your PLINK files (no file extensions). The pipeline accepts files in .bed/.bim/.fam.  
@@ -65,7 +69,7 @@ Modify the `parameters_gwas.txt` file with your input file names and parameters 
 
 ### Launch pipeline 
 
-The pipeline runner script takes a single string variable, either 'docker' or 'apptainer' to run the analysis using either of those platforms, as such:    
+The pipeline runner script takes a single string variable, 'docker', 'apptainer', or 'singularity', to run the analysis using any of those platforms, as such:    
 
 Run with docker
 ```bash
@@ -75,5 +79,8 @@ Run with apptainer
 ```bash
 ./assoc_pipeline_runner.sh apptainer
 ```
-
-
+Run with singularity
+```bash
+./assoc_pipeline_runner.sh singularity
+```
+Apptainer is the direct continuation of the open-source Singularity project (renamed in 2021), and Singularity(CE) remains compatible with the same `.sif` image and bind-mount syntax, so the same `step4_assoc.sif` works with either binary.
