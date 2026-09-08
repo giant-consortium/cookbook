@@ -34,16 +34,34 @@ Merge per-batch imputed VCFs chromosome by chromosome with `bcftools merge`. By 
 
 ```bash
 for chr in {1..22} X; do
+
+  # 1. Perform the merge
   bcftools merge \
     batch_a/chr${chr}.dose.vcf.gz \
     batch_b/chr${chr}.dose.vcf.gz \
     --merge none \
     -Oz -o merged_chr${chr}.vcf.gz
+
+  # 2. Update markername to chr:pos:ref:alt as defined in VCF.
+  #    This will make it easier to deal with variants lated
+  bcftools annotate \
+    --set-id '%CHROM:%POS:%REF:%ALT' merged_chr${chr}.vcf.gz \
+    -Oz -o merged_chr${chr}.vcf.gz
+
+  # 3. Remove the data from the INFO fields which are based on the first VCF merged only.
+  bcftools annotate \
+    -x INFO/AF,INFO/MAF,INFO/AVG_CS,INFO/R2 merged_chr${chr}.vcf.gz \
+    -Oz -o merged_chr${chr}.vcf.gz
+
+  # 4. Index the vcf
   tabix -p vcf merged_chr${chr}.vcf.gz
+
 done
 ```
 
 `--merge none` keeps multiallelic sites as separate records rather than collapsing them.
+
+
 
 ## Recalculating PCs on the merged dataset
 
@@ -51,22 +69,45 @@ Per-batch PCs are no longer valid after merging. Re-run FlashPCA on the merged d
 
 FlashPCA needs a BED file, so filter to well-imputed common variants and convert dosages to hard calls first.
 
-**1. Per chromosome — filter and convert to hard calls:**
+**1. Use `qctool` to create a list of variants we want to priortise for PCA: INFO > 0.8, MAF > 1%, imputed in everyone. 
 
-```bash
-rm -f plink_list.txt
+```
 for chr in {1..22}; do
-  plink2 --vcf merged_chr${chr}.vcf.gz dosage=DS \
-    --maf 0.05 \
-    --extract-if-info "R2 >= 0.8" \
-    --hard-call-threshold 0.1 \
+  
+  # a. use qctool to generate the INFO scores
+  qctool -g merged_chr${chr}.vcf.gz \
+    -filetype vcf \
+    -vcf-genotype-field GP \
+    -snp-stats \
+    -osnp merged_chr${chr}.snpstats
+
+
+  # b. identify variants meeting the inclusion criteria 
+  awk -v n="$N" '{ 
+    if (NF == 26 && 
+        $14>0.01 && 
+        $17>0.8 && 
+        $19<1/n) {
+        print $2
+    } 
+  }' merged_chr${chr}.snpstats > merged_chr${chr}_variant_list_to_prune.txt
+
+  
+  # c. run plink to generate the bed file
+  plink2 --vcf chr20.dose.vcf.gz \
+    --extract merged_chr${chr}_variant_list_to_prune.txt \
     --make-bed \
-    --out pca_chr${chr}
-  echo "pca_chr${chr}" >> plink_list.txt
+    --out merged_chr${chr}_for_pca.txt
+
 done
 ```
 
+`Contact Andy Wood for an alternative script if you are unable to generate the INFO scores and other metrics using QCtool.`
+
+
 **2. Merge chromosomes:**
+
+Place the file prefixes for each chromosome on a separate line (e.g. plink_list.txt). Then:
 
 ```bash
 plink2 --pmerge-list plink_list.txt bfile \
