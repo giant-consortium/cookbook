@@ -107,7 +107,7 @@ done
 
 **2. Merge chromosomes:**
 
-Place the file prefixes for each chromosome on a separate line (e.g. plink_list.txt). Then:
+Place the file prefixes for each chromosome on a separate line (e.g. `plink_list.txt`). Then:
 
 ```bash
 plink2 --pmerge-list plink_list.txt bfile \
