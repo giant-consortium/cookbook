@@ -92,7 +92,7 @@ for chr in {1..22}; do
   }' merged_chr${chr}.snpstats > merged_chr${chr}_variant_list_to_prune.txt
 
   # c. run plink to generate the bed file
-  plink2 --vcf chr20.dose.vcf.gz \
+  plink2 --vcf merged_chr${chr}.vcf.gz \
     --extract merged_chr${chr}_variant_list_to_prune.txt \
     --make-bed \
     --out merged_chr${chr}_for_pca.txt
