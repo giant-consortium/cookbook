@@ -71,7 +71,7 @@ FlashPCA needs a BED file, so filter to well-imputed common variants and convert
 
 **1. Use `qctool` to create a list of variants we want to priortise for PCA: INFO > 0.8, MAF > 1%, imputed in everyone. 
 
-```
+```bash
 for chr in {1..22}; do
   
   # a. use qctool to generate the INFO scores
