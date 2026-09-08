@@ -102,7 +102,7 @@ for chr in {1..22}; do
 done
 ```
 
-`Contact Andy Wood for an alternative script if you are unable to generate the INFO scores and other metrics using QCtool.`
+Contact Andy Wood for an alternative script if you are unable to generate the INFO scores and other metrics using QCtool.
 
 
 **2. Merge chromosomes:**
