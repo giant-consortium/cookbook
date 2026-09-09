@@ -86,6 +86,8 @@ for chr in {1..22}; do
   N=$(zgrep -m 1 "#CHROM" merged_chr${chr}.vcf.gz | awk '{print NF - 9}'
   awk -v n="$N" '{ 
     if (NF == 26 && 
+        $5 ~ /^[ACGT]$/ &&
+        $6 ~ /^[ACGT]$/	&&
         $14>0.01 && 
         $17>0.8 && 
         $19<1/n) {
