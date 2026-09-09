@@ -75,7 +75,7 @@ FlashPCA needs a BED file, so filter to well-imputed common variants and convert
 ```bash
 for chr in {1..22}; do
   
-  # 1a use qctool to generate the required metrics
+  # 1a. use qctool to generate the required metrics
   qctool -g merged_chr${chr}.vcf.gz \
     -filetype vcf \
     -vcf-genotype-field GP \
