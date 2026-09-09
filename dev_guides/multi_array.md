@@ -87,9 +87,9 @@ for chr in {1..22}; do
     if (NF == 26 && 
         $5 ~ /^[ACGT]$/ &&
         $6 ~ /^[ACGT]$/	&&
-        $14>0.01 && 
-        $17>0.8 && 
-        $19<1/$26) {
+        $14 > 0.01 && 
+        $17 > 0.8 && 
+        $19 < 1/$26) {
         print $2
     } 
   }' merged_chr${chr}.snpstats > merged_chr${chr}_variant_list_to_prune.txt
