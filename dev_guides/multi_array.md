@@ -83,14 +83,13 @@ for chr in {1..22}; do
     -osnp merged_chr${chr}.snpstats
 
   # 1b. identify variants meeting the inclusion criteria 
-  N=$(zgrep -m 1 "#CHROM" merged_chr${chr}.vcf.gz | awk '{print NF - 9}'
-  awk -v n="$N" '{ 
+  awk '{ 
     if (NF == 26 && 
         $5 ~ /^[ACGT]$/ &&
         $6 ~ /^[ACGT]$/	&&
         $14>0.01 && 
         $17>0.8 && 
-        $19<1/n) {
+        $19<1/$26) {
         print $2
     } 
   }' merged_chr${chr}.snpstats > merged_chr${chr}_variant_list_to_prune.txt
