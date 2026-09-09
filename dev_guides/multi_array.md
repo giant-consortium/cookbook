@@ -75,14 +75,15 @@ FlashPCA needs a BED file, so filter to well-imputed common variants and convert
 ```bash
 for chr in {1..22}; do
   
-  # a. use qctool to generate the required metrics
+  # 1a use qctool to generate the required metrics
   qctool -g merged_chr${chr}.vcf.gz \
     -filetype vcf \
     -vcf-genotype-field GP \
     -snp-stats \
     -osnp merged_chr${chr}.snpstats
 
-  # b. identify variants meeting the inclusion criteria 
+  # 1b. identify variants meeting the inclusion criteria 
+  N=$(zgrep -m 1 "#CHROM" merged_chr${chr}.vcf.gz | awk '{print NF - 9}'
   awk -v n="$N" '{ 
     if (NF == 26 && 
         $14>0.01 && 
@@ -92,7 +93,7 @@ for chr in {1..22}; do
     } 
   }' merged_chr${chr}.snpstats > merged_chr${chr}_variant_list_to_prune.txt
 
-  # c. run plink to generate the bed file
+  # 1c. run plink to generate the bed file
   plink2 --vcf merged_chr${chr}.vcf.gz \
     --extract merged_chr${chr}_variant_list_to_prune.txt \
     --make-bed \
