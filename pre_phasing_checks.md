@@ -25,17 +25,18 @@ We are asking studies of predominately European and South Asian genetic ancestry
    chmod +x PREPHASING_PIPELINE.sh
    ```
 
-2. **Edit `parameters.txt` to set paths and options for your data**. There are three parameters that need to be set in the `parameters.txt` file.
+2. **Edit `parameters.txt` to set paths and options for your data**. There are three parameters that need to be set in the `parameters.txt` file. 
+If you have used the sample/variant QC pipeline, you should provide the prefix of the plink filename found within the output directory created: `<path_of_sample_qc_resulst>/<study>_Outputs/PostSampleVariantQC/`
  
    ```bash
    # Imputation reference panel - TOPMED or UKB
    ref_panel="TOPMED"
 
    # Directory containing plink data and prefix
-   plink_prefix="/home/ubuntu/MYSTUDY"
+   plink_prefix="/home/ubuntu/giant_step1_qc/mystudy_Outputs/PostSampleVariantQC/mystudy_postQC"
 
    # Output directory for VFCs for phasing/imputatioon
-   out_dir="./results"
+   out_dir="/home/ubuntu/giant_step2_prephasing_checks/"
    ```
 
 3. **Run the pipeline**. This will download the container if it does not already exist in the working directory. You should specify whether you would like to use Apptainer or Singularity to run the container.
@@ -78,7 +79,7 @@ In addition, the output VCF will force genotypes to be coded to REF and ALT as d
 
 #### Example terminal output from workflow (with genomic position reordering of variants required) 
 
-```bash
+```
 bash PREPHASING_PIPELINE.sh --apptainer
 ------------------------------------------------------
 -     Pre-phasing and Imputation Checks Pipeline     -
