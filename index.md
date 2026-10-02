@@ -15,6 +15,10 @@ Welcome! This site is a practical guide for using the GIANT Consortium’s conta
 - **[Sample & Genotype QC Pipeline](ind_geno_qc.md)**  
   Run the main QC pipeline for your study data.
 
+- **[Multi-Array Merge & Ancestry PCA](dev_guides/multi_array.md)**  
+  Merge per-batch imputed VCFs from a multi-array study and compute ancestry-specific
+  PCs (via the automated `multi_array_post_impute_merge` container).
+
 - **[Phenotype Processing](phenotyping.md)**  
   Adjust and transform phenotypes for analysis.
 

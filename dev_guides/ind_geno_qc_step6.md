@@ -15,7 +15,10 @@ layout: default
 
 ---
 
-![Step 6: Principal Component Analysis](./../diagrams/ind_geno_qcWorkflow1_Step6.png)
+![Step 6: Principal Component Analysis](./../diagrams/ind_geno_qc/Workflow1_Step6.png)
+
+> This step projects the study onto a 1000G+HGDP reference PC space solely to *predict* each sample's ancestry (feeds
+> The PCs actually used as GWAS covariates come from the ancestry-specific PCA, computed per ancestry after removing and then projecting back related samples
 
 ## Implementation
 

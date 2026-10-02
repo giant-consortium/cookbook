@@ -30,6 +30,19 @@ TOPMed returns encrypted result archives. See [TOPMed Imputation: Decrypting res
 
 ## Merging imputed data
 
+> **Also superseded by the `multi_array_post_impute_merge` container.** The manual
+> `bcftools merge` recipe below is the original design and is missing a step the
+> container adds: an optional per-cohort imputation-quality (`INFO/R2`) filter applied
+> to each batch's own VCF **before** merging (on by default,
+> `per_cohort_r2_filter_enabled=true` in `parameters.txt`), since each batch's
+> `AF`/`MAF`/`AVG_CS`/`R2` fields are stripped after merging and can't be filtered on
+> reliably afterward. The container also recomputes AF fresh on the pooled, merged
+> genotypes and selects biallelic, MAF-filtered PCA-candidate variants, rather than
+> relying on `qctool` (see "Recalculating PCs" below and the container
+> [README's "Why bcftools + plink2 instead of qctool"](https://github.com/giant-consortium/sample_variant_qc/tree/main/containers/multi_array_post_impute_merge#readme)
+> section). Treat the data this recipe produces (`merged_chr${chr}.vcf.gz`) as
+> historical reference, not a current input to anything downstream.
+
 Merge per-batch imputed VCFs chromosome by chromosome with `bcftools merge`. By default this takes a union of all variant sites, so variants present in only one batch will show as missing (`.`) for samples from other batches. REGENIE handles missing dosages correctly.
 
 ```bash
@@ -64,6 +77,33 @@ done
 
 
 ## Recalculating PCs on the merged dataset
+
+> **Use the `multi_array_post_impute_merge` container instead of the manual steps below.**
+> This section describes the original design; the pipeline actually implemented and
+> maintained (`containers/multi_array_post_impute_merge/`) automates merging, variant
+> selection, and PCA, and deliberately differs from the manual recipe below in two
+> important ways:
+> - **No global/pooled PCA.** PCs are computed **per ancestry only** (an
+>   ancestry-predictions file is a required input), not once across all ancestries
+>   pooled together.
+> - **Relatedness is handled before PCA, per ancestry.** Within each ancestry group,
+>   related samples (KING kinship ≥ 0.0625, i.e. up to 3rd-degree) are removed, LD
+>   pruning and FlashPCA run on the remaining unrelated subset, and the removed
+>   relatives are then projected back onto that PC space — rather than being left in
+>   a pooled PCA unadjusted.
+>
+> **LD pruning happens exactly once:** per ancestry, on that ancestry's own unrelated
+> subset, immediately before FlashPCA -- never pooled/genome-wide and never before
+> relatedness is removed. All of the relevant thresholds are configurable in
+> `parameters.txt`, not hard-coded: `prune_window_size`/`prune_num_snps`/`prune_r2_thresh`
+> (default `200 50 0.2`), `prune_min_samples` (skips pruning below this many unrelated
+> samples, default 50), `ancestry_num_pcs` (default 10), and `pca_kinship_cutoff`
+> (default 0.0625, i.e. up to 3rd-degree).
+>
+> See [`containers/multi_array_post_impute_merge/README.md`](https://github.com/giant-consortium/sample_variant_qc/tree/main/containers/multi_array_post_impute_merge#readme)
+> for setup/usage and its "Design rationale" section ("Why no global PCA?", "When
+> should LD pruning be done?") for the reasoning. The steps below are kept as a
+> historical record of the original design and should not be run by hand.
 
 Per-batch PCs are no longer valid after merging. Re-run FlashPCA on the merged data using 15 PCs, to match the [Sample Variant QC pipeline](./ind_geno_qc_step6.html).
 
@@ -129,6 +169,10 @@ plink2 --bfile pca_merged \
   --out pca_pruned_final
 ```
 
+(Pooled, genome-wide, before ancestry/relatedness are accounted for — the current
+pipeline instead prunes per ancestry, on that ancestry's unrelated subset only, with
+`--indep-pairwise 200 50 0.2` by default; see the note above.)
+
 **4. Run FlashPCA:**
 
 ```bash
@@ -138,6 +182,10 @@ flashpca --bfile pca_pruned_final \
   --outvec merged_eigenvectors.txt \
   --outval merged_eigenvalues.txt
 ```
+
+(Pooled across all ancestries, on all samples including relatives — the current
+pipeline runs this per ancestry, on the unrelated subset, then projects relatives
+back on; see the note above.)
 
 ## Adding the batch covariate
 

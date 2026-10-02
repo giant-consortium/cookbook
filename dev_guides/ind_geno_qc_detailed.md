@@ -19,12 +19,13 @@ See also: [Pipeline overview and QC thresholds](./../ind_geno_qc.html) · [Homep
 | 1 | [Build Detection and Liftover](./ind_geno_qc_step1.html) | `Step1_CheckBuild.sh` — hg38/hg37 detection, liftover |
 | 2 | [Pre-QC Statistics](./ind_geno_qc_step2.html) | `Step2_PreQC.sh` — call rates, HWE, sex check |
 | 3 | [Basic Sample and Variant-Level QC](./ind_geno_qc_step3.html) | `Step3_BasicQC.sh` — MAF, MAC, HWE, heterozygosity filters |
-| 4 | [SNP Intersection and LD Pruning](./ind_geno_qc_step4.html) | `Step4_SNPIntersectForPCA.sh` — variant harmonisation |
+| 4 | [SNP Intersection and LD Pruning](./ind_geno_qc_step4.html) | `Step4_SNPIntersectAndPrune.sh` — variant harmonisation, pooled genome-wide pruning |
 | 5 | [Relatedness Estimation](./ind_geno_qc_step5.html) | `Step5_KinshipTest.sh` — KING via PLINK2 |
-| 6 | [Principal Component Analysis](./ind_geno_qc_step6.html) | `Step6_PCA.sh` — FlashPCA, study projection onto reference |
+| 6 | [Principal Component Analysis](./ind_geno_qc_step6.html) | `Step6_PCA.sh` — FlashPCA reference PCA + study projection, for ancestry prediction only |
 | 7 | [Ancestry Prediction](./ind_geno_qc_step7.html) | `Step7_AncestryModel.sh` — MANCS / Random Forest |
-| 8 | [Ancestry-Specific PCA](./ind_geno_qc_step8.html) | `Step8_AncestrySpecificPCA.sh` — per-ancestry projections |
-| 9 | [Cleanup and Reporting](./ind_geno_qc_step9.html) | `CleanUp.sh` — final dataset, PDF report |
+| 8 | [Finalize Outputs Post-QC](./ind_geno_qc_step8.html) | `Step8_FinalizeOutputsPostQC.sh` — remove relateds, split by ancestry |
+| 9 | [Ancestry-Specific PCA](./ind_geno_qc_step9.html) | `Step9_AncestrySpecificPCA.sh` — the final, per-ancestry PCs used downstream |
+| 10 | [Report Consolidation and Cleanup](./ind_geno_qc_step10.html) | `Step10_ConsolidateAndClean.sh` — combine reports to PDF, cleanup, manifest |
 
 ---
 

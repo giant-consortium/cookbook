@@ -28,6 +28,9 @@ layout: default
 7. **Create ancestry file:** Remove related samples from the STUDY relatedness file → produces the **STUDY file for ancestry estimation** (`.bed/.bim/.fam`)
 8. **Visualization:** Kinship coefficient distributions and plots
 
+> This is a genome-wide pass, run before ancestry is predicted, with a default threshold for `kinship_degree=MZ` (configurable)
+> There is a **second, ancestry-specific** relatedness pass later, with its own separately-configurable cutoff (`pca_kinship_cutoff`, default 0.0625, i.e. up to 3rd-degree)
+
 ---
 
 <div style="display: flex; justify-content: space-between;">

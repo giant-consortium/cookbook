@@ -38,6 +38,9 @@ layout: default
 1. **Study file:** Restrict post-QC study data to list of LD-pruned SNPs → produces the **STUDY file for relatedness estimation** (`.bed/.bim/.fam`)
 2. **Reference file:** Restrict reference data to list of LD-pruned SNPs → produces the **REFERENCE data for ancestry estimation** (`.bed/.bim/.fam`)
 
+> **Scope of this pruned SNP list:** it's pooled across the whole study, *before* ancestry is known
+> It feeds into relatedness estimation and is used for ancestry assignment after projection onto the reference PC space
+
 ---
 
 <div style="display: flex; justify-content: space-between;">

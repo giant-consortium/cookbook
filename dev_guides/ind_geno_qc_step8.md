@@ -4,16 +4,16 @@ layout: default
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <a href="./ind_geno_qc_step7.html">⬅️ Step 7: Ancestry Prediction</a>
-  <a href="./ind_geno_qc_step9.html">Step 9: Cleanup and Reporting ➡️</a>
+  <a href="./ind_geno_qc_step9.html">Step 9: Ancestry-Specific PCA ➡️</a>
 </div>
 
 [Back to Pipeline Overview](./ind_geno_qc_detailed.html)
 
-# Step 8: Ancestry-Specific PCA
+# Step 8: Finalize Outputs Post-QC
 
 **Script:** `Step8_FinalizeOutputsPostQC.sh`
 
-![Step 8: Finalize Outputs Post-QC](./../diagrams/ind_geno_qc/Workflow1_Step9.png)
+![Step 8: Finalize Outputs Post-QC](./../diagrams/ind_geno_qc/Workflow1_Step8.png)
 
 ## Process
 
