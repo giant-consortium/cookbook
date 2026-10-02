@@ -19,13 +19,15 @@ We are asking studies of predominately European and South Asian genetic ancestry
 
 1. **Clone the pre-phasing/imputation repo from GitHub**
 
-   ```
+   ```bash
    git clone git@github.com:giant-consortium/pre_phasing.git
+   cd pre_phasing/
+   chmod +x PREPHASING_PIPELINE.sh
    ```
 
 2. **Edit `parameters.txt` to set paths and options for your data**. There are three parameters that need to be set in the `parameters.txt` file.
  
-   ```
+   ```bash
    # Imputation reference panel - TOPMED or UKB
    ref_panel="TOPMED"
 
@@ -38,7 +40,7 @@ We are asking studies of predominately European and South Asian genetic ancestry
 
 3. **Run the pipeline**. This will download the container if it does not already exist in the working directory. You should specify whether you would like to use Apptainer or Singularity to run the container.
 
-   ```
+   ```bash
    # Run container using Apptainer
    bash PREPHASING_PIPELINE.sh --apptainer
    
@@ -76,7 +78,7 @@ In addition, the output VCF will force genotypes to be coded to REF and ALT as d
 
 #### Example terminal output from workflow (with genomic position reordering of variants required) 
 
-```
+```bash
 bash PREPHASING_PIPELINE.sh --apptainer
 ------------------------------------------------------
 -     Pre-phasing and Imputation Checks Pipeline     -
