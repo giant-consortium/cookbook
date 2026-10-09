@@ -27,6 +27,8 @@ layout: default
 3. **Directory creation:**
    - Study-specific output: `./output/<STUDY_NAME>_Outputs/`
    - Subdirectories: `InitialQC`, `PCA`, `Kinship`, `Ancestry`, `Logs`
+4. **FID canonicalization:** Sets FID = IID for every sample in the `.fam` file (`utils/canonicalize_fid.sh`), once, right after conversion. 
+Without this, a FID of `0` (common for VCF/BGEN-derived input) makes KING treat the whole cohort as one family, which suppresses the between-family `.kin0` output.
 
 ---
 

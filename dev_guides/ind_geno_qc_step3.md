@@ -29,7 +29,7 @@ Restrict to bi-allelic variants.
 ## Variant-Level QC
 
 1. **Variant call rate:** Drop variants with low call rate (default < 90%)
-2. **Hardy-Weinberg equilibrium:** Drop variants with low HWE p-values (default: p < 1e-12 for homogeneous cohorts, p < 1e-6 for mixed ancestry cohorts)
+2. **Hardy-Weinberg equilibrium:** Drop variants with low HWE p-values (default: p < 1e-6 for `study_anc_expectation=HOM`, p < 1e-12 for `HET`)
 3. **Minor allele frequency:** Drop variants with low MAF (default: retain variants with MAF > 0.1%)
 4. **Minor allele count:** Drop variants with low MAC (default: retain variants with MAC ≥ 5)
 

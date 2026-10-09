@@ -33,27 +33,27 @@ See also: [Pipeline overview and QC thresholds](./../ind_geno_qc.html) · [Homep
 
 ## SAMPLE_VARIANT_QC_RUNNER.sh
 
-This file configures paths, performs data downloads, and builds the Docker image. Once built, it calls the Docker image with the passed parameters and executes the complete workflow.
+Entry point for the pipeline. It fetches the container image and reference data, then runs the containerized workflow against the paths in `parameters.txt` (repo root). End users need only this script, `parameters.txt`, and `checksums.sha256`.
 
 **Key Steps:**
 
-1. **Set mount paths** to study dataset, reference data, build check data and output
-2. **Check Docker installation** and verify Docker is running
-3. **Download reference data** if not present or if `--force_data_download` flag is set
-4. **Build Docker image** if not present or if `--force_build` flag is set
-5. **Execute containerized pipeline** with mounted data and parameters
+1. **Parse flags:** `--docker`, `--singularity`, or `--apptainer` (default), plus `--get_update`, `--force_data_download`, and `--path_to_parameters_file`
+2. **Load the container:** `docker load` the `.tar` (Docker), or download the `.sif` (Singularity/Apptainer), when missing or with `--get_update`
+3. **Read paths** from `parameters.txt` and check that `path_to_data` exists
+4. **Download reference data** into `path_to_build_check`, `path_to_ref_data`, and `path_to_pop_files` when missing or with `--force_data_download`. Each archive is staged in `./data/` and SHA256-verified against `checksums.sha256`
+5. **Run the container** with five bind mounts (input data, reference, build check, output, population labels). `parameters.txt` is passed in as environment variables, and the container runs `/scripts/RunQCPipeline.sh`
 
 **Performance Notes:**
 
-- Reference data download: ~15 minutes
-- Docker image build: ~30 minutes
-- Dangling images and volumes are removed during rebuild to save disk space
+- Container image: ~3.6 GB, downloaded once and cached
+- Reference data: ~2–3 GB compressed, cached after the first run
+- Re-runs reuse both unless `--get_update` or `--force_data_download` is passed
 
 **Configuration:**
 
-- Mount paths defined in `config/mounts.txt`
-- Environment variables set via `config/parameters.txt`
-- Both files can be modified between runs without rebuilding the image
+- All paths and thresholds live in `parameters.txt` at the repo root
+- Use `--path_to_parameters_file <path>` to point at a different file
+- Edits take effect on the next run; nothing needs rebuilding
 
 ---
 

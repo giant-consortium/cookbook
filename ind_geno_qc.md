@@ -23,7 +23,6 @@ A containerized sample and variant QC pipeline providing automated build detecti
 - [Input / Output](#input-output)
 - [Default QC Thresholds](#default-qc-thresholds)
 - [Pipeline Overview](#pipeline-overview)
-- [Repository Structure](#repository-structure)
 - [Reference Data](#reference-data)
 - [Troubleshooting](#troubleshooting)
 
@@ -41,10 +40,11 @@ A containerized sample and variant QC pipeline providing automated build detecti
    chmod +x SAMPLE_VARIANT_QC_RUNNER.sh
    ```
 
-2. **Edit `parameters.txt`** — set `path_to_data`, `path_to_output`, and `study_name` (basename of your genotype files, no extension). Format conversion is automatic.
+2. **Edit `parameters.txt`** — set `path_to_data`, `path_to_output`, and `study_name` (basename of your genotype files, no extension). Format conversion is automatic. Set `study_anc_expectation` to `HOM` (predominantly one ancestry) or `HET` (mixed); it determines the HWE threshold.
 
    ```bash
    study_name=STUDY4_SAS
+   study_anc_expectation=HET
    path_to_data=/path/to/input
    path_to_output=/path/to/output
    ```
@@ -60,7 +60,6 @@ A containerized sample and variant QC pipeline providing automated build detecti
    | `--docker` | Run using Docker |
    | `--singularity` | Run using Singularity |
    | `--apptainer` | Run using Apptainer *(default)* |
-   | `--interactive` | Open an interactive shell inside the Docker container |
    | `--force_data_download` | Re-download reference / build-check / population data |
    | `--get_update` | Fetch the latest container image before running |
 
@@ -146,7 +145,7 @@ These are the **final QC'd files** produced by this step:
 | Variant call rate | 0.9 |
 | Minor allele frequency | 0.001 (0.1 %) |
 | Minor allele count | ≥ 5 |
-| HWE p-value | > 1e-12 (homogeneous) / > 1e-6 (mixed ancestry) |
+| HWE p-value | > 1e-6 (`HOM`, single ancestry) / > 1e-12 (`HET`, mixed ancestry) |
 | Sample heterozygosity | Outlier-based (configurable) |
 | Kinship (KING) | 0.354 (MZ twins / duplicates only) |
 | Ancestry algorithm | MANCS |
@@ -158,13 +157,15 @@ These are the **final QC'd files** produced by this step:
 
 <a id="pipeline-overview"></a>
 
+## Pipeline Overview
+
 | Step | Script | What it does |
 |------|--------|-------------|
-| 0 | `Step0_Setup.sh` | Detects input format (.bed/.bim/.fam passed through; BGEN, PGEN, .ped/.map, .tar.gz converted to PLINK) |
+| 0 | `Step0_Setup.sh` | Detects input format (.bed/.bim/.fam passed through; BGEN, PGEN, .ped/.map, .tar.gz converted to PLINK); sets FID = IID for every sample |
 | 1 | `Step1_CheckBuild.sh` | Detects genome build (hg37 vs hg38) via reference overlap; lifts over to hg38 if needed |
 | 2 | `Step2_PreQC.sh` | Computes baseline statistics (call rates, MAF, HWE, heterozygosity) before filtering |
 | 3 | `Step3_BasicQC.sh` | Filters samples by call rate and heterozygosity; filters variants by call rate, MAF, MAC, and HWE |
-| 4 | `Step4_SNPIntersectAndPrune.sh` | Intersects study variants with 1KG+HGDP reference, harmonizes alleles, removes palindromic SNPs, LD-prunes |
+| 4 | `Step4_SNPIntersectAndPrune.sh` | Normalizes variant IDs to canonical `chr:pos:ref:alt`, deduplicates (`--rm-dup force-first`), intersects study variants with 1KG+HGDP reference, harmonizes alleles, removes palindromic SNPs, LD-prunes |
 | 5 | `Step5_KinshipTest.sh` | Estimates pairwise kinship (KING); removes related/duplicate samples via greedy algorithm |
 | 6 | `Step6_PCA.sh` | Computes PCs on the reference panel and projects study samples into the same space |
 | 7 | `Step7_AncestryModel.sh` | Assigns continental ancestry (AFR, AMR, EAS, EUR, SAS) using MANCS or Random Forest on projected PCs |
@@ -203,6 +204,8 @@ Uses harmonized 1000 Genomes + HGDP data (gnomAD v3.1.2):
 - Ensure your container runtime is installed and running.
 - If build detection fails, inspect variant-overlap diagnostics in the logs.
 - Re-run with `--force_data_download` if reference data appears corrupted.
+- `wget: command not found` on macOS: install it with `brew install wget`. The runner uses it for every download.
+- `SHA256 checksum mismatch`: delete the partial file under `./data/` and re-run, or pass `--force_data_download`.
 - For studies genotyped across multiple arrays, see [Handling Studies Genotyped on Multiple Arrays](dev_guides/multi_array.html).
 
 ---
