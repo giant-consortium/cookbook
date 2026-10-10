@@ -51,7 +51,7 @@ layout: default
 
 For a multi-batch study instead of a single study, the equivalent step is
 `Step9_postimpute_AncestrySpecificPCA.sh` in the
-[`multi_array_post_impute_merge`](https://github.com/giant-consortium/sample_variant_qc/tree/main/containers/multi_array_post_impute_merge#readme)
+[`multi_array_post_impute_merge`](https://github.com/giant-consortium/sample_variant_qc/tree/multi_array_tester#readme)
 container — same algorithm, different default pruning parameters (`200 50 0.2`
 instead of this pipeline's Step 4 defaults) and no R/HTML report step.
 
