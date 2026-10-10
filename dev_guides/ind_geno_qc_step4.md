@@ -23,8 +23,8 @@ layout: default
 2. **Variant ID normalization:** Assign canonical `chr:pos:ref:alt` IDs to all variants. IDs already in that format are left unchanged; rsIDs, liftover artefact underscore-format IDs, and any other non-canonical IDs are rewritten.
 3. **Duplicate removal:** Deduplicate with `--rm-dup force-first` — when multiple variants share the same canonical ID, the first occurrence (by position in the .bim) is retained. Normalizing IDs before this step ensures that an rsID and an underscore-format ID at the same position receive the same canonical ID and collapse here, rather than both surviving as false positives in allele harmonization.
 4. **Variant ID standardization:** Create SNP lists with variant ID as both `chr:pos:A1:A2` and `chr:pos:A2:A1`
-4. **SNP intersection:** Identify SNPs in both study and reference datasets — allow for alleles to be in-order or swapped, and resolve palindromic sequences using the post-QC allele frequency
-5. **Output:** Canonical list of variants in STUDY and REFERENCE datasets
+5. **SNP intersection:** Identify SNPs in both study and reference datasets — allow for alleles to be in-order or swapped, and resolve palindromic sequences using the post-QC allele frequency
+6. **Output:** Canonical list of variants in STUDY and REFERENCE datasets
 
 ## Step 4B — Get List of LD-Pruned SNPs
 

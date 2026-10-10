@@ -19,12 +19,13 @@ A containerized pipeline for a study genotyped on more than one array, or recrui
 ## Contents
 
 - [Quick Start](#quick-start)
+- [Merging Per-Batch Ancestry Predictions](#ancestry-merge)
 - [Input / Output](#input-output)
 - [Default Thresholds](#default-thresholds)
 - [Pipeline Overview](#pipeline-overview)
-- [Merging Per-Batch Ancestry Predictions](#ancestry-merge)
 - [GWAS Handoff](#gwas-handoff)
 - [Reference Data](#reference-data)
+- [Optional Steps](#optional-steps)
 - [Troubleshooting](#troubleshooting)
 
 ---
@@ -73,7 +74,6 @@ Before this container, run each batch separately through [Sample & Genotype QC](
    | Setting | Runs |
    | --- | --- |
    | `chromosomes=` (blank) | Every chromosome found in the first batch folder (`chr<N>.dose.vcf[.gz]`). Use for a full run. |
-   | `chromosomes=22` | Chromosome 22 only. Use for a quick test. |
    | `chromosomes=1,2,X` | Only the listed chromosomes. Use to re-run a subset. |
 
    Accepted values are 1 to 22, X, Y, and M, with or without a `chr` prefix. Every listed chromosome must exist in every batch, or the run stops before processing starts. To see what each batch contains before you run:
@@ -112,88 +112,6 @@ After the pipeline completes, the GWAS input and PCs are in `<path_to_output>`:
 - **`AncestrySpecificPCA/<study_name>_<ancestry>_PCA.txt`** → PCs for one ancestry group
 
 > **Note:** `merged/` holds per-chromosome merged VCFs with no MAF or HWE filter. Do not use them for GWAS; use `GWAS_input/`.
-
----
-
-<a id="input-output"></a>
-
-## Input / Output
-
-### Accepted Inputs
-
-| Input | Location | Required | Notes |
-|-------|----------|----------|-------|
-| **Per-batch imputed VCFs** | `path_to_batches/<batch>/chr<N>.dose.vcf.gz` (or plain `.dose.vcf`) | Yes | One subfolder per batch. Each file needs `GT` and `INFO/R2`. Plain VCFs are bgzipped and indexed automatically. |
-| **TOPMed result archives** | `path_to_batches/<batch>/chr<N>.zip` | Only if still zipped | Set `path_to_topmed_zip_password_file`. Unpacked automatically with 7z. Leave blank if your files are already unzipped. |
-| **Ancestry predictions** | `path_to_ancestry_predictions` | Yes | **One** file for all batches. Tab-separated, with a header row, then `IID` and `ancestry` as the first two columns. See [Merging Per-Batch Ancestry Predictions](#ancestry-merge). |
-| **Parameters** | `parameters.txt` in this folder | Yes | See [Default Thresholds](#default-thresholds). |
-
-**Requirements on the input data:**
-
-- **Sample IDs must be unique across all batches.** The merge fails on duplicate sample names. The same person in two batches can have two different IIDs; duplicate removal handles that case.
-- **Every batch should have every chromosome listed in `chromosomes`.** A batch missing one stops the run before processing starts. See [Choosing chromosomes](#chromosomes).
-- **No reference download is needed.** The long-range-LD exclusion list ships inside the container image.
-
-All output paths are relative to `path_to_output`.
-
-### Final Deliverables
-
-These are the files to use downstream:
-
-| File | Description |
-|------|-------------|
-| `GWAS_input/<study_name>_GWAS_input.vcf.gz` (+ `.tbi`) | **GWAS input.** All chromosomes combined, not LD-pruned. Biallelic SNPs with R2 above `info_thresh` (applied per batch), MAF above `maf_thresh`, and HWE above the study threshold. Duplicate/MZ samples removed. `AF`, `MAF`, and `HWE` recomputed on the pooled samples. |
-| `GWAS_input/chr<N>.vcf.gz` (+ `.tbi`) | The same content, one file per chromosome. Matches the `chr*` pattern the GWAS pipeline expects. |
-| `AncestrySpecificPCA/<study_name>_combined_ancestry_pca.tsv` | **Covariates for GWAS.** FID, IID, and PC1 to PC*n* for all ancestries. |
-| `AncestrySpecificPCA/<study_name>_<ancestry>_PCA.txt` | PCs for one ancestry group. |
-
-> **Note:** Samples from small ancestry groups may be absent from the combined file if FlashPCA could not compute the full `ancestry_num_pcs` PCs for that group. Use the per-ancestry files if you need those samples.
-
-### Intermediate Outputs (for QC review)
-
-| Path | Description |
-|------|-------------|
-| `<study_name>_genomewide_candidates_deduped.*` | PLINK set after duplicate removal, before ancestry-specific pruning |
-| `Kinship/` | KING kinship output (`<study_name>.kin0`) and the duplicate/MZ remove list (`<study_name>_king_remove_list.txt`) |
-| `merged/` | Per-chromosome merged VCFs with no MAF or HWE filter. **Not for GWAS.** |
-| `pca_candidates/`, `pca_candidates_plink/` | PCA-candidate variant sets before ancestry-specific LD pruning |
-| `logs/` | Per-step logs, including FlashPCA's log |
-
----
-
-<a id="default-thresholds"></a>
-
-## Default Thresholds
-
-| Metric | Threshold |
-|--------|-----------|
-| Imputation quality (R2), per batch, before merging | `info_thresh=0.8` (strict: R2 must be above it) |
-| Minor allele frequency, pooled after merging | `maf_thresh=0.01` (MAF must be above it) |
-| HWE p-value | `HOM`: > 1e-6 (`study_anc_expectation=HOM`). `HET`: > 1e-12 (`study_anc_expectation=HET`). Set `use_custom_hwe_thresh=TRUE` and `variant_hwe_thresh` to override. |
-| Duplicate / MZ twin kinship (KING) | `duplicate_kinship_cutoff=0.354`. Those samples are removed from the GWAS input. |
-| Relatives for ancestry PCA (KING) | `pca_kinship_cutoff=0.0625` (up to 3rd degree). Removed before PCA and projected back on afterwards. |
-| LD pruning (ancestry PCA only) | `prune_window_size=200`, `prune_num_snps=50`, `prune_r2_thresh=0.2`. Skipped when an ancestry has fewer than `prune_min_samples=50` unrelated samples. |
-| Long-range LD regions | Excluded from the PCA path only (`exclude_long_range_ld=true`). Not excluded from the GWAS input. |
-| Number of PCs | `ancestry_num_pcs=10` per ancestry group |
-
-*All thresholds are customizable in `parameters.txt`.*
-
----
-
-<a id="pipeline-overview"></a>
-
-## Pipeline Overview
-
-| Step | Script | What it does |
-|------|--------|-------------|
-| 0 | `run_postimpute_pipeline.sh` | Unpacks any TOPMed `.zip` archives in the batch folders (AES, with 7z). |
-| 1 | `run_postimpute_pipeline.sh` | For each chromosome, filters each batch on `INFO/R2 > info_thresh` before merging. |
-| 2 | `run_postimpute_pipeline.sh` | Merges the batches (`bcftools merge --merge none`), sets IDs to `chr:pos:ref:alt`, and strips the per-batch INFO fields. |
-| 3 | `run_postimpute_pipeline.sh` | Recomputes AF, MAF, and HWE on the pooled samples. Keeps biallelic SNPs with MAF and HWE above threshold. This is the per-chromosome GWAS input. **No LD pruning and no long-range-LD exclusion.** |
-| 4 | `run_postimpute_pipeline.sh` | Converts the GWAS-filtered variants to PLINK and excludes long-range-LD regions for the PCA set only. |
-| 5 | `run_postimpute_pipeline.sh` | Concatenates the chromosomes into `GWAS_input/<study_name>_GWAS_input.vcf.gz`. Every chromosome must contain the same samples in the same order. |
-| 6 | `run_postimpute_pipeline.sh` | Runs KING on the combined PCA set, removes duplicate/MZ samples from the PCA set and the GWAS input. |
-| 7 | `Step9_postimpute_AncestrySpecificPCA.sh` | For each ancestry group: removes relatives, LD-prunes the unrelated samples, runs FlashPCA, projects the relatives back on, and writes the combined PC file. |
 
 ---
 
@@ -259,6 +177,85 @@ tail -n +2 ancestry_predictions.txt | cut -f2 | sort | uniq -c   # samples per a
 
 ---
 
+<a id="input-output"></a>
+
+## Input / Output
+
+### Accepted Inputs
+
+| Input | Location | Required | Notes |
+|-------|----------|----------|-------|
+| **Per-batch imputed VCFs** | `path_to_batches/<batch>/chr<N>.dose.vcf.gz` (or plain `.dose.vcf`) | Yes | One subfolder per batch. **Every subfolder of `path_to_batches` is treated as a batch**, so keep only batch folders there. Each file needs `GT` and `INFO/R2`. Plain VCFs are bgzipped and indexed automatically. |
+| **Ancestry predictions** | `path_to_ancestry_predictions` | Yes | **One** file for all batches. Tab-separated, with a header row, then `IID` and `ancestry` as the first two columns. See [Merging Per-Batch Ancestry Predictions](#ancestry-merge). |
+| **Parameters** | `parameters.txt` in this folder | Yes | See [Default Thresholds](#default-thresholds). |
+
+**Requirements on the input data:**
+
+- **Sample IDs must be unique across all batches.** The merge fails on duplicate sample names. The same person in two batches can have two different IIDs; duplicate removal handles that case.
+- **Every batch should have every chromosome listed in `chromosomes`.** A batch missing one stops the run before processing starts. See [Choosing chromosomes](#chromosomes).
+- **No reference download is needed.** The long-range-LD exclusion list ships inside the container image.
+
+### Final Deliverables
+
+These are the files to use downstream:
+
+| File | Description |
+|------|-------------|
+| `GWAS_input/<study_name>_GWAS_input.vcf.gz` (+ `.tbi`) | **GWAS input.** All chromosomes combined, not LD-pruned. Biallelic SNPs with R2 above `info_thresh` (applied per batch), MAF above `maf_thresh`, and HWE above the study threshold. Duplicate/MZ samples removed. `AF`, `MAF`, and `HWE` recomputed on the pooled samples. |
+| `GWAS_input/chr<N>.vcf.gz` (+ `.tbi`) | The same content, one file per chromosome. Matches the `chr*` pattern the GWAS pipeline expects. |
+| `AncestrySpecificPCA/<study_name>_combined_ancestry_pca.tsv` | **Covariates for GWAS.** FID, IID, and PC1 to PC*n* for all ancestries. |
+| `AncestrySpecificPCA/<study_name>_<ancestry>_PCA.txt` | PCs for one ancestry group. |
+
+> **Note:** Samples from small ancestry groups may be absent from the combined file if FlashPCA could not compute the full `ancestry_num_pcs` PCs for that group. Use the per-ancestry files if you need those samples.
+
+### Intermediate Outputs (for QC review)
+
+| Path | Description |
+|------|-------------|
+| `<study_name>_genomewide_candidates_deduped.*` | PLINK set after duplicate removal, before ancestry-specific pruning |
+| `Kinship/` | KING kinship output (`<study_name>.kin0`) and the duplicate/MZ remove list (`<study_name>_king_remove_list.txt`) |
+| `merged/` | Per-chromosome merged VCFs with no MAF or HWE filter. **Not for GWAS.** |
+| `pca_candidates/`, `pca_candidates_plink/` | PCA-candidate variant sets before ancestry-specific LD pruning |
+| `logs/` | Per-step logs, including FlashPCA's log |
+
+---
+
+<a id="default-thresholds"></a>
+
+## Default Thresholds
+
+| Metric | Threshold |
+|--------|-----------|
+| Imputation quality (R2), per batch, before merging | `info_thresh=0.8` (strict: R2 must be above it) |
+| Minor allele frequency, pooled after merging | `maf_thresh=0.01` (MAF must be above it) |
+| HWE p-value | `HOM`: > 1e-6 (`study_anc_expectation=HOM`). `HET`: > 1e-12 (`study_anc_expectation=HET`). Set `use_custom_hwe_thresh=TRUE` and `variant_hwe_thresh` to override. |
+| Duplicate / MZ twin kinship (KING) | `duplicate_kinship_cutoff=0.354`. Those samples are removed from the GWAS input. |
+| Relatives for ancestry PCA (KING) | `pca_kinship_cutoff=0.0625` (up to 3rd degree). Removed before PCA and projected back on afterwards. |
+| LD pruning (ancestry PCA only) | `prune_window_size=200`, `prune_num_snps=50`, `prune_r2_thresh=0.2`. Skipped when an ancestry has fewer than `prune_min_samples=50` unrelated samples. |
+| Long-range LD regions | Excluded from the PCA path only (`exclude_long_range_ld=true`). Not excluded from the GWAS input. |
+| Number of PCs | `ancestry_num_pcs=15` per ancestry group, matching the single-study ancestry PCA (`num_pcs=15`) |
+
+*All thresholds are customizable in `parameters.txt`.*
+
+---
+
+<a id="pipeline-overview"></a>
+
+## Pipeline Overview
+
+| Step | Script | What it does |
+|------|--------|-------------|
+
+1. For each chromosome, filters each batch on `INFO/R2 > info_thresh` before merging.
+2. Merges the batches (with bcftools, inside the container; you don't run it yourself), sets IDs to `chr:pos:ref:alt`, and strips the per-batch INFO fields.
+3. Recomputes AF, MAF, and HWE on the pooled samples. Keeps biallelic SNPs with MAF and HWE above threshold. This is the per-chromosome GWAS input. **No LD pruning and no long-range-LD exclusion.**
+4. Converts the GWAS-filtered variants to PLINK and excludes long-range-LD regions for the PCA set only.
+5. Concatenates the chromosomes into `GWAS_input/<study_name>_GWAS_input.vcf.gz`. Every chromosome must contain the same samples in the same order.
+6. Runs KING on the combined PCA set, removes duplicate/MZ samples from the PCA set and the GWAS input.
+7. For each ancestry group: removes relatives, LD-prunes the unrelated samples, runs FlashPCA, projects the relatives back on, and writes the combined PC file.
+
+---
+
 <a id="gwas-handoff"></a>
 
 ## GWAS Handoff
@@ -275,8 +272,9 @@ Add a `batch` column to the GWAS covariate file. The first two columns must be `
 Create one sample list per batch from any chromosome file in that batch:
 
 ```bash
-bcftools query -l batch_a/chr1.dose.vcf.gz | awk 'BEGIN{OFS="\t"} {print $1, $1}' > batch_a_samples.txt
-bcftools query -l batch_b/chr1.dose.vcf.gz | awk 'BEGIN{OFS="\t"} {print $1, $1}' > batch_b_samples.txt
+# Reads the sample names from the VCF header; no bcftools needed on your machine.
+zcat -f batch_a/chr1.dose.vcf.gz | awk -F'\t' 'BEGIN{OFS="\t"} /^#CHROM/ {for(i=10;i<=NF;i++) print $i, $i; exit}' > batch_a_samples.txt
+zcat -f batch_b/chr1.dose.vcf.gz | awk -F'\t' 'BEGIN{OFS="\t"} /^#CHROM/ {for(i=10;i<=NF;i++) print $i, $i; exit}' > batch_b_samples.txt
 ```
 
 Then add the batch labels to the PCs, matched on FID and IID:
@@ -312,19 +310,100 @@ cat_covar_col=ancestry,batch
 
 ---
 
+<a id="optional-steps"></a>
+
+## Optional Steps
+
+These are only needed for specific setups. Skip them if they don't apply to you.
+
+### Unzipping TOPMed Results (optional)
+
+The pipeline unpacks TOPMed `chr<N>.zip` files itself when you set `path_to_topmed_zip_password_file`. Unpack them by hand only if you want to check the files first. This needs `7z`. Install it with one of:
+
+```bash
+brew install p7zip                          # macOS
+conda install -c conda-forge p7zip          # any system with conda
+sudo apt install p7zip-full                 # Debian/Ubuntu
+# No package manager: download the static Linux binary (it is named 7zz)
+wget https://github.com/ip7z/7zip/releases/download/26.02/7z2602-linux-x64.tar.xz
+tar xf 7z2602-linux-x64.tar.xz 7zz && chmod +x 7zz
+mkdir -p ~/bin && mv 7zz ~/bin/      # ~/bin must be on your PATH
+```
+
+```bash
+# Run from the folder that contains the batch folders. The password is typed, not stored.
+SEVENZ=$(command -v 7z || command -v 7zz)   # 7zz is the name of the wget binary
+[ -n "$SEVENZ" ] || { echo "7z not found: install it first (see above)"; exit 1; }
+printf "TOPMed zip password: "; read -rs PW; echo
+for batch in batch_a batch_b; do
+  for z in "$batch"/chr*.zip; do
+    [ -e "$z" ] || continue
+    "$SEVENZ" x -p"$PW" -o"$batch" -y "$z" > /dev/null
+  done
+done
+unset PW
+```
+
+The files must end up directly in each batch folder (`batch_a/chr1.dose.vcf.gz`), which is where the pipeline looks. The TOPMed imputation page extracts into `chr<N>_imputed/` subfolders instead, so do not use that layout here.
+
+All output paths are relative to `path_to_output`.
+
+### Pre-Merging Batches (optional)
+
+The pipeline merges the batches itself, so most people don't need this. Pre-merge only if you want to check the merged genotypes before the pipeline runs, or to keep the merge outside the container. It does the same two steps the pipeline does: a per-batch `INFO/R2` filter at `info_thresh`, then a `bcftools merge --merge none`. This needs `bcftools` and `tabix` on your computer. The container doesn't need them for this step.
+
+Each run writes to a new folder named with the date and time, such as `premerged_20261010_125620/`. That folder holds only this run's output, so old runs never end up in your pipeline input. Point `path_to_batches` at that folder.
+
+```bash
+# Run from the folder that contains the batch folders (batch_a/, batch_b/, ...).
+info_thresh=0.8                     # must match info_thresh in parameters.txt
+batches="batch_a batch_b"           # one subfolder per batch
+chroms="1 2"                        # must match chromosomes in parameters.txt
+stamp=$(date +%Y%m%d_%H%M%S)
+out_root="premerged_${stamp}"       # new folder every run: holds only this run's output
+work="premerge_work/${stamp}"       # scratch, outside the input folder
+
+mkdir "$out_root" && mkdir -p "$out_root/merged" "$work"
+for chr in $chroms; do
+  filtered=()
+  for b in $batches; do
+    in="$b/chr${chr}.dose.vcf.gz"
+    [ -f "$in" ] || in="$b/chr${chr}.dose.vcf"
+    [ -f "$in" ] || { echo "ERROR: no chr${chr} file in $b" >&2; exit 1; }
+    f="$work/${b}.chr${chr}.r2.vcf.gz"
+    bcftools view -i "INFO/R2>${info_thresh}" -Oz -o "$f" "$in"
+    tabix -f -p vcf "$f"
+    filtered+=("$f")
+  done
+  bcftools merge --merge none -Oz -o "$out_root/merged/chr${chr}.dose.vcf.gz" "${filtered[@]}"
+  tabix -f -p vcf "$out_root/merged/chr${chr}.dose.vcf.gz"
+  echo "chr${chr}: $(bcftools index -n "$out_root/merged/chr${chr}.dose.vcf.gz") records, $(bcftools query -l "$out_root/merged/chr${chr}.dose.vcf.gz" | wc -l) samples"
+done
+echo "Set path_to_batches=${out_root}/"
+```
+
+Then set these in `parameters.txt`:
+
+- `path_to_batches=premerged_<date>_<time>/`, the folder the snippet printed. The pipeline sees one batch, so it skips the merge and only re-IDs the variants.
+- `per_cohort_r2_filter_enabled=false`. The R2 filter already ran above. Leaving it on would filter a second time.
+- `chromosomes=` the same list you used above.
+- `path_to_ancestry_predictions=` still needed, as usual. See [Merging Per-Batch Ancestry Predictions](#ancestry-merge).
+
+Limits to check before you use this route:
+
+- **Sample names must be unique across batches.** `bcftools merge` stops on duplicate sample names. Rename duplicates first (`bcftools reheader --samples`), or use the pipeline's own merge, which has the same requirement.
+- **The batch covariate is lost.** After pre-merging, the pipeline sees one batch. If your GWAS needs a batch covariate, keep your own batch list (see [Adding the Batch Covariate](#gwas-handoff)).
+- **`info_thresh` and the R2 filter must match.** Change them in both places, or the two filters disagree.
+
+---
+
 <a id="troubleshooting"></a>
 
 ## Troubleshooting
 
 - Check `<path_to_output>/logs/` for error messages first.
 - Verify all paths in `parameters.txt` are correct and accessible.
-- `wget: command not found` on macOS: install it with `brew install wget`. The runner uses it for every download.
 - `Duplicate sample names`: the same IID appears in two batches. Rename one of them, or check the batch folders.
-- `sample list in ... differs from the first chromosome`: a batch is missing a chromosome. Add it, or remove that chromosome from `chromosomes`.
+- `sample list in ... differs from the first chromosome`: a batch is missing a chromosome.
 - `ancestry-predictions file lists these IIDs more than once`: merge the per-batch files with the snippet above, and resolve any conflicts it reports.
 - Batch covariate contains `NA`: some samples are not in any batch list. Check the batch lists against the GWAS input.
-- Pipeline still uses an old container after a rebuild: run with `--get_update`.
-
----
-
-**For implementation details on each pipeline step**, see the [Detailed Guide](https://github.com/giant-consortium/sample_variant_qc/blob/multi_array_tester/DEVELOPING.md) in the `multi_array_tester` branch.
