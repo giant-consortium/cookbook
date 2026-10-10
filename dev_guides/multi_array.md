@@ -58,13 +58,34 @@ Before this container, run each batch separately through [Sample & Genotype QC](
    ```bash
    study_name=YOUR_STUDY
    study_anc_expectation=HET          # HOM (predominantly one ancestry) or HET (mixed)
-   path_to_batches=/path/to/batches
-   path_to_ancestry_predictions=/path/to/ancestry_predictions.txt
-   path_to_output=/path/to/output
-   chromosomes="1 2 3 ... 22 X"
+   path_to_batches=/absolute/path/to/batches
+   path_to_ancestry_predictions=/absolute/path/to/ancestry_predictions.txt
+   path_to_output=/absolute/path/to/output
+   chromosomes=                       # blank = all chromosomes found; or e.g. 1,2,X
    ```
 
-   Quote multi-word values such as `chromosomes="1 2"`. Apptainer evaluates `parameters.txt` as a shell script, so an unquoted value like `chromosomes=1 2` fails.
+   Use absolute paths. `chromosomes` takes a comma-separated list with no spaces, so it needs no quotes. See [Choosing chromosomes](#chromosomes) below.
+
+   <a id="chromosomes"></a>
+
+   ### Choosing chromosomes
+
+   | Setting | Runs |
+   | --- | --- |
+   | `chromosomes=` (blank) | Every chromosome found in the first batch folder (`chr<N>.dose.vcf[.gz]`). Use for a full run. |
+   | `chromosomes=22` | Chromosome 22 only. Use for a quick test. |
+   | `chromosomes=1,2,X` | Only the listed chromosomes. Use to re-run a subset. |
+
+   Accepted values are 1 to 22, X, Y, and M, with or without a `chr` prefix. Every listed chromosome must exist in every batch, or the run stops before processing starts. To see what each batch contains before you run:
+
+   ```bash
+   # Run from the folder that contains the batch folders
+   for b in batch_a batch_b; do
+     echo "$b: $(ls $b | sed -nE 's/^chr([0-9XYM]+)\.dose\.vcf(\.gz)?$/\1/p' | sort -uV | tr '\n' ' ')"
+   done
+   ```
+
+   Each line lists the chromosomes in one batch, for example `batch_a: 1 2 3 ... 22 X`. Any chromosome missing from a batch must be removed from `chromosomes`, or added to that batch.
 
 4. **Run the pipeline:**
 
@@ -110,7 +131,7 @@ After the pipeline completes, the GWAS input and PCs are in `<path_to_output>`:
 **Requirements on the input data:**
 
 - **Sample IDs must be unique across all batches.** The merge fails on duplicate sample names. The same person in two batches can have two different IIDs; duplicate removal handles that case.
-- **Every batch should have the chromosomes listed in `chromosomes`.** A batch missing a chromosome stops the run.
+- **Every batch should have every chromosome listed in `chromosomes`.** A batch missing one stops the run before processing starts. See [Choosing chromosomes](#chromosomes).
 - **No reference download is needed.** The long-range-LD exclusion list ships inside the container image.
 
 All output paths are relative to `path_to_output`.
@@ -227,6 +248,14 @@ if [ "$status" -eq 0 ]; then echo "Wrote $out"; else echo "FAILED: resolve the C
 The pipeline also logs the ancestry file's path, the sample count, and the count per ancestry. It refuses to run if any IID appears twice in the file.
 
 Set `path_to_ancestry_predictions` to `ancestry_predictions.txt`.
+
+Check the merged file before you run the pipeline:
+
+```bash
+head -3 ancestry_predictions.txt                 # header, then the first two samples
+tail -n +2 ancestry_predictions.txt | wc -l      # number of samples
+tail -n +2 ancestry_predictions.txt | cut -f2 | sort | uniq -c   # samples per ancestry
+```
 
 ---
 
