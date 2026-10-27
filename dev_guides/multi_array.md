@@ -39,12 +39,12 @@ Before this container, run each batch separately through [Sample & Genotype QC](
 1. **Clone the stable branch:**
 
    ```bash
-   git clone git@github.com:giant-consortium/sample_variant_qc.git -b multi_array_tester --single-branch
+   git clone git@github.com:giant-consortium/sample_variant_qc.git -b multi_array_post_impute_merge --single-branch
    cd sample_variant_qc
    chmod +x POST_IMPUTE_MERGE_RUNNER.sh
    ```
 
-   `multi_array_tester` contains only this container, with the repository root as the pipeline folder. The single-study pipeline is on the `main` branch.
+   `multi_array_post_impute_merge` contains only this container, with the repository root as the pipeline folder. The single-study pipeline is on the `main` branch.
 
 2. **Run the example** to check your setup. It uses the bundled two-batch dataset, and the output goes to `./output`:
 
