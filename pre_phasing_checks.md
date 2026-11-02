@@ -11,7 +11,7 @@ layout: default
 ## Overview
 
 This repository provides a containerized pipeline for data preparation for phasing and imputation on either the TOPmed imputation server or UK Biobank RAP. The pipeline is distributed as a .sif file that can be run using apptainer/singularity.
-Presently (July 2025) only checks against TOPmed are implemented.
+Presently (November 2026) only checks against TOPmed are implemented.
 
 We are asking studies of predominately European and South Asian genetic ancestry to impute to the latest UK Biobank haplotype reference panel. Studies of other genetic ancestries should impute to TOPMed.
 
@@ -34,6 +34,10 @@ If you have used the sample/variant QC pipeline, you should provide the prefix o
 
    # Directory containing plink data and prefix
    plink_prefix="/home/ubuntu/giant_step1_qc/mystudy_Outputs/PostSampleVariantQC/mystudy_postQC"
+
+   # Force container and reference data download (true/false). By default, the pipeline will check if these files exist. 
+   # Only set to true if you require the container or data to be redownloaded (e.g. due to previous interrupted download)
+   force_downloads="false"
 
    # Output directory for VFCs for phasing/imputatioon
    out_dir="/home/ubuntu/giant_step2_prephasing_checks/"
@@ -81,44 +85,61 @@ In addition, the output VCF will force genotypes to be coded to REF and ALT as d
 
 ```
 bash PREPHASING_PIPELINE.sh --apptainer
-------------------------------------------------------
--     Pre-phasing and Imputation Checks Pipeline     -
--         Questions to A.R.Wood@exeter.ac.uk         -
--                       GIANT                        -
-------------------------------------------------------
-
+------------------------------------------------------------
+     Pre-phasing and Imputation Checks Pipeline - 1.0.0
+                      GIANT Consortium                      
+------------------------------------------------------------
 Workflow will run using apptainer
+
+Options set: 
+
+  Reference panel:           TOPMED
+  Plink filename:            /home/ubuntu/step1_extend_genotype_qc_output/merged_extend_b38_Outputs/PostSampleVariantQC/merged_extend_b38_postQC
+  Reference data directory:  ./ref_data/
+  Force downloads:           false
+  Output directory:          /home/ubuntu/step2_extend_prephasing_output_v3
+
 Downloading container...
---2025-07-28 13:07:43--  https://storage.googleapis.com/giant_deeper_imputation/singularity_containers/giant_prephasing_pipeline_latest.sif
-Resolving storage.googleapis.com (storage.googleapis.com)... 142.250.129.207, 216.58.213.27, 142.251.30.207, ...
-Connecting to storage.googleapis.com (storage.googleapis.com)|142.250.129.207|:443... connected.
+--2026-11-02 14:32:50--  https://storage.googleapis.com/giant_deeper_imputation/singularity_containers/giant_prephasing_pipeline_1.0.0.sif
+Resolving storage.googleapis.com (storage.googleapis.com)... 142.250.117.207, 142.250.129.207, 142.250.140.207, ...
+Connecting to storage.googleapis.com (storage.googleapis.com)|142.250.117.207|:443... connected.
 HTTP request sent, awaiting response... 200 OK
-Length: 4338712576 (4.0G) [application/octet-stream]
-Saving to: ‘giant_prephasing_pipeline_latest.sif’
+Length: 342110208 (326M) [application/octet-stream]
+Saving to: ‘giant_prephasing_pipeline_1.0.0.sif’
 
-giant_prephasing_pipeline_latest.sif    100%[============]  4.04G  47.8MB/s  in 90s
+giant_prephasing_pipeline_1.0.0.sif                                   100%[================================>] 326.26M  41.5MB/s    in 8.3s    
 
-2025-07-28 13:09:12 (46.2 MB/s) - ‘giant_prephasing_pipeline_latest.sif’ saved [4338712576/4338712576]
+2026-11-02 14:32:58 (39.4 MB/s) - ‘giant_prephasing_pipeline_1.0.0.sif’ saved [342110208/342110208]
+
+--2026-11-02 14:32:58--  https://storage.googleapis.com/giant_deeper_imputation/singularity_containers/giant_prephasing_pipeline_1.0.0.sif.md5
+Resolving storage.googleapis.com (storage.googleapis.com)... 142.251.30.207, 142.251.29.207, 142.250.117.207, ...
+Connecting to storage.googleapis.com (storage.googleapis.com)|142.251.30.207|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 70 [application/octet-stream]
+Saving to: ‘giant_prephasing_pipeline_1.0.0.sif.md5’
+
+giant_prephasing_pipeline_1.0.0.sif.md5                               100%[================================>]      70  --.-KB/s    in 0s      
+
+2026-11-02 14:32:59 (33.4 MB/s) - ‘giant_prephasing_pipeline_1.0.0.sif.md5’ saved [70/70]
+
+--2026-11-02 14:33:00--  https://storage.googleapis.com/giant_deeper_imputation/PASS.Variantsbravo-dbsnp-all.tab.gz
+Resolving storage.googleapis.com (storage.googleapis.com)... 142.251.30.207, 142.250.151.207, 142.251.29.207, ...
+Connecting to storage.googleapis.com (storage.googleapis.com)|142.251.30.207|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 3983735769 (3.7G) [application/octet-stream]
+Saving to: ‘./ref_data//PASS.Variantsbravo-dbsnp-all.tab.gz’
+
+./ref_data//PASS.Variantsbravo-dbsnp-all.tab.gz                       100%[================================>]   3.71G  28.6MB/s    in 1m 53s  
+
+2026-11-02 14:34:53 (33.5 MB/s) - ‘./ref_data//PASS.Variantsbravo-dbsnp-all.tab.gz’ saved [3983735769/3983735769]
 
 Checking chromosomes and variant ordering in bim file...
-  Unexpected ordering of variants in PLINK files. This will now be resolved.
-  Reordering of genetic data complete.
+  Reordering checks of genetic data complete.
 
 Generating allele frequencies for variants on array...
   Allele frequencies of study data generated.
 
 Checking data against TOPMED reference panel
-
-  Options Set:
-    Reference Panel:             TOPMed
-    Bim filename:                ./results/MYSTUDY_sorted.bim
-    Reference filename:          /usr/local/bin/PASS.Variantsbravo-dbsnp-all.tab.gz
-    Allele frequencies filename: ./results/MYSTUDY_sorted_freqs.frq
-    Output directory:            ./results
-    Allele frequency threshold:  0.2
-
-  Path to plink bim file: /home/ubuntu/giant/pre_phasing/results
-  Writing output files to: ./results
 
   Reading /usr/local/bin/PASS.Variantsbravo-dbsnp-all.tab.gz
   10000000 variants loaded
@@ -134,45 +155,45 @@ Checking data against TOPMED reference panel
   450000000 variants loaded
   460000000 variants loaded
 
-  Details written to log file: /home/ubuntu/giant/pre_phasing/results/LOG-MYSTUDY_sorted-TOPMed.txt
+  Details written to log file: /mnt/output/LOG-merged_extend_b38_postQC_sorted-TOPMed.txt
 
   Creating variant lists
-    /home/ubuntu/giant/pre_phasing/results/Force-Allele1-MYSTUDY_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/Strand-Flip-MYSTUDY_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/ID-MYSTUDY_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/Position-MYSTUDY_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/Chromosome-MYSTUDY_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/Exclude-MYSTUDY_sorted-TOPMed.txt
-    /home/ubuntu/giant/pre_phasing/results/FreqPlot-MYSTUDY_sorted-TOPMed.txt
+    /mnt/output/Force-Allele1-merged_extend_b38_postQC_sorted-TOPMed.txt
+    /mnt/output/Strand-Flip-merged_extend_b38_postQC_sorted-TOPMed.txt
+    /mnt/output/ID-merged_extend_b38_postQC_sorted-TOPMed.txt
+    /mnt/output/Position-merged_extend_b38_postQC_sorted-TOPMed.txt
+    /mnt/output/Chromosome-merged_extend_b38_postQC_sorted-TOPMed.txt
+    /mnt/output/Exclude-merged_extend_b38_postQC_sorted-TOPMed.txt
+    /mnt/output/FreqPlot-merged_extend_b38_postQC_sorted-TOPMed.txt
 
   Matching to TOPMed ---
 
     Position Matches
     ID matches TOPMed 0
-    ID Doesn't match TOPMed 534999
-    Total Position Matches 534999
+    ID Doesn't match TOPMed 470275
+    Total Position Matches 470275
     ID Match
     Position different from TOPMed 0
-    No Match to TOPMed 12708
+    No Match to TOPMed 10848
     Skipped (MT) 0
-    Total in bim file 547707
-    Total processed 547707
+    Total in bim file 481123
+    Total processed 481123
 
     Indels 0
 
-    SNPs not changed 87521
-    SNPs to change ref alt 431506
-    Strand ok 519027
-    Total Strand ok 519027
+    SNPs not changed 63659
+    SNPs to change ref alt 379313
+    Strand ok 421371
+    Total Strand ok 442972
 
-    Strand to change 0
-    Total checked 534999
-    Total checked Strand 519027
-    Total removed for allele Frequency diff > 0.2 2025
-    Palindromic SNPs with Freq > 0.4 384
+    Strand to change 34893
+    Total checked 470275
+    Total checked Strand 456264
+    Total removed for allele Frequency diff > 0.2 2468
+    Palindromic SNPs with Freq > 0.4 361
 
-    Non Matching alleles 15588
-    ID and allele mismatching 15588; where TOPMed is . 0
+    Non Matching alleles 13650
+    ID and allele mismatching 13650; where TOPMed is . 0
     Duplicates removed 0
 
   Writing plink commands to: Run-plink.sh
