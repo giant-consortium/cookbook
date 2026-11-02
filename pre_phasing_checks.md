@@ -108,7 +108,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 342110208 (326M) [application/octet-stream]
 Saving to: ‘giant_prephasing_pipeline_1.0.0.sif’
 
-giant_prephasing_pipeline_1.0.0.sif                    100%[======================>] 326.26M  41.5MB/s    in 8.3s    
+giant_prephasing_pipeline_1.0.0.sif                    100%[====================>] 326.26M  
 
 2026-11-02 14:32:58 (39.4 MB/s) - ‘giant_prephasing_pipeline_1.0.0.sif’ saved [342110208/342110208]
 
@@ -119,7 +119,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 70 [application/octet-stream]
 Saving to: ‘giant_prephasing_pipeline_1.0.0.sif.md5’
 
-giant_prephasing_pipeline_1.0.0.sif.md5                100%[======================>]      70  --.-KB/s    in 0s      
+giant_prephasing_pipeline_1.0.0.sif.md5                100%[====================>]      70       
 
 2026-11-02 14:32:59 (33.4 MB/s) - ‘giant_prephasing_pipeline_1.0.0.sif.md5’ saved [70/70]
 
@@ -130,7 +130,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 3983735769 (3.7G) [application/octet-stream]
 Saving to: ‘./ref_data//PASS.Variantsbravo-dbsnp-all.tab.gz’
 
-./ref_data//PASS.Variantsbravo-dbsnp-all.tab.gz        100%[======================>]   3.71G  28.6MB/s    in 1m 53s  
+./ref_data//PASS.Variantsbravo-dbsnp-all.tab.gz        100%[====================>]   3.71G    
 
 2026-11-02 14:34:53 (33.5 MB/s) - ‘./ref_data//PASS.Variantsbravo-dbsnp-all.tab.gz’ saved [3983735769/3983735769]
 
@@ -212,7 +212,7 @@ Generating VCFs for phasing and imputation...
     22
     23
 
-VCFs for TOPmed imputation can be found in ./results/vcfs_for_phasing_imputation/
+VCFs for TOPmed imputation can be found in /home/ubuntu/step2_extend_prephasing_output_v3//vcfs_for_phasing_imputation/
 
 Pre-phasing and pre-imputation checks complete.
 
