@@ -35,8 +35,9 @@ If you have used the sample/variant QC pipeline, you should provide the prefix o
    # Directory containing plink data and prefix
    plink_prefix="/home/ubuntu/giant_step1_qc/mystudy_Outputs/PostSampleVariantQC/mystudy_postQC"
 
-   # Force container and reference data download (true/false). By default, the pipeline will check if these files exist. 
-   # Only set to true if you require the container or data to be redownloaded (e.g. due to previous interrupted download)
+   # Force container and reference data download (true/false). 
+   # By default, the pipeline will check if these files exist and download if not. 
+   # Only set to true if you require the container or data to be redownloaded.
    force_downloads="false"
 
    # Output directory for VFCs for phasing/imputatioon
@@ -107,7 +108,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 342110208 (326M) [application/octet-stream]
 Saving to: ‘giant_prephasing_pipeline_1.0.0.sif’
 
-giant_prephasing_pipeline_1.0.0.sif                                   100%[================================>] 326.26M  41.5MB/s    in 8.3s    
+giant_prephasing_pipeline_1.0.0.sif                    100%[======================>] 326.26M  41.5MB/s    in 8.3s    
 
 2026-11-02 14:32:58 (39.4 MB/s) - ‘giant_prephasing_pipeline_1.0.0.sif’ saved [342110208/342110208]
 
@@ -118,7 +119,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 70 [application/octet-stream]
 Saving to: ‘giant_prephasing_pipeline_1.0.0.sif.md5’
 
-giant_prephasing_pipeline_1.0.0.sif.md5                               100%[================================>]      70  --.-KB/s    in 0s      
+giant_prephasing_pipeline_1.0.0.sif.md5                100%[======================>]      70  --.-KB/s    in 0s      
 
 2026-11-02 14:32:59 (33.4 MB/s) - ‘giant_prephasing_pipeline_1.0.0.sif.md5’ saved [70/70]
 
@@ -129,7 +130,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 3983735769 (3.7G) [application/octet-stream]
 Saving to: ‘./ref_data//PASS.Variantsbravo-dbsnp-all.tab.gz’
 
-./ref_data//PASS.Variantsbravo-dbsnp-all.tab.gz                       100%[================================>]   3.71G  28.6MB/s    in 1m 53s  
+./ref_data//PASS.Variantsbravo-dbsnp-all.tab.gz        100%[======================>]   3.71G  28.6MB/s    in 1m 53s  
 
 2026-11-02 14:34:53 (33.5 MB/s) - ‘./ref_data//PASS.Variantsbravo-dbsnp-all.tab.gz’ saved [3983735769/3983735769]
 
