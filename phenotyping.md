@@ -15,7 +15,11 @@ This repository provides a containerized pipeline for QC and deriviation of phen
 The dependencies for the pipeline are distributed as a .sif file that can be run using apptainer/singularity.
 
 Typically, we expect baseline measures of anthropometric traits for analysis. However, for studies with longitudinal measures without a single baseline measure,
-we suggest using the median value across the time-series. Age for the median value should either be captured or calculated.
+we suggest using the median value across the time-series. Age for the median value should either be captured or calculated.  
+
+**Important** We request measures of weight, waist circumference, hip circumference, BMI, and/or WHR up to, and including, 2020 only. This is owing to the wide-spread introduction of GLP-1 medications. 
+Please contact us if most/all of your study measures are taken post 2020.
+
 
 ## Usage
 
