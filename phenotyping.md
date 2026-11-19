@@ -104,14 +104,14 @@ If `sexcheck_file` is provided, these are ignored.
 This file should be a tab-delimited file with header that contains all variables for phenotype derivation for height, BMI and WHR, and all associated covariates.
 
 ```
-ID    Age   Sex  Height  Weight  Waist  Hip    CatVar1  CatVar2  CatVar3
-P1    25    2    99      75.6    89     100    0        1        1
-P2    85    1    170     89.8    91     98     1        1        2
-P3    36    2    159     91.1    84     1020   0        2        3
+ID    Age   Height  Weight  Waist  Hip    CatVar1  CatVar2  CatVar3
+P1    25    99      75.6    89     100    0        1        1
+P2    85    170     89.8    91     98     1        1        2
+P3    36    159     91.1    84     1020   0        2        3
 ...
 ```
 
-##### Ancestry label file - from Individual and Genotype QC Pipeline
+##### Ancestry label file (from Individual and Genotype QC Pipeline)
 
 This file should be a tab-delimited file with the header as shown with ancestry group assignment provided for each individual `[afr|amr|eas|eur|mid|sas]`
 
@@ -134,7 +134,7 @@ P3      eur                   0.99
 ...
 ```
 
-##### Principal components file - from Individual and Genotype QC Pipeline
+##### Principal components file (from Individual and Genotype QC Pipeline)
 
 This file should be a tab-delimited file with ancestry specific PCs (FLASHPCA output format)
 
@@ -146,7 +146,7 @@ P3    3     0.709639726  0.926419979  0.041459368    ...    0.613060395  0.31559
 ...
 ```
 
-##### Sex-check file - from Individual and Genotype QC Pipeline
+##### Sex-check file (from Individual and Genotype QC Pipeline)
 
 This file should be the `*.sexcheck` output by PLINK.
 
