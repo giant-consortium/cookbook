@@ -146,6 +146,18 @@ P3    3     0.709639726  0.926419979  0.041459368    ...    0.613060395  0.31559
 ...
 ```
 
+##### Sex-check file - from Individual and Genotype QC Pipeline
+
+This file should be the `*.sexcheck` output by PLINK.
+
+```
+[#]FID  IID   PEDSEX  SNPSEX  STATUS  F
+P1      P1    2       2       OK      0.069053
+P2      P2    1       1       OK      1
+P3      P3    2       2       OK      0.04862
+...
+```
+
 ### 2. General parameters related to study
 
 | Parameter | Description | Optional |
